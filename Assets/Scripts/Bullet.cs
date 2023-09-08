@@ -5,25 +5,22 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 10f;
-    public int damage = 10;
-    private Transform enemy;
+    [SerializeField] float _speed = 10f;
+    [SerializeField] int _damage = 10;
+    Transform _enemy;
 
     private void Start()
     {
-        enemy = FindObjectOfType<EnemyAiMovement>().transform;
+        _enemy = FindObjectOfType<EnemyAiMovement>().transform;
     }
     void Update()
     {
-        if (enemy != null)
+        if (_enemy != null)
         {
-            
-            Vector3 direction = enemy.position - transform.position;
+            Vector3 direction = _enemy.position - transform.position;
             direction.Normalize();
-            transform.Translate(direction * speed * Time.deltaTime, Space.World);
+            transform.Translate(direction * _speed * Time.deltaTime, Space.World);
         }
-       
-
     }
 
   
@@ -35,7 +32,7 @@ public class Bullet : MonoBehaviour
 
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(_damage);
             }
             Destroy(gameObject);
         }

@@ -4,42 +4,52 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    Animator animator;
-    PlayerMovement playerMovement;
-    SpriteRenderer spriteRenderer;
+    Animator _animator;
+    PlayerMovement _playerMovement;
+    SpriteRenderer _spriteRenderer;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovement>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
+        _animator = GetComponent<Animator>();
+        _playerMovement = GetComponent<PlayerMovement>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(playerMovement.playerInputs.x != 0 || playerMovement.playerInputs.y != 0)
+        if(_playerMovement.GetPlayerInputs().x != 0 || _playerMovement.GetPlayerInputs().y != 0)
         {
-            animator.SetBool("Move", true);
+            _animator.SetBool("Move", true);
 
             SpriteDirectionChecker();
         }
         else
         {
-            animator.SetBool("Move", false);
+            _animator.SetBool("Move", false);
+        }
+    }
+
+    public void Flip(float value)
+    {
+        if (value < 0f)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        else
+        {
+            _spriteRenderer.flipX = false;
         }
     }
 
     void SpriteDirectionChecker()
     {
-        if(playerMovement.lastHorizontalVector < 0)
+        if(_playerMovement.GetPlayerInputs().x < 0)
         {
-            spriteRenderer.flipX = true;
+            _spriteRenderer.flipX = true;
         }   
         else
         {
-            spriteRenderer.flipX = false;
+            _spriteRenderer.flipX = false;
         }
     }
 }

@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class EnemyAiMovement : MonoBehaviour
 {
-    Transform player;
-    public float moveSpeed;
+    [SerializeField] float _moveSpeed;
+    [SerializeField] int _maxHealth = 100;
+    int _currentHealth;
 
-    public int maxHealth = 100;
-    private int currentHealth;
-
+    Transform _player;
+    
     void Start()
     {
-        currentHealth = maxHealth;
-        player = FindObjectOfType<PlayerMovement>().transform;
+        _currentHealth = _maxHealth;
+        _player = FindObjectOfType<PlayerMovement>().transform;
     }
 
     
     void Update()
     {
         // Debug.Log("enemy healt is" +  currentHealth);
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _moveSpeed * Time.deltaTime);
     }
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage; 
+        _currentHealth -= damage; 
 
-        if (currentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             Die(); 
         }

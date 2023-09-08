@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed = 5f;
+    [SerializeField] float _speed = 5f;
 
-    [HideInInspector]
-    public Vector2 playerInputs;
-    [HideInInspector]
-    public float lastHorizontalVector;
-    [HideInInspector]
-    public float lastVerticalVector;
+    Vector2 _playerInputs;
 
-    Rigidbody2D rb;
+    Rigidbody2D _rb;
+
+    PlayerAnimator _animator;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<PlayerAnimator>();
     }
 
     
     void Update()
     {
         InputManagement();
-        
     }
 
     private void FixedUpdate()
@@ -32,25 +29,20 @@ public class PlayerMovement : MonoBehaviour
         Movement();
     }
 
+    public Vector2 GetPlayerInputs()
+    {
+        return _playerInputs;
+    }
+    
     void InputManagement()
     {
-        playerInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        _playerInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        if(playerInputs.x != 0 )
-        {
-            lastHorizontalVector = playerInputs.x;
-        }
-
-        if(playerInputs.y != 0)
-        {
-            lastVerticalVector = playerInputs.y;
-        }
     }
 
     void Movement()
     {
-        
-        rb.velocity = new Vector2(playerInputs.x * speed, playerInputs.y * speed);
-
+        _animator.Flip(_playerInputs.x);
+        _rb.velocity = _playerInputs * _speed;
     }
 }
