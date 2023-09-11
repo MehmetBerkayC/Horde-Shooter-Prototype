@@ -1386,4 +1386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b38e158bf5753d4c8820509a16f9433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: {x: 0, y: 0, z: -10}
+  _target: {fileID: 899471654}
+  _mapX: {x: -4.5, y: 4.5}
+  _mapY: {x: -10.5, y: 10.5}
