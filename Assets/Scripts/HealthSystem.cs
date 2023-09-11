@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+public enum Entity
+{
+    Player,
+    Monster,
+    Boss
+}
 
 public class HealthSystem 
 {
@@ -8,10 +11,13 @@ public class HealthSystem
     float _currentHealth;
     bool _isAlive;
 
-    public HealthSystem(float maxHealth)
+    Entity _entityType;
+
+    public HealthSystem(float maxHealth, Entity entityType)
     {
         _maxHealth = _currentHealth = maxHealth;
         _isAlive = true;
+        _entityType = entityType;
     }
 
     public bool IsAlive()
@@ -19,7 +25,7 @@ public class HealthSystem
         return _isAlive;
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         _currentHealth -= damage;
 
@@ -30,7 +36,7 @@ public class HealthSystem
         }
     }
 
-    public void Heal(float heal)
+    public virtual void Heal(float heal)
     {
         _currentHealth += heal;
 

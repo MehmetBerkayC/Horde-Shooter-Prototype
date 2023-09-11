@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rifles : MonoBehaviour
+public class Gun : MonoBehaviour
 {
     [SerializeField] Transform _bulletSpawnPoint; 
     [SerializeField] GameObject _bulletPrefab; 
     [SerializeField] float _bulletsPerMinute = 500f;
-    [SerializeField] float _lifeTime = 3f;
+
+    [SerializeField] Entity _entity = Entity.Player;
 
     float _nextShot = 0f;
 
@@ -25,9 +26,8 @@ public class Rifles : MonoBehaviour
         {
             _nextShot = Time.time + (60f / _bulletsPerMinute);
 
-            GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
-
-            Destroy(bullet, _lifeTime);
+            Projectile bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation).GetComponent<Projectile>();
+            bullet.Initialize(_entity);
         }
     }
 }

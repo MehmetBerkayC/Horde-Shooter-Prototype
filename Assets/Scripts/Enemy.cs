@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] Entity _entity;
     [SerializeField] float _moveSpeed;
     [SerializeField] int _maxHealth = 100;
 
     Transform _player;
-    HealthSystem _health;
+    HealthSystem _HealthSystem;
     
     void Start()
     {
-        _health = new HealthSystem(_maxHealth);
+        _HealthSystem = new HealthSystem(_maxHealth, _entity);
+
         _player = FindObjectOfType<PlayerController>().transform;
     }
 
 
     void Update()
     {
-        // Debug.Log("enemy healt is" +  currentHealth);
         transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _moveSpeed * Time.deltaTime);
     }
 
