@@ -6,6 +6,8 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] Transform _target;
 
+    [SerializeField] Vector2 _mapX, _mapY;
+
     private void Start()
     {
         
@@ -15,6 +17,6 @@ public class CameraMovement : MonoBehaviour
     {
         // transform.position = _target.position + _offset;
 
-        transform.position = new Vector3(Mathf.Clamp(_target.position.x, -4.5f, 4.5f), Mathf.Clamp(_target.position.y, -10.5f, 10.5f) ,transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(_target.position.x, _mapX.x, _mapX.y), Mathf.Clamp(_target.position.y, _mapY.x, _mapY.y) ,transform.position.z);
     }
 }
