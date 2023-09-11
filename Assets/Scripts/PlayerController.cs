@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _speed = 5f;
 
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         InputManagement();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         Movement();
     }
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        _animator.Flip(_playerInputs.x);
         _rb.velocity = _playerInputs * _speed;
+        _animator.Flip(_playerInputs.x);
     }
 }

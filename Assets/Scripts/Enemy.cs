@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAiMovement : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] float _moveSpeed;
     [SerializeField] int _maxHealth = 100;
@@ -13,7 +13,7 @@ public class EnemyAiMovement : MonoBehaviour
     void Start()
     {
         _currentHealth = _maxHealth;
-        _player = FindObjectOfType<PlayerMovement>().transform;
+        _player = FindObjectOfType<PlayerController>().transform;
     }
 
     

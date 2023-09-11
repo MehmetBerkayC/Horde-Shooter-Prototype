@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 1
-  _maxHealth: 100
+  _maxHealth: 50
 --- !u!61 &833807705
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -541,9 +541,9 @@ GameObject:
   - component: {fileID: 899471653}
   - component: {fileID: 899471652}
   - component: {fileID: 899471651}
-  - component: {fileID: 899471650}
-  - component: {fileID: 899471649}
   - component: {fileID: 899471648}
+  - component: {fileID: 899471649}
+  - component: {fileID: 899471655}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -583,19 +583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3114bdc89d05a54ebe29671e08a1bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &899471650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899471647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1db240e5600afa449a598db3e478d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 5
 --- !u!50 &899471651
 Rigidbody2D:
   serializedVersion: 4
@@ -712,6 +699,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &899471655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899471647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1db240e5600afa449a598db3e478d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
 --- !u!1 &990623443
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,9 +900,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1218859807}
   - component: {fileID: 1218859809}
-  - component: {fileID: 1218859808}
+  - component: {fileID: 1218859810}
   m_Layer: 0
-  m_Name: StabSword
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -924,22 +924,6 @@ Transform:
   m_Father: {fileID: 899471654}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1218859808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218859806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8332c40bafa20d4fa7dc2a04c08a18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stabSpeed: 10
-  _returnSpeed: 10
-  _isStabbing: 0
-  sword: {fileID: 1218859808}
 --- !u!61 &1218859809
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -966,6 +950,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1218859810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218859806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8332c40bafa20d4fa7dc2a04c08a18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stabSpeed: 10
+  _returnSpeed: 10
+  _isStabbing: 0
 --- !u!1 &1597653673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,9 +1317,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0225b2ceef414ee47a354c1399fe8d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpawnPoint: {fileID: 1059530748}
-  bulletPrefab: {fileID: 1264445416881527232, guid: 00c951d7d2cdac44ebc021ae06f21961, type: 3}
-  fireRate: 10
+  _bulletSpawnPoint: {fileID: 1059530748}
+  _bulletPrefab: {fileID: 1264445416881527232, guid: 00c951d7d2cdac44ebc021ae06f21961, type: 3}
+  _bulletsPerMinute: 100
+  _lifeTime: 3
 --- !u!212 &1715167521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1427,7 +1427,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class Bullet : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     [SerializeField] float _speed = 10f;
     [SerializeField] int _damage = 10;
@@ -11,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        _enemy = FindObjectOfType<EnemyAiMovement>().transform;
+        _enemy = FindObjectOfType<Enemy>().transform;
     }
     void Update()
     {
@@ -20,6 +19,7 @@ public class Bullet : MonoBehaviour
             Vector3 direction = _enemy.position - transform.position;
             direction.Normalize();
             transform.Translate(direction * _speed * Time.deltaTime, Space.World);
+            transform.LookAt(_enemy);
         }
     }
 
@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("EnemyAiMovement"))
         { 
-            EnemyAiMovement enemy = collision.gameObject.GetComponent<EnemyAiMovement>();
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
             if (enemy != null)
             {

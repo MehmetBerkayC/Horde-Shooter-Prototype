@@ -1,22 +1,19 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
-public class SwordController : MonoBehaviour
+public class Melee : MonoBehaviour
 {
     [SerializeField] float _stabSpeed = 10f;
     [SerializeField] float _returnSpeed = 10f;
 
-    private Vector3 _initialPosition;
     [SerializeField] bool _isStabbing = false;
 
-    [SerializeField] SwordController sword;
-
     Transform _enemy;
+    Vector3 _initialPosition;
 
     private void Start()
     {
         _initialPosition = transform.localPosition;
-        _enemy = FindObjectOfType<EnemyAiMovement>().transform;
+        _enemy = FindObjectOfType<Enemy>().transform;
     }
 
     private void Update()
@@ -24,7 +21,7 @@ public class SwordController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2")) // Replace "Fire2" with your input for the sword attack
         {
-            PerformSwordAttack();
+            PerformStab();
         }
 
         if (_isStabbing)
@@ -51,10 +48,7 @@ public class SwordController : MonoBehaviour
             _isStabbing = false;
         }
     }
-    private void PerformSwordAttack()
-    {
-        sword.PerformStab();
-    }
+
     public void PerformStab()
     {
         _isStabbing = true;
