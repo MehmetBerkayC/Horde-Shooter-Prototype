@@ -7,6 +7,8 @@ public class Melee : MonoBehaviour
 
     [SerializeField] bool _isStabbing = false;
 
+    [SerializeField] bool _canAttack = true;
+
     Transform _enemy;
     Vector3 _initialPosition;
 
@@ -21,7 +23,10 @@ public class Melee : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2")) // Replace "Fire2" with your input for the sword attack
         {
-            PerformStab();
+            if (_canAttack)
+            {
+                PerformStab();
+            }
         }
 
         if (_isStabbing)
@@ -31,6 +36,11 @@ public class Melee : MonoBehaviour
         else
         {
             ReturnToInitialPosition();
+        }
+
+        if (!_isStabbing && Vector3.Distance(transform.localPosition, _initialPosition) < 0.01f)
+        {
+            _canAttack = true;
         }
     }
 
@@ -52,15 +62,11 @@ public class Melee : MonoBehaviour
     public void PerformStab()
     {
         _isStabbing = true;
+        _canAttack = false;
     }
 
     private void ReturnToInitialPosition()
     {
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, _initialPosition, _returnSpeed * Time.deltaTime);
-
-        if (Vector3.Distance(transform.localPosition, _initialPosition) < 0.01f)
-        {
-            _isStabbing = false;
-        }
     }
 }
