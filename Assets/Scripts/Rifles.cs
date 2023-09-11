@@ -6,14 +6,14 @@ public class Rifles : MonoBehaviour
 {
     [SerializeField] Transform _bulletSpawnPoint; 
     [SerializeField] GameObject _bulletPrefab; 
-    [SerializeField] float _bulletsPerMinute = 100f;
+    [SerializeField] float _bulletsPerMinute = 500f;
     [SerializeField] float _lifeTime = 3f;
 
     float _nextShot = 0f;
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time >= _nextShot)
+        if (Input.GetButton("Fire1"))
         {
             Shoot();
         }
@@ -21,11 +21,13 @@ public class Rifles : MonoBehaviour
 
     void Shoot()
     {
-        _nextShot += Time.time + (_bulletsPerMinute / 60f);
+        if (Time.time >= _nextShot)
+        {
+            _nextShot = Time.time + (60f / _bulletsPerMinute);
 
-        GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
+            GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
 
-        Destroy(bullet, _lifeTime);
+            Destroy(bullet, _lifeTime);
+        }
     }
-
 }
