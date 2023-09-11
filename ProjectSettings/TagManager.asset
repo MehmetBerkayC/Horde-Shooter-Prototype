@@ -50,3 +50,6 @@ TagManager:
   - name: Weapons
     uniqueID: 2008275245
     locked: 0
+  - name: Projectile
+    uniqueID: 602004605
+    locked: 0
