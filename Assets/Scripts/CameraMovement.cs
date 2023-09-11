@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    Transform _target;
-    
-    [SerializeField] Vector3 _offset;
+    [SerializeField] Transform _target;
 
     private void Start()
     {
-        _target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        
     }
 
     void Update()
     {
-        transform.position = _target.position + _offset;
+        // transform.position = _target.position + _offset;
+
+        transform.position = new Vector3(Mathf.Clamp(_target.position.x, -4.5f, 4.5f), Mathf.Clamp(_target.position.y, -10.5f, 10.5f) ,transform.position.z);
     }
 }
