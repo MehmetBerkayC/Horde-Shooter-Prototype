@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        _HealthSystem = new HealthSystem(_maxHealth, _entity);
+        _HealthSystem = new HealthSystem(_maxHealth);
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
     }
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         return _entity;
     }
+
     public Vector2 GetPlayerInputs()
     {
         return _playerInputs;

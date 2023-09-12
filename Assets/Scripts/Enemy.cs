@@ -13,11 +13,10 @@ public class Enemy : MonoBehaviour
     
     void Start()
     {
-        _HealthSystem = new HealthSystem(_maxHealth, _entity);
+        _HealthSystem = new HealthSystem(_maxHealth);
 
         _player = FindObjectOfType<PlayerController>().transform;
     }
-
 
     void Update()
     {

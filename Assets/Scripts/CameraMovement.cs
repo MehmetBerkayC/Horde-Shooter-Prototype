@@ -8,11 +8,6 @@ public class CameraMovement : MonoBehaviour
 
     [SerializeField] Vector2 _mapX, _mapY;
 
-    private void Start()
-    {
-        
-    }
-
     void Update()
     {
         // transform.position = _target.position + _offset;

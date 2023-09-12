@@ -18,7 +18,6 @@ public class Melee : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetButtonDown("Fire2")) // Replace "Fire2" with your input for the sword attack
         {
             PerformStab();
@@ -36,7 +35,6 @@ public class Melee : MonoBehaviour
 
     public void Stab()
     {
-        
         Vector3 targetPosition = _enemy.position;
         Vector3 direction = targetPosition - transform.position;
         direction.Normalize();

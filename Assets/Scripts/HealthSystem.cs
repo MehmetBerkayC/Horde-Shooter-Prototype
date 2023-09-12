@@ -11,13 +11,10 @@ public class HealthSystem
     float _currentHealth;
     bool _isAlive;
 
-    Entity _entityType;
-
-    public HealthSystem(float maxHealth, Entity entityType)
+    public HealthSystem(float maxHealth)
     {
         _maxHealth = _currentHealth = maxHealth;
         _isAlive = true;
-        _entityType = entityType;
     }
 
     public bool IsAlive()
