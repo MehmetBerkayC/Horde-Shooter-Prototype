@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+// Damageable
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] float _speed = 5f;
     [SerializeField] float _maxHealth = 100f;
     
-    [SerializeField] Entity _entity;
+    [SerializeField] EntityType _entityType = EntityType.Player;
     
     Vector2 _playerInputs;
 
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        _HealthSystem = new HealthSystem(_maxHealth);
+        _HealthSystem = new HealthSystem(_maxHealth, _entityType);
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
     }
@@ -33,9 +34,9 @@ public class PlayerController : MonoBehaviour
         Movement();
     }
 
-    public Entity GetEntityType()
+    public EntityType GetEntityType()
     {
-        return _entity;
+        return _entityType;
     }
 
     public Vector2 GetPlayerInputs()
@@ -53,5 +54,15 @@ public class PlayerController : MonoBehaviour
     {
         _rb.velocity = _playerInputs * _speed;
         _animator.Flip(_playerInputs.x);
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+        _HealthSystem.TakeDamage(damageAmount);
+    }
+
+    public void Heal(float healAmount)
+    {
+        _HealthSystem.Heal(healAmount);
     }
 }

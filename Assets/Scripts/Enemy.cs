@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] Entity _entity;
+    [SerializeField] EntityType _entityType;
     [SerializeField] float _moveSpeed;
     [SerializeField] int _maxHealth = 100;
 
@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     
     void Start()
     {
-        _HealthSystem = new HealthSystem(_maxHealth);
+        _HealthSystem = new HealthSystem(_maxHealth, _entityType);
 
         _player = FindObjectOfType<PlayerController>().transform;
     }
@@ -23,4 +23,8 @@ public class Enemy : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _moveSpeed * Time.deltaTime);
     }
 
+    public void TakeDamage(float damageAmount)
+    {
+        _HealthSystem.TakeDamage(damageAmount);
+    }
 }

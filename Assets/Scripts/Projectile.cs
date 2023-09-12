@@ -9,11 +9,11 @@ public class Projectile : MonoBehaviour
     [SerializeField] float _lifeTime = 3f;
 
     Transform _enemy;
-    Entity _projectileFromEntity;
+    EntityType _projectileFromEntity;
 
-    public void Initialize(Entity entity)
+    public void Initialize(EntityType entityType)
     {
-        _projectileFromEntity = entity;
+        _projectileFromEntity = entityType;
     }
 
     private void Start()
@@ -35,15 +35,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>().GetEntityType() != _projectileFromEntity)
+        if (collision.gameObject.TryGetComponent(out IDamageable damageableObject) /* Try to check for the entity type*/)
         {
-            var enemy = collision.gameObject.GetComponent<HealthSystem>();
-
-            if (enemy != null)
-            {
-                enemy.TakeDamage(_damage);
-            }
+            damageableObject.TakeDamage(_damage);
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
+        // For now do not destroy the projectile -> if a monster deploys it, should pass through other monsters
     }
 }

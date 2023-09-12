@@ -1,45 +1,99 @@
-public enum Entity
+public enum EntityType
 {
     Player,
     Monster,
     Boss
 }
 
-public class HealthSystem 
+public class HealthSystem
 {
     float _maxHealth;
     float _currentHealth;
     bool _isAlive;
 
-    public HealthSystem(float maxHealth)
-    {
-        _maxHealth = _currentHealth = maxHealth;
-        _isAlive = true;
-    }
+    EntityType _entityType;
 
-    public bool IsAlive()
+    // Properties
+    public float Health
     {
-        return _isAlive;
-    }
-
-    public virtual void TakeDamage(float damage)
-    {
-        _currentHealth -= damage;
-
-        if (_currentHealth <= 0f)
+        get
         {
-            _currentHealth = 0f;
-            _isAlive = false;
+            return _currentHealth;
+        }
+        private set
+        {
+            _currentHealth = value;
         }
     }
 
-    public virtual void Heal(float heal)
+    public float MaxHealth
     {
-        _currentHealth += heal;
-
-        if (_currentHealth > _maxHealth)
+        get
         {
-            _currentHealth = _maxHealth;
+            return _maxHealth;
+        }
+        private set
+        {
+            _maxHealth = value;
+        }
+    }
+
+    public bool IsAlive
+    {
+        get
+        {
+            return _isAlive;
+        }
+        private set
+        {
+            _isAlive = value;
+        }
+    }
+
+    public EntityType EntityType
+    {
+        get 
+        { 
+            return _entityType; 
+        }
+        private set
+        {
+            _entityType = value;
+        }
+    }
+
+    // Constructor
+    public HealthSystem(float maxHealth, EntityType entityType)
+    {
+        MaxHealth = Health = maxHealth;
+        EntityType = entityType;
+        IsAlive = true;
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+        if (Health > 0f)
+        {
+            Health -= damageAmount;
+        }
+        else
+        {
+            Health = 0f;
+            IsAlive = false;
+        }
+    }
+
+    public void Heal(float healAmount)
+    {
+
+        if (Health < MaxHealth)
+        {
+            Health += healAmount;
+        }
+
+        if (Health > MaxHealth)
+        {
+            Health = MaxHealth;
         }
     }
 }
