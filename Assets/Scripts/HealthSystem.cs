@@ -1,17 +1,19 @@
+using UnityEngine;
+
 public enum EntityType
 {
     Player,
-    Monster,
-    Boss
+    Monster
 }
 
-public class HealthSystem
+public class HealthSystem : MonoBehaviour
 {
-    float _maxHealth;
+    // Fields
+    [SerializeField] float _maxHealth;
     float _currentHealth;
     bool _isAlive;
 
-    EntityType _entityType;
+    [SerializeField] EntityType _entityType;
 
     // Properties
     public float Health
@@ -50,7 +52,7 @@ public class HealthSystem
         }
     }
 
-    public EntityType EntityType
+    public EntityType Entity
     {
         get 
         { 
@@ -62,38 +64,20 @@ public class HealthSystem
         }
     }
 
-    // Constructor
-    public HealthSystem(float maxHealth, EntityType entityType)
-    {
-        MaxHealth = Health = maxHealth;
-        EntityType = entityType;
-        IsAlive = true;
-    }
-
+    // Functions
     public void TakeDamage(float damageAmount)
     {
-        if (Health > 0f)
+        Health -= damageAmount;
+
+        if (Health < 0f)
         {
-            Health -= damageAmount;
-        }
-        else
-        {
-            Health = 0f;
             IsAlive = false;
         }
     }
 
     public void Heal(float healAmount)
     {
-
-        if (Health < MaxHealth)
-        {
-            Health += healAmount;
-        }
-
-        if (Health > MaxHealth)
-        {
-            Health = MaxHealth;
-        }
+        Health += healAmount;
+        Health = Mathf.Clamp(Health, 0, MaxHealth);
     }
 }

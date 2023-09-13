@@ -35,10 +35,13 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out IDamageable damageableObject) /* Try to check for the entity type*/)
+        if (collision.gameObject.TryGetComponent(out HealthSystem damageableObject) /* Try to check for the entity type*/)
         {
-            damageableObject.TakeDamage(_damage);
-            Destroy(this.gameObject);
+            if(damageableObject.Entity != _projectileFromEntity)
+            {
+                damageableObject.TakeDamage(_damage);
+                Destroy(this.gameObject);
+            }
         }
         // For now do not destroy the projectile -> if a monster deploys it, should pass through other monsters
     }

@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     [SerializeField] GameObject _bulletPrefab; 
     [SerializeField] float _bulletsPerMinute = 500f;
 
-    [SerializeField] EntityType _entity = EntityType.Player;
+    [SerializeField]EntityType _entity = EntityType.Player;
 
     float _nextShot = 0f;
 
