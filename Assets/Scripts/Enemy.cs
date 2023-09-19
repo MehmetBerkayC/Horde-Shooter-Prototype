@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(HealthSystem))]
-public class Enemy : MonoBehaviour
+public class Enemy : HealthSystem
 {
     [SerializeField] float _moveSpeed;
+    [SerializeField] float _damage;
 
     Transform _player;
     HealthSystem _HealthSystem;
+
     
     void Start()
     {
@@ -20,4 +21,14 @@ public class Enemy : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _moveSpeed * Time.deltaTime);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out HealthSystem enemyHealthSystem))
+        {
+            if (_HealthSystem.Entity != enemyHealthSystem.Entity)
+            {
+                enemyHealthSystem.TakeDamage(_damage);
+            }
+        }
+    }
 }

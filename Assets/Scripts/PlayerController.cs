@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Damageable
-[RequireComponent(typeof(HealthSystem))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : HealthSystem
 {
     [SerializeField] float _speed = 5f;
     
