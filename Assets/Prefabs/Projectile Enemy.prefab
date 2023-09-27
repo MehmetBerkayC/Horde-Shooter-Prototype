@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7754897766417906884}
   - component: {fileID: -2657253930482761484}
   - component: {fileID: 5875495518805783658}
-  m_Layer: 0
-  m_Name: Bullet
+  m_Layer: 9
+  m_Name: Projectile Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,3 +116,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _damage: 10
+  _lifeTime: 3
