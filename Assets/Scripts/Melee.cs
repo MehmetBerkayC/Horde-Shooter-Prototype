@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Melee : MonoBehaviour
 {
-    [SerializeField] float _stabSpeed = 10f;
+    [SerializeField] float _stabSpeed = 20f;
     [SerializeField] float _returnSpeed = 10f;
 
     [SerializeField] bool _isStabbing = false;
@@ -20,37 +20,30 @@ public class Melee : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire2")) // Replace "Fire2" with your input for the sword attack
         {
-            PerformStab();
-        }
-
-        if (_isStabbing)
-        {
             Stab();
-        }
-        else
-        {
-            ReturnToInitialPosition();
         }
     }
 
     public void Stab()
     {
-        Vector3 targetPosition = _enemy.position;
-        Vector3 direction = targetPosition - transform.position;
-        direction.Normalize();
- 
-        transform.Translate(direction * _stabSpeed * Time.deltaTime);
-
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        
+        if(_isStabbing == false)
         {
-            _isStabbing = false;
+            _isStabbing = true;
+
+            Vector3 targetPosition = _enemy.position;
+            Vector3 direction = targetPosition - transform.position;
+            direction.Normalize();
+ 
+            transform.Translate(direction * _stabSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            {
+                ReturnToInitialPosition();
+            }
         }
     }
 
-    public void PerformStab()
-    {
-        _isStabbing = true;
-    }
 
     private void ReturnToInitialPosition()
     {

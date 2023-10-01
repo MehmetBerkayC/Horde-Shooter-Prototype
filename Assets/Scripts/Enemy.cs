@@ -8,8 +8,6 @@ public class Enemy : HealthSystem
     [SerializeField] float _damage;
 
     Transform _player;
-    HealthSystem _HealthSystem;
-
     
     void Start()
     {
@@ -21,14 +19,12 @@ public class Enemy : HealthSystem
         transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _moveSpeed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out HealthSystem enemyHealthSystem))
         {
-            if (_HealthSystem.Entity != enemyHealthSystem.Entity)
-            {
-                enemyHealthSystem.TakeDamage(_damage);
-            }
+            Debug.Log("Hit detected, from:" + gameObject.name + " to:" + enemyHealthSystem.gameObject.name);
+            enemyHealthSystem.TakeDamage(_damage);
         }
     }
 }

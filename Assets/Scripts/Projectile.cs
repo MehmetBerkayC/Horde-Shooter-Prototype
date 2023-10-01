@@ -9,18 +9,14 @@ public class Projectile : MonoBehaviour
     [SerializeField] float _lifeTime = 3f;
 
     Transform _enemy;
-    EntityType _projectileFromEntity;
-
-    public void Initialize(EntityType entityType)
-    {
-        _projectileFromEntity = entityType;
-    }
 
     private void Start()
     {
         Destroy(this.gameObject, _lifeTime);
-        _enemy = FindObjectOfType<Enemy>().transform;
+
+        DetectEnemy();
     }
+
     void Update()
     {
         if (_enemy != null)
@@ -29,19 +25,21 @@ public class Projectile : MonoBehaviour
             direction.Normalize();
             transform.Translate(direction * _speed * Time.deltaTime, Space.World);
 
-            transform.right = _enemy.position - transform.position;
+            transform.forward = _enemy.position - transform.position;
         }
+    }
+
+    void DetectEnemy()
+    {
+        //Physics2D.OverlapCircleAll(transform.position, _range);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent(out HealthSystem damageableObject) /* Try to check for the entity type*/)
         {
-            if(damageableObject.Entity != _projectileFromEntity)
-            {
-                damageableObject.TakeDamage(_damage);
-                Destroy(this.gameObject);
-            }
+            damageableObject.TakeDamage(_damage);
+            Destroy(this.gameObject);
         }
         // For now do not destroy the projectile -> if a monster deploys it, should pass through other monsters
     }

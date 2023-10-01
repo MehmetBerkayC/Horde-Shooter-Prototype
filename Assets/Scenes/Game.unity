@@ -1083,8 +1083,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletSpawnPoint: {fileID: 1059530748}
   _bulletPrefab: {fileID: 1264445416881527232, guid: 00c951d7d2cdac44ebc021ae06f21961, type: 3}
-  _bulletsPerMinute: 500
-  _entity: 0
+  _bulletsPerMinute: 100
+  _range: 3
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!212 &1715167521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1291,6 +1294,14 @@ PrefabInstance:
     - target: {fileID: 2175251412589240247, guid: 74f65723d34117341b0a609da2222190, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2175251412589240248, guid: 74f65723d34117341b0a609da2222190, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2175251412589240251, guid: 74f65723d34117341b0a609da2222190, type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74f65723d34117341b0a609da2222190, type: 3}
