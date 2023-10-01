@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour
     [SerializeField] LayerMask _enemyLayer;
     float _nextShot = 0;
 
-    Collider2D _target;
+    Transform _target;
 
     void Update()
     {
@@ -26,8 +26,16 @@ public class Gun : MonoBehaviour
     /// need Targeting system, range, automatic shooting and targeting prefered
     void CheckAndShoot()
     {
-        _target = Physics2D.OverlapCircle(transform.position, _range, _enemyLayer);
-        
+        if (_target == null)
+        {
+            Collider2D targetCandidate = Physics2D.OverlapCircle(transform.position, _range, _enemyLayer);
+            if (targetCandidate.TryGetComponent(out Transform enemyTransform))
+            {
+                _target = enemyTransform;
+            }
+        }
+
+        Shoot();
     }
 
     void Shoot()
@@ -36,7 +44,8 @@ public class Gun : MonoBehaviour
         {
             _nextShot = Time.time + (60f / _bulletsPerMinute);
 
-            Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
+            Projectile projectile = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation).GetComponent<Projectile>();
+            projectile.SetEnemy(_target.GetComponent<Transform>());
         }
     }
 

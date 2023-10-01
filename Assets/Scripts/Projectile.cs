@@ -4,43 +4,43 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] float _speed = 10f;
-    [SerializeField] int _damage = 10;
-    [SerializeField] float _lifeTime = 3f;
+    [SerializeField] float 
+        _speed = 500,
+        _lifeTime = 3,
+        _steeringAngle = 40;
 
+    [SerializeField] int _damage = 10;
+     
     Transform _enemy;
+    Rigidbody2D _rigidbody;
 
     private void Start()
     {
         Destroy(this.gameObject, _lifeTime);
-
-        DetectEnemy();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    public void SetEnemy(Transform enemy)
+    {
+        _enemy = enemy;
+    }
+
+    void FixedUpdate()
     {
         if (_enemy != null)
         {
-            Vector3 direction = _enemy.position - transform.position;
-            direction.Normalize();
-            transform.Translate(direction * _speed * Time.deltaTime, Space.World);
-
-            transform.forward = _enemy.position - transform.position;
+            Vector2 direction = (_enemy.position - transform.position).normalized;
+            _rigidbody.velocity = direction * _speed * Time.deltaTime * 10f;
         }
     }
 
-    void DetectEnemy()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Physics2D.OverlapCircleAll(transform.position, _range);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out HealthSystem damageableObject) /* Try to check for the entity type*/)
+        if (collision.gameObject.TryGetComponent(out Enemy enemy) /* Try to check for the entity type*/)
         {
-            damageableObject.TakeDamage(_damage);
+            Debug.Log("Projectile hit to:" + enemy.gameObject.name);
+            enemy.TakeDamage(_damage);
             Destroy(this.gameObject);
         }
-        // For now do not destroy the projectile -> if a monster deploys it, should pass through other monsters
     }
 }

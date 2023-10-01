@@ -72,6 +72,7 @@ public class HealthSystem : MonoBehaviour
         if (Health < 0f)
         {
             IsAlive = false;
+            Destroy(this.gameObject);
         }
     }
 

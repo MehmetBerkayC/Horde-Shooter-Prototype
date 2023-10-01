@@ -21,10 +21,10 @@ public class Enemy : HealthSystem
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out HealthSystem enemyHealthSystem))
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
         {
-            Debug.Log("Hit detected, from:" + gameObject.name + " to:" + enemyHealthSystem.gameObject.name);
-            enemyHealthSystem.TakeDamage(_damage);
+            Debug.Log("Hit detected, from:" + gameObject.name + " to:" + enemy.gameObject.name);
+            enemy.TakeDamage(_damage);
         }
     }
 }
