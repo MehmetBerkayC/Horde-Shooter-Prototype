@@ -6,7 +6,7 @@ public enum EntityType
     Monster
 }
 
-public class HealthSystem : MonoBehaviour
+public class HealthSystem : MonoBehaviour, IDamageable
 {
     // Fields
     [SerializeField] float _maxHealth;

@@ -29,13 +29,20 @@ public class Gun : MonoBehaviour
         if (_target == null)
         {
             Collider2D targetCandidate = Physics2D.OverlapCircle(transform.position, _range, _enemyLayer);
-            if (targetCandidate.TryGetComponent(out Transform enemyTransform))
+            if (targetCandidate != null)
             {
-                _target = enemyTransform;
+                if (targetCandidate.TryGetComponent(out Transform enemyTransform))
+                {
+                    _target = enemyTransform;
+                }
             }
         }
 
-        Shoot();
+        if (_target != null)
+        {
+            Shoot();
+        }
+
     }
 
     void Shoot()

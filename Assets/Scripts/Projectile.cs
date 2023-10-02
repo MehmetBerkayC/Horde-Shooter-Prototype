@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] float 
+    [SerializeField]
+    float
         _speed = 500,
-        _lifeTime = 3,
-        _steeringAngle = 40;
+        _lifeTime = 3;
 
     [SerializeField] int _damage = 10;
      
@@ -36,9 +36,9 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Enemy enemy) /* Try to check for the entity type*/)
+        if (collision.TryGetComponent(out IDamageable enemy))
         {
-            Debug.Log("Projectile hit to:" + enemy.gameObject.name);
+            Debug.Log("Projectile hit to:" + enemy);
             enemy.TakeDamage(_damage);
             Destroy(this.gameObject);
         }
