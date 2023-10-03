@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : HealthSystem
 {
     [SerializeField] float _speed = 5f;
-
+    
     Vector2 _playerInputs;
 
     Rigidbody2D _rb;
 
     PlayerAnimator _animator;
-
 
     void Start()
     {
@@ -19,7 +18,6 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<PlayerAnimator>();
     }
 
-    
     void Update()
     {
         InputManagement();

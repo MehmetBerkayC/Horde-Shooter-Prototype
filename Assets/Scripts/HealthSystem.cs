@@ -1,42 +1,84 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthSystem 
+public enum EntityType
 {
-    float _maxHealth;
+    Player,
+    Monster
+}
+
+public class HealthSystem : MonoBehaviour, IDamageable
+{
+    // Fields
+    [SerializeField] float _maxHealth;
     float _currentHealth;
     bool _isAlive;
 
-    public HealthSystem(float maxHealth)
-    {
-        _maxHealth = _currentHealth = maxHealth;
-        _isAlive = true;
-    }
+    [SerializeField] EntityType _entityType;
 
-    public bool IsAlive()
+    // Properties
+    public float Health
     {
-        return _isAlive;
-    }
-
-    public void TakeDamage(float damage)
-    {
-        _currentHealth -= damage;
-
-        if (_currentHealth <= 0f)
+        get
         {
-            _currentHealth = 0f;
-            _isAlive = false;
+            return _currentHealth;
+        }
+        private set
+        {
+            _currentHealth = value;
         }
     }
 
-    public void Heal(float heal)
+    public float MaxHealth
     {
-        _currentHealth += heal;
-
-        if (_currentHealth > _maxHealth)
+        get
         {
-            _currentHealth = _maxHealth;
+            return _maxHealth;
         }
+        private set
+        {
+            _maxHealth = value;
+        }
+    }
+
+    public bool IsAlive
+    {
+        get
+        {
+            return _isAlive;
+        }
+        private set
+        {
+            _isAlive = value;
+        }
+    }
+
+    public EntityType Entity
+    {
+        get 
+        { 
+            return _entityType; 
+        }
+        private set
+        {
+            _entityType = value;
+        }
+    }
+
+    // Functions
+    public void TakeDamage(float damageAmount)
+    {
+        Health -= damageAmount;
+
+        if (Health < 0f)
+        {
+            IsAlive = false;
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void Heal(float healAmount)
+    {
+        Health += healAmount;
+        Health = Mathf.Clamp(Health, 0, MaxHealth);
     }
 }
