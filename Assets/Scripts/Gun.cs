@@ -17,10 +17,10 @@ public class Gun : MonoBehaviour
     {
         CheckAndShoot();
 
-        if (Input.GetButton("Fire1"))
-        {
-            Shoot();
-        }
+        //if (Input.GetButton("Fire1"))
+        //{
+        //    Shoot();
+        //}
     }
 
     /// need Targeting system, range, automatic shooting and targeting prefered

@@ -9,13 +9,14 @@ public class PlayerController : HealthSystem
     Vector2 _playerInputs;
 
     Rigidbody2D _rb;
-
     PlayerAnimator _animator;
+    Inventory _playerInventory;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
+        _playerInventory = new Inventory();
     }
 
     void Update()
