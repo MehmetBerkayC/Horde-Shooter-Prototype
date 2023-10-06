@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        _player = FindObjectOfType<PlayerController>().transform;
+        _player = FindObjectOfType<PlayerController>().transform; // Aþýrý yavaþ, inspectorden manuel ata
         CalculateWaveQuota();
         SpawnEnemies();
     }
@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _spawnTimer = Time.deltaTime;
+        _spawnTimer += Time.deltaTime;
 
         //check if its time to spawn the next enemy
         if(_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
@@ -55,9 +55,9 @@ public class EnemySpawner : MonoBehaviour
     void CalculateWaveQuota()
     {
         int _currentWaveQuota = 0;
-        foreach (var _enenyGroup in _waves[_currentWaveCount]._enemyGroups)
+        foreach (var enemyGroup in _waves[_currentWaveCount]._enemyGroups)
         {
-            _currentWaveQuota += _enenyGroup._enemyCount;
+            _currentWaveQuota += enemyGroup._enemyCount;
         }
         _waves[_currentWaveCount]._waveQuota = _currentWaveQuota;
         Debug.LogWarning(_currentWaveQuota);

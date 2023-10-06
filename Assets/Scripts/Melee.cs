@@ -15,33 +15,33 @@ public class Melee : MonoBehaviour
     private void Start()
     {
         _initialPosition = transform.localPosition;
-        _enemy = FindObjectOfType<Enemy>().transform;
+        //_enemy = FindObjectOfType<Enemy>().transform;
     }
 
     private void Update()
     {
 
-        if (Input.GetButtonDown("Fire2")) // Replace "Fire2" with your input for the sword attack
-        {
-            if (_canAttack)
-            {
-                PerformStab();
-            }
-        }
+        //if (Input.GetButtonDown("Fire2")) // Replace "Fire2" with your input for the sword attack
+        //{
+        //    if (_canAttack)
+        //    {
+        //        PerformStab();
+        //    }
+        //}
 
-        if (_isStabbing)
-        {
-            Stab();
-        }
-        else
-        {
-            ReturnToInitialPosition();
-        }
+        //if (_isStabbing)
+        //{
+        //    Stab();
+        //}
+        //else
+        //{
+        //    ReturnToInitialPosition();
+        //}
 
-        if (!_isStabbing && Vector3.Distance(transform.localPosition, _initialPosition) < 0.01f)
-        {
-            _canAttack = true;
-        }
+        //if (!_isStabbing && Vector3.Distance(transform.localPosition, _initialPosition) < 0.01f)
+        //{
+        //    _canAttack = true;
+        //}
     }
 
     public void Stab()
