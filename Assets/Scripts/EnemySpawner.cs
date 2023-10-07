@@ -31,17 +31,22 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Spawner Attributes")]
     float _spawnTimer; //timer use to determine when to spawn next enemy
+    public float _waveInterval; //the interval between each wave
 
     void Start()
     {
         _player = FindObjectOfType<PlayerController>().transform; // Aþýrý yavaþ, inspectorden manuel ata
         CalculateWaveQuota();
-        SpawnEnemies();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_currentWaveCount <_waves.Count && _waves[_currentWaveCount]._spawnCount == 0)
+        {
+            StartCoroutine(BeginNextWave());
+        }
+
         _spawnTimer += Time.deltaTime;
 
         //check if its time to spawn the next enemy
@@ -52,15 +57,28 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    IEnumerator BeginNextWave()
+    {
+        // Wave for '_waveInerval' seconds before starting next wave
+        yield return new WaitForSeconds(_waveInterval);
+
+        // there are more waves to start after current wave, move on to the next wave
+        if(_currentWaveCount < _waves.Count - 1 )
+        {
+            _currentWaveCount++;
+            CalculateWaveQuota() ;
+        }
+    }
+
     void CalculateWaveQuota()
     {
-        int _currentWaveQuota = 0;
+        int currentWaveQuota = 0;
         foreach (var enemyGroup in _waves[_currentWaveCount]._enemyGroups)
         {
-            _currentWaveQuota += enemyGroup._enemyCount;
+            currentWaveQuota += enemyGroup._enemyCount;
         }
-        _waves[_currentWaveCount]._waveQuota = _currentWaveQuota;
-        Debug.LogWarning(_currentWaveQuota);
+        _waves[_currentWaveCount]._waveQuota = currentWaveQuota;
+        Debug.LogWarning(currentWaveQuota);
     }
 
     void SpawnEnemies()
@@ -77,7 +95,7 @@ public class EnemySpawner : MonoBehaviour
                     Vector2 spawnPosition = new Vector2(_player.transform.position.x + Random.Range(-10f, 10f), _player.transform.position.y + Random.Range(-10f, 10f));
                     Instantiate(enemyGroup._enemyPrefab, spawnPosition, Quaternion.identity);
 
-                    enemyGroup._enemyCount++;
+                    enemyGroup._spawnCount++;
                     _waves[_currentWaveCount]._spawnCount++;
                 }
             }

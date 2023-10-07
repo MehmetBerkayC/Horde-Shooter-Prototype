@@ -240,17 +240,23 @@ MonoBehaviour:
   - _waveName: Wave 1
     _enemyGroups:
     - _enemyName: 
-      _enemyCount: 10
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
-    - _enemyName: 
-      _enemyCount: 20
+      _enemyCount: 4
       _spawnCount: 0
       _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
     _waveQuota: 20
     _spawnInterval: 2
     _spawnCount: 0
+  - _waveName: Wave 1
+    _enemyGroups:
+    - _enemyName: 
+      _enemyCount: 4
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
+    _waveQuota: 20
+    _spawnInterval: 2
+    _spawnCount: 0
   _currentWaveCount: 0
+  _waveInterval: 3
 --- !u!4 &136908386
 Transform:
   m_ObjectHideFlags: 0
