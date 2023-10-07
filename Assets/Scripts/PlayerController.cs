@@ -6,17 +6,21 @@ public class PlayerController : HealthSystem
 {
     [SerializeField] float _speed = 5f;
     
+    [SerializeField] UI_Inventory _uiInventory;
+
     Vector2 _playerInputs;
 
-    Rigidbody2D _rb;
+    Rigidbody2D _rigidbody;
     PlayerAnimator _animator;
     Inventory _playerInventory;
 
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
+        
         _playerInventory = new Inventory();
+        _uiInventory.SetInventory(_playerInventory);
     }
 
     void Update()
@@ -42,7 +46,7 @@ public class PlayerController : HealthSystem
 
     void Movement()
     {
-        _rb.velocity = _playerInputs * _speed;
+        _rigidbody.velocity = _playerInputs * _speed;
         _animator.Flip(_playerInputs.x);
     }
 }
