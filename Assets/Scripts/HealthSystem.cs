@@ -85,6 +85,6 @@ public class HealthSystem : MonoBehaviour, IDamageable
     private void OnDestroy()
     {
         EnemySpawner es = FindObjectOfType<EnemySpawner>();
-        es.onenemyKilled();
+        es.onEnemyKilled();
     }
 }

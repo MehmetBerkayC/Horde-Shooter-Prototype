@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
     public List<Wave> _waves; //a list of all the waves in the game
     public int _currentWaveCount; // the index of the current wave
 
-    Transform _player;
+    [SerializeField] Transform _player;
 
     [Header("Spawner Attributes")]
     float _spawnTimer; //timer use to determine when to spawn next enemy
@@ -117,7 +117,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
     //call this function when enemey is killed
-    public void onenemyKilled()
+    public void onEnemyKilled()
     {
         //decrement theh number of enemies alive
         _enemiesAlive--;

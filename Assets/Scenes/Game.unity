@@ -256,6 +256,10 @@ MonoBehaviour:
     _spawnInterval: 2
     _spawnCount: 0
   _currentWaveCount: 0
+  _player: {fileID: 899471654}
+  _enemiesAlive: 0
+  _maxEnemiesAllowed: 4
+  _maxEnemiesReached: 0
   _waveInterval: 3
 --- !u!4 &136908386
 Transform:
