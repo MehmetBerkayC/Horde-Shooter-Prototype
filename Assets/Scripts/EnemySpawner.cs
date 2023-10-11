@@ -36,18 +36,34 @@ public class EnemySpawner : MonoBehaviour
     public bool _maxEnemiesReached; // a flag indicating if the maximum number of enemis has been reached
     public float _waveInterval; //the interval between each wave
 
+    bool _waveCompleted = false;
+
     void Start()
     {
+        _waveCompleted = true;
         CalculateWaveQuota();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_currentWaveCount <_waves.Count && _waves[_currentWaveCount]._spawnCount == 0)
+
+        if (_waveCompleted)
         {
-            StartCoroutine(BeginNextWave());
+            if (_currentWaveCount < _waves.Count)
+            {
+                StartCoroutine(StartWave());
+            }
+            else
+            {
+                // All waves are completed, you can handle game victory here.
+            }
         }
+
+        //if (_currentWaveCount <_waves.Count && _waves[_currentWaveCount]._spawnCount == 0)
+        //{
+        //    StartCoroutine(BeginNextWave());
+        //}
 
         _spawnTimer += Time.deltaTime;
 
@@ -59,18 +75,31 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    IEnumerator BeginNextWave()
+    IEnumerator StartWave()
     {
-        // Wave for '_waveInerval' seconds before starting next wave
+        _waveCompleted = false;
+
         yield return new WaitForSeconds(_waveInterval);
 
-        // there are more waves to start after current wave, move on to the next wave
-        if(_currentWaveCount < _waves.Count - 1 )
+        if (_currentWaveCount < _waves.Count - 1)
         {
+            SpawnEnemies();
             _currentWaveCount++;
-            CalculateWaveQuota() ;
+            CalculateWaveQuota();
         }
     }
+    //IEnumerator BeginNextWave()
+    //{
+    //    // Wave for '_waveInerval' seconds before starting next wave
+    //    yield return new WaitForSeconds(_waveInterval);
+
+    //    // there are more waves to start after current wave, move on to the next wave
+    //    if(_currentWaveCount < _waves.Count - 1 )
+    //    {
+    //        _currentWaveCount++;
+    //        CalculateWaveQuota() ;
+    //    }
+    //}
 
     void CalculateWaveQuota()
     {
@@ -80,7 +109,7 @@ public class EnemySpawner : MonoBehaviour
             currentWaveQuota += enemyGroup._enemyCount;
         }
         _waves[_currentWaveCount]._waveQuota = currentWaveQuota;
-        Debug.LogWarning(currentWaveQuota);
+        //Debug.LogWarning(currentWaveQuota);
     }
 
     void SpawnEnemies()
