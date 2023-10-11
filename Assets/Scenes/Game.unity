@@ -236,11 +236,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c33420cbe657624c8bf739a20aa3dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _endless:
+    _enemyGroups: []
+    _spawnCount: 0
   _waves:
-  - _waveName: Wave 1
+  - _waveName: endless mode
     _enemyGroups:
     - _enemyName: 
-      _enemyCount: 4
+      _enemyCount: 200
       _spawnCount: 0
       _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
     _waveQuota: 4
@@ -261,6 +264,7 @@ MonoBehaviour:
   _maxEnemiesAllowed: 4
   _maxEnemiesReached: 0
   _waveInterval: 10
+  gameMode: 1
 --- !u!4 &136908386
 Transform:
   m_ObjectHideFlags: 0

@@ -3,8 +3,20 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+public enum GameMode
+{
+    WaveGame,
+    EndlessGame
+}
+
 public class EnemySpawner : MonoBehaviour
 {
+    [System.Serializable]
+    public class Endless
+    {
+        public List<EnemyGroup> _enemyGroups;
+        public int _spawnCount;
+    }
     [System.Serializable]
     public class Wave
     {
@@ -24,6 +36,7 @@ public class EnemySpawner : MonoBehaviour
         public GameObject _enemyPrefab;
     }
 
+    public Endless _endless;
     public List<Wave> _waves; //a list of all the waves in the game
     public int _currentWaveCount; // the index of the current wave
 
@@ -37,22 +50,48 @@ public class EnemySpawner : MonoBehaviour
     public float _waveInterval; //the interval between each wave
 
     bool _waveCompleted = false;
+    public GameMode gameMode = GameMode.WaveGame;
+    bool _endlessMode = false;
+    float _overallTimer;
 
     void Start()
     {
         _waveCompleted = true;
         CalculateWaveQuota();
+
+        if (gameMode == GameMode.EndlessGame)
+        {
+            _endlessMode = true;
+        }
+        else
+        {
+            _endlessMode = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (_waveCompleted)
+        if (_endlessMode)
+        {
+            _overallTimer += Time.deltaTime;
+
+        }
+        else if (_waveCompleted)
         {
             if (_currentWaveCount < _waves.Count)
             {
                 StartCoroutine(StartWave());
+
+                _spawnTimer += Time.deltaTime;
+
+                //check if its time to spawn the next enemy
+                if (_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
+                {
+                    _spawnTimer = 0f;
+                    SpawnEnemies();
+                }
             }
             else
             {
@@ -63,16 +102,7 @@ public class EnemySpawner : MonoBehaviour
         //if (_currentWaveCount <_waves.Count && _waves[_currentWaveCount]._spawnCount == 0)
         //{
         //    StartCoroutine(BeginNextWave());
-        //}
-
-        _spawnTimer += Time.deltaTime;
-
-        //check if its time to spawn the next enemy
-        if(_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
-        {
-            _spawnTimer = 0f;
-            SpawnEnemies();
-        }
+        //}  
     }
 
     IEnumerator StartWave()
@@ -88,18 +118,13 @@ public class EnemySpawner : MonoBehaviour
             CalculateWaveQuota();
         }
     }
-    //IEnumerator BeginNextWave()
-    //{
-    //    // Wave for '_waveInerval' seconds before starting next wave
-    //    yield return new WaitForSeconds(_waveInterval);
+    IEnumerator EndlessMode()
+    {
+        // Wave for '_waveInerval' seconds before starting next wave
+        yield return new WaitForSeconds(_overallTimer);
 
-    //    // there are more waves to start after current wave, move on to the next wave
-    //    if(_currentWaveCount < _waves.Count - 1 )
-    //    {
-    //        _currentWaveCount++;
-    //        CalculateWaveQuota() ;
-    //    }
-    //}
+        SpawnEnemies();
+    }
 
     void CalculateWaveQuota()
     {
@@ -110,6 +135,18 @@ public class EnemySpawner : MonoBehaviour
         }
         _waves[_currentWaveCount]._waveQuota = currentWaveQuota;
         //Debug.LogWarning(currentWaveQuota);
+    }
+
+    void SpawnEnemiesEndless()
+    {
+        foreach (var enemyGroup in _endless._enemyGroups)
+        {
+                Vector2 spawnPosition = new Vector2(_player.transform.position.x + Random.Range(-10f, 10f), _player.transform.position.y + Random.Range(-10f, 10f));
+                Instantiate(enemyGroup._enemyPrefab, spawnPosition, Quaternion.identity);
+
+                enemyGroup._spawnCount++;
+          
+        }
     }
 
     void SpawnEnemies()
