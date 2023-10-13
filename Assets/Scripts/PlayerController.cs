@@ -13,14 +13,20 @@ public class PlayerController : HealthSystem
     Rigidbody2D _rigidbody;
     PlayerAnimator _animator;
     Inventory _playerInventory;
-
-    void Start()
+    void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
-        
+    }
+
+    void Start()
+    {
         _playerInventory = new Inventory();
         _uiInventory.SetInventory(_playerInventory);
+
+        ItemWorld.SpawnItemWorld(new Vector3(10, 0), new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(5, 5), new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, -5), new Item { itemType = Item.ItemType.RedGem, amount = 1 });
     }
 
     void Update()
@@ -48,5 +54,15 @@ public class PlayerController : HealthSystem
     {
         _rigidbody.velocity = _playerInputs * _speed;
         _animator.Flip(_playerInputs.x);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ItemWorld itemWorld = collision.GetComponent<ItemWorld>();
+        if (itemWorld != null)
+        {
+            _playerInventory.AddItem(itemWorld.GetItem());
+            itemWorld.DestroySelf();
+        }
     }
 }

@@ -12,19 +12,31 @@ public class UI_Inventory : MonoBehaviour
     public void SetInventory(Inventory inventory)
     {
         this._inventory = inventory;
+        _inventory.OnItemListChanged += Inventory_OnItemListChanged; ;
+        RefreshInventoryItems();
+    }
+
+    private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
+    {
         RefreshInventoryItems();
     }
 
     void RefreshInventoryItems()
     {
+        foreach (Transform child in _itemSlotContainer) // if child has a template don't destroy, will make a new one
+        {
+            if (child == _itemSlotTemplate) continue;
+            Destroy(child.gameObject);
+        }
+
         int x = 0, y = 0;
-        float itemSlotCellSize = 110f;
+        float itemSlotCellSize = 80f;
         foreach(Item item in _inventory.GetItemList())
         {
             RectTransform itemSlotRectTransform = Instantiate(_itemSlotTemplate, _itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
             
-            itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
+            itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, -y * itemSlotCellSize);
             Image image = itemSlotRectTransform.Find("Image").GetComponent<Image>();
             image.sprite = item.GetSprite();
            

@@ -11,6 +11,8 @@ public class ItemAssets : MonoBehaviour
         Instance = this;
     }
 
+    public Transform PrefabItemWorld;
+
     public Sprite HealthPotionSprite;
     public Sprite ManaPotionSprite;
     public Sprite YellowGemSprite;
