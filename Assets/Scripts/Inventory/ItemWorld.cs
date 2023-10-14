@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
@@ -15,16 +16,30 @@ public class ItemWorld : MonoBehaviour
 
     Item _item;
     SpriteRenderer _spriteRenderer;
+    TextMeshPro _textMeshPro;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();    
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _textMeshPro = GetComponentInChildren<TextMeshPro>();
+        //if (_textMeshPro != null)
+        //{
+        //    Debug.Log("Found Component");
+        //}
     }
 
     public void SetItem(Item item)
     {
         this._item = item;
         _spriteRenderer.sprite = item.GetSprite();
+        if (item.amount > 1)
+        {
+            _textMeshPro.SetText(item.amount.ToString());
+        }
+        else
+        {
+            _textMeshPro.SetText("");
+        }
     }
 
     public Item GetItem()

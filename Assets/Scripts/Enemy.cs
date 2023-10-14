@@ -11,7 +11,7 @@ public class Enemy : HealthSystem
     
     void Start()
     {
-        _player = FindObjectOfType<PlayerController>().transform;
+        _player = FindObjectOfType<Player>().transform;
     }
 
     void Update()

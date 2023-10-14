@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : HealthSystem
+public class Player : HealthSystem
 {
     [SerializeField] float _speed = 5f;
     
@@ -24,9 +24,6 @@ public class PlayerController : HealthSystem
         _playerInventory = new Inventory();
         _uiInventory.SetInventory(_playerInventory);
 
-        ItemWorld.SpawnItemWorld(new Vector3(10, 0), new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(5, 5), new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(0, -5), new Item { itemType = Item.ItemType.RedGem, amount = 1 });
     }
 
     void Update()

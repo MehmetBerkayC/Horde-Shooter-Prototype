@@ -11,16 +11,31 @@ public class Inventory
     public Inventory()
     {
         _itemList = new List<Item>();
-
-        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.RedGem, amount = 1 });
-        Debug.Log(_itemList.Count);
     }
 
     public void AddItem(Item item)
     {
-        _itemList.Add(item);
+        if (item.IsStackable())
+        {
+            bool itemAlreadyInInventory = false;
+
+            foreach (Item inventoryItem in _itemList)
+            {
+                if (inventoryItem.itemType == item.itemType)
+                {
+                    inventoryItem.amount += item.amount;
+                    itemAlreadyInInventory = true;
+                }
+            }
+            if (!itemAlreadyInInventory)
+            {
+                _itemList.Add(item);
+            }
+        }
+        else
+        {
+            _itemList.Add(item);
+        }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 

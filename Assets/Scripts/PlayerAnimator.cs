@@ -5,19 +5,19 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     Animator _animator;
-    PlayerController _playerController;
+    Player _player;
     SpriteRenderer _spriteRenderer;
 
     void Start()
     {
         _animator = GetComponent<Animator>();
-        _playerController = GetComponent<PlayerController>();
+        _player = GetComponent<Player>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        if(_playerController.GetPlayerInputs().x != 0 || _playerController.GetPlayerInputs().y != 0)
+        if(_player.GetPlayerInputs().x != 0 || _player.GetPlayerInputs().y != 0)
         {
             _animator.SetBool("Move", true);
 
@@ -43,7 +43,7 @@ public class PlayerAnimator : MonoBehaviour
 
     void SpriteDirectionChecker()
     {
-        if(_playerController.GetPlayerInputs().x < 0)
+        if(_player.GetPlayerInputs().x < 0)
         {
             _spriteRenderer.flipX = true;
         }   
