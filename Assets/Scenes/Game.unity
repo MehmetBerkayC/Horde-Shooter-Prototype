@@ -237,31 +237,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _endless:
-    _enemyGroups: []
-    _spawnCount: 0
-  _waves:
-  - _waveName: endless mode
     _enemyGroups:
     - _enemyName: 
-      _enemyCount: 200
+      _enemyCount: 10
       _spawnCount: 0
       _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
-    _waveQuota: 4
-    _spawnInterval: 2
-    _spawnCount: 0
-  - _waveName: Wave 1
+    - _enemyName: 
+      _enemyCount: 10
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
+    _spawnCount: 4
+    _spawnInterval: 5
+  _waves:
+  - _waveName: wave 1
     _enemyGroups:
     - _enemyName: 
-      _enemyCount: 4
+      _enemyCount: 50
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
+    - _enemyName: 
+      _enemyCount: 50
       _spawnCount: 0
       _enemyPrefab: {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
     _waveQuota: 4
     _spawnInterval: 2
     _spawnCount: 0
+  - _waveName: Wave 2
+    _enemyGroups:
+    - _enemyName: 
+      _enemyCount: 10
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
+    - _enemyName: 
+      _enemyCount: 24
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
+    _waveQuota: 4
+    _spawnInterval: 0.1
+    _spawnCount: 0
   _currentWaveCount: 0
   _player: {fileID: 899471654}
   _enemiesAlive: 0
-  _maxEnemiesAllowed: 4
+  _maxEnemiesAllowed: 25
   _maxEnemiesReached: 0
   _waveInterval: 10
   gameMode: 1

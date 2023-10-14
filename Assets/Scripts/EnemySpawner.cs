@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     {
         public List<EnemyGroup> _enemyGroups;
         public int _spawnCount;
+        public float _spawnInterval;
     }
     [System.Serializable]
     public class Wave
@@ -49,14 +50,14 @@ public class EnemySpawner : MonoBehaviour
     public bool _maxEnemiesReached; // a flag indicating if the maximum number of enemis has been reached
     public float _waveInterval; //the interval between each wave
 
-    bool _waveCompleted = false;
-    public GameMode gameMode = GameMode.WaveGame;
+    bool _waveCompleted;
+    public GameMode gameMode;
     bool _endlessMode = false;
-    float _overallTimer;
+
+    Vector2 _spawnLocation;
 
     void Start()
     {
-        _waveCompleted = true;
         CalculateWaveQuota();
 
         if (gameMode == GameMode.EndlessGame)
@@ -70,15 +71,15 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (_endlessMode)
         {
-            _overallTimer += Time.deltaTime;
+            StartCoroutine(EndlessSpawn());
 
         }
-        else if (_waveCompleted)
+        else
         {
             if (_currentWaveCount < _waves.Count)
             {
@@ -98,11 +99,6 @@ public class EnemySpawner : MonoBehaviour
                 // All waves are completed, you can handle game victory here.
             }
         }
-
-        //if (_currentWaveCount <_waves.Count && _waves[_currentWaveCount]._spawnCount == 0)
-        //{
-        //    StartCoroutine(BeginNextWave());
-        //}  
     }
 
     IEnumerator StartWave()
@@ -118,12 +114,19 @@ public class EnemySpawner : MonoBehaviour
             CalculateWaveQuota();
         }
     }
-    IEnumerator EndlessMode()
-    {
-        // Wave for '_waveInerval' seconds before starting next wave
-        yield return new WaitForSeconds(_overallTimer);
 
-        SpawnEnemies();
+    IEnumerator EndlessSpawn()
+    {
+        WaitForSeconds wait = new WaitForSeconds(_endless._spawnInterval);
+
+        yield return wait;
+        foreach (var enemyGroup in _endless._enemyGroups)
+        {
+                _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+                Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
+            
+        }
+
     }
 
     void CalculateWaveQuota()
@@ -137,17 +140,25 @@ public class EnemySpawner : MonoBehaviour
         //Debug.LogWarning(currentWaveQuota);
     }
 
-    void SpawnEnemiesEndless()
-    {
-        foreach (var enemyGroup in _endless._enemyGroups)
-        {
-                Vector2 spawnPosition = new Vector2(_player.transform.position.x + Random.Range(-10f, 10f), _player.transform.position.y + Random.Range(-10f, 10f));
-                Instantiate(enemyGroup._enemyPrefab, spawnPosition, Quaternion.identity);
+    //void SpawnEnemiesEndless()
+    //{
+    //    foreach (var enemyGroup in _endless._enemyGroups)
+    //    {
+    //        if (enemyGroup._spawnCount < enemyGroup._enemyCount)
+    //        {
+    //            //limit the number of enemies that can be spawned
+    //            if (_enemiesAlive >= _maxEnemiesAllowed)
+    //            {
+    //                _maxEnemiesReached = true;
+    //                return;
+    //            }
+    //            _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+    //            Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
 
-                enemyGroup._spawnCount++;
-          
-        }
-    }
+    //            enemyGroup._spawnCount++;
+    //        }
+    //    }
+    //}
 
     void SpawnEnemies()
     {
@@ -167,8 +178,8 @@ public class EnemySpawner : MonoBehaviour
                         _maxEnemiesReached = true;
                         return;
                     }
-                    Vector2 spawnPosition = new Vector2(_player.transform.position.x + Random.Range(-10f, 10f), _player.transform.position.y + Random.Range(-10f, 10f));
-                    Instantiate(enemyGroup._enemyPrefab, spawnPosition, Quaternion.identity);
+                    _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+                    Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
 
                     enemyGroup._spawnCount++;
                     _waves[_currentWaveCount]._spawnCount++;
