@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class UI_Inventory : MonoBehaviour
+public class UI_Inventory : MonoBehaviour, IPointerDownHandler
 {
     Inventory _inventory;
     [SerializeField] Transform _itemSlotContainer;
     [SerializeField] Transform _itemSlotTemplate;
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
+    }
 
     public void SetInventory(Inventory inventory)
     {
