@@ -236,18 +236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c33420cbe657624c8bf739a20aa3dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _endless:
-    _enemyGroups:
-    - _enemyName: 
-      _enemyCount: 10
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
-    - _enemyName: 
-      _enemyCount: 10
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
-    _spawnCount: 4
-    _spawnInterval: 5
+  _enemyPrefabs:
+  - {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
+  - {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
+  _endlessRate: 0.5
   _waves:
   - _waveName: wave 1
     _enemyGroups:

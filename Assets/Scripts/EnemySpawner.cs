@@ -11,13 +11,14 @@ public enum GameMode
 
 public class EnemySpawner : MonoBehaviour
 {
-    [System.Serializable]
-    public class Endless
-    {
-        public List<EnemyGroup> _enemyGroups;
-        public int _spawnCount;
-        public float _spawnInterval;
-    }
+    [SerializeField] GameObject[] _enemyPrefabs;
+    [SerializeField] float _endlessRate;
+    //public class Endless
+    //{
+    //    public List<EnemyGroup> _enemyGroups;
+    //    public int _spawnCount;
+    //    public float _spawnInterval;
+    //}
     [System.Serializable]
     public class Wave
     {
@@ -37,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
         public GameObject _enemyPrefab;
     }
 
-    public Endless _endless;
+    //public Endless _endless;
     public List<Wave> _waves; //a list of all the waves in the game
     public int _currentWaveCount; // the index of the current wave
 
@@ -68,6 +69,7 @@ public class EnemySpawner : MonoBehaviour
         {
             _endlessMode = false;
         }
+
     }
 
     // Update is called once per frame
@@ -117,16 +119,14 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator EndlessSpawn()
     {
-        WaitForSeconds wait = new WaitForSeconds(_endless._spawnInterval);
+        WaitForSeconds wait = new WaitForSeconds(_endlessRate);
 
         yield return wait;
-        foreach (var enemyGroup in _endless._enemyGroups)
-        {
-                _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
-                Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
-            
-        }
+        int rand = Random.Range(0, _enemyPrefabs.Length);
+        GameObject enemyToSpawn = _enemyPrefabs[rand];
 
+        _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+        Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
 
     void CalculateWaveQuota()
