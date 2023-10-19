@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[
+    RequireComponent(typeof(Rigidbody2D)), 
+    RequireComponent(typeof(PlayerAnimator))
+]
 public class Player : HealthSystem
 {
     [SerializeField] float _speed = 5f;
     
-    [SerializeField] UI_Inventory _uiInventory;
+    //[SerializeField] UI_Inventory _uiInventory;
+    [SerializeField] InventorySObject _inventory;
 
     Vector2 _playerInputs;
 
     Rigidbody2D _rigidbody;
     PlayerAnimator _animator;
-    Inventory _playerInventory;
+
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -21,9 +26,10 @@ public class Player : HealthSystem
 
     void Start()
     {
-        _playerInventory = new Inventory();
-        _uiInventory.SetInventory(_playerInventory);
-
+        if (_inventory == null)
+        {
+            Debug.LogError("Player is missing its inventory");
+        }
     }
 
     void Update()
@@ -53,13 +59,27 @@ public class Player : HealthSystem
         _animator.Flip(_playerInputs.x);
     }
 
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    ItemWorld itemWorld = collision.GetComponent<ItemWorld>();
+    //    if (itemWorld != null)
+    //    {
+    //        _playerInventory.AddItem(itemWorld.GetItem());
+    //        itemWorld.DestroySelf();
+    //    }
+    //}
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ItemWorld itemWorld = collision.GetComponent<ItemWorld>();
-        if (itemWorld != null)
+        if (collision.TryGetComponent<ItemWorld>(out ItemWorld item))
         {
-            _playerInventory.AddItem(itemWorld.GetItem());
-            itemWorld.DestroySelf();
+            _inventory.AddItem(item.Item, 1);
+            item.DestroySelf();
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        _inventory.Container.Clear();
     }
 }
