@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,24 +6,33 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="InventoryName", menuName ="Inventory System/Inventory")]
 public class InventorySObject : ScriptableObject
 {
+    public event EventHandler OnItemListChanged;
     public List<InventorySlot> Container = new List<InventorySlot>();
 
     public void AddItem(ItemSObject item, int amount)
     {
-        bool hasItem = false;
-        foreach (InventorySlot slot in Container)
+        if (item.IsStackable)
         {
-            if (slot.Item == item)
+            bool itemAlreadyInInventory = false;
+            foreach (InventorySlot slot in Container)
             {
-                slot.AddAmount(amount);
-                hasItem = true;
-                break;
+                if (slot.Item == item)
+                {
+                    slot.AddAmount(amount);
+                    itemAlreadyInInventory = true;
+                    break;
+                }
+            }
+            if (!itemAlreadyInInventory)
+            {
+                Container.Add(new InventorySlot(item, amount));
             }
         }
-        if (!hasItem)
+        else
         {
             Container.Add(new InventorySlot(item, amount));
         }
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 }
 

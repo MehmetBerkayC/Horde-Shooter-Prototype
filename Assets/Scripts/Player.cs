@@ -59,19 +59,9 @@ public class Player : HealthSystem
         _animator.Flip(_playerInputs.x);
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    ItemWorld itemWorld = collision.GetComponent<ItemWorld>();
-    //    if (itemWorld != null)
-    //    {
-    //        _playerInventory.AddItem(itemWorld.GetItem());
-    //        itemWorld.DestroySelf();
-    //    }
-    //}
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<ItemWorld>(out ItemWorld item))
+        if (collision.TryGetComponent(out ItemWorld item))
         {
             _inventory.AddItem(item.Item, 1);
             item.DestroySelf();
