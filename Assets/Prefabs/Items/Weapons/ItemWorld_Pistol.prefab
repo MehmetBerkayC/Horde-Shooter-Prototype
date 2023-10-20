@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5868934246301792862}
-  - component: {fileID: 5868934246301792861}
   - component: {fileID: 1275652879}
+  - component: {fileID: 4606305623666323796}
   m_Layer: 0
   m_Name: ItemWorld_Pistol
   m_TagString: Untagged
@@ -35,19 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5868934246301792861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5868934246301792860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49802c8dc3f2f654990965b428b9d165, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: b09b8c6fd06b3074f9aaaf6ad510279d, type: 2}
 --- !u!61 &1275652879
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -74,6 +61,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9077715, y: 0.71622014}
   m_EdgeRadius: 0
+--- !u!114 &4606305623666323796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868934246301792860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8243df03432fde54297282ffd7848717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5868934247001828759
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +208,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

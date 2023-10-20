@@ -7,13 +7,11 @@ using UnityEngine.EventSystems;
 
 public class UI_Inventory : MonoBehaviour
 {
-    [SerializeField] InventorySObject _inventory;
+    Inventory _inventory;
     [SerializeField] Transform _itemSlotContainer;
     [SerializeField] Transform _itemSlotTemplate;
 
-    [SerializeField] int x, y;
-
-    public void SetInventory(InventorySObject inventory)
+    public void SetInventory(Inventory inventory)
     {
         this._inventory = inventory;
         _inventory.OnItemListChanged += Inventory_OnItemListChanged; ;
@@ -35,19 +33,19 @@ public class UI_Inventory : MonoBehaviour
 
         int x = 0, y = 0;
         float itemSlotCellSize = 80f;
-        foreach(ItemSObject item in _inventory.GetItemList())
+        foreach(Item item in _inventory.GetItemList())
         {
             RectTransform itemSlotRectTransform = Instantiate(_itemSlotTemplate, _itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
             
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, -y * itemSlotCellSize);
             Image image = itemSlotRectTransform.Find("Image").GetComponent<Image>();
-            image.sprite = item.GetSprite();
+            image.sprite = item.ItemData.Sprite;
 
             TextMeshProUGUI uiText = itemSlotRectTransform.Find("TextAmount").GetComponent<TextMeshProUGUI>();
-            if (item.amount > 1)
+            if (item.ItemData.Amount > 1)
             {
-                uiText.SetText(item.amount.ToString());
+                uiText.SetText(item.ItemData.Amount.ToString());
             }
             else
             {

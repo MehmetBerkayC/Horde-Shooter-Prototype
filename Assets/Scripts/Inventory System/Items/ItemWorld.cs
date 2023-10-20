@@ -5,25 +5,37 @@ using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
 {
-    public ItemSObject Item;
-
+    [SerializeField] Item _item;
     SpriteRenderer _spriteRenderer;
     TextMeshPro _textAmount;
 
-    private void Start()
+    private void Awake()
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        _spriteRenderer.sprite = Item.Sprite;
-
         _textAmount = GetComponentInChildren<TextMeshPro>();
-        if (Item.Amount > 1)
+        //if (_textMeshPro != null)
+        //{
+        //    Debug.Log("Found Component");
+        //}
+    }
+
+    public void SetItem(Item item)
+    {
+        this._item = item;
+        _spriteRenderer.sprite = item.ItemData.Sprite;
+        if (item.ItemData.Amount > 1)
         {
-            _textAmount.SetText(Item.Amount.ToString());
+            _textAmount.SetText(item.ItemData.Amount.ToString());
         }
         else
         {
             _textAmount.SetText("");
         }
+    }
+
+    public Item GetItem()
+    {
+        return _item;
     }
 
     public void DestroySelf()

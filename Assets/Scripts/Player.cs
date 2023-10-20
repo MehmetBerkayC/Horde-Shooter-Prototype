@@ -10,8 +10,8 @@ public class Player : HealthSystem
 {
     [SerializeField] float _speed = 5f;
     
-    //[SerializeField] UI_Inventory _uiInventory;
-    [SerializeField] InventorySObject _inventory;
+    [SerializeField] UI_Inventory _uiInventory;
+    [SerializeField] Inventory _inventory;
 
     Vector2 _playerInputs;
 
@@ -26,10 +26,11 @@ public class Player : HealthSystem
 
     void Start()
     {
-        if (_inventory == null)
-        {
-            Debug.LogError("Player is missing its inventory");
-        }
+        _inventory = new Inventory();
+        //if (_inventory == null)
+        //{
+        //    Debug.LogError("Player is missing its inventory");
+        //}
     }
 
     void Update()
@@ -63,13 +64,13 @@ public class Player : HealthSystem
     {
         if (collision.TryGetComponent(out ItemWorld item))
         {
-            _inventory.AddItem(item.Item, 1);
+            _inventory.AddItem(item.GetItem());
             item.DestroySelf();
         }
     }
 
-    private void OnApplicationQuit()
-    {
-        _inventory.Container.Clear();
-    }
+    //private void OnApplicationQuit()
+    //{
+    //    _inventory.Container.Clear();
+    //}
 }

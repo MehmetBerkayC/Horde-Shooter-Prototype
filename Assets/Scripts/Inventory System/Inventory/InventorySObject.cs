@@ -9,7 +9,7 @@ public class InventorySObject : ScriptableObject
     public event EventHandler OnItemListChanged;
     public List<InventorySlot> Container = new List<InventorySlot>();
 
-    public void AddItem(ItemSObject item, int amount)
+    public void AddItem(ItemData item, int amount)
     {
         if (item.IsStackable)
         {
@@ -39,10 +39,10 @@ public class InventorySObject : ScriptableObject
 [System.Serializable]
 public class InventorySlot
 {
-    public ItemSObject Item;
+    public ItemData Item;
     public int Amount;
 
-    public InventorySlot(ItemSObject item, int amount)
+    public InventorySlot(ItemData item, int amount)
     {
         Item = item;
         Amount = amount;

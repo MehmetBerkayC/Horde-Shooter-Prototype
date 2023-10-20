@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PassiveItemName", menuName ="Inventory System/Items/Passive")]
-public class PassiveSObject : ItemSObject
+public class PassiveScriptableObject : ItemData
 {
     // Add Stats for the item later
     public int AdditionalHealth;

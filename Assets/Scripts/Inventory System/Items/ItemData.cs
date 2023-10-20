@@ -9,10 +9,9 @@ public enum ItemType
     WeaponMelee
 }
 
-public class ItemSObject : ScriptableObject
+public class ItemData : ScriptableObject
 {
     public Sprite Sprite;
-    public GameObject Prefab;
     public ItemType Type;
 
     public bool IsStackable;
@@ -21,3 +20,4 @@ public class ItemSObject : ScriptableObject
     [TextArea(15,20)]
     public string Description; // Use if needed
 }
+
