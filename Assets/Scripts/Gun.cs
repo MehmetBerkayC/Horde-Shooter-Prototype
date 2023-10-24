@@ -8,6 +8,7 @@ public class Gun : MonoBehaviour
     [SerializeField] GameObject _bulletPrefab; 
     [SerializeField] float _bulletsPerMinute = 100;
     [SerializeField] float _range = 3;
+    [SerializeField] int _damage = 10;
     [SerializeField] LayerMask _enemyLayer;
     float _nextShot = 0;
 
@@ -53,6 +54,7 @@ public class Gun : MonoBehaviour
 
             Projectile projectile = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation).GetComponent<Projectile>();
             projectile.SetEnemy(_target.GetComponent<Transform>());
+            projectile.SetDamage(_damage);
         }
     }
 

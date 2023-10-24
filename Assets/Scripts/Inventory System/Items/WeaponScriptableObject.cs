@@ -10,8 +10,4 @@ public class WeaponScriptableObject : ItemData
     public float Range = 0; 
     public int BulletsPerMinute = 200;
 
-    private void Awake()
-    {
-        Type = ItemType.WeaponRanged;
-    }
 }

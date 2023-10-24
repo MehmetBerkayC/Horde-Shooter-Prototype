@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3d93262e81d944a889bae043e18c08, type: 3}
   m_Name: More HP
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
+  Sprite: {fileID: 0}
   Type: 0
-  Description: An item that gives additional HP
+  IsStackable: 0
+  Amount: 0
+  Description: Adds to your max HP
   AdditionalHealth: 15

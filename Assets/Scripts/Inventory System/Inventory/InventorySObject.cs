@@ -7,6 +7,7 @@ using UnityEngine;
 public class InventorySObject : ScriptableObject
 {
     public event EventHandler OnItemListChanged;
+
     public List<InventorySlot> Container = new List<InventorySlot>();
 
     public void AddItem(ItemData item, int amount)
@@ -33,6 +34,11 @@ public class InventorySObject : ScriptableObject
             Container.Add(new InventorySlot(item, amount));
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public List<InventorySlot> GetItemList()
+    {
+        return Container;
     }
 }
 

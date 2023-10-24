@@ -5,7 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Item
 {
-    //public string ItemName;
-    //public int ID;
-    public ItemData ItemData;
+    public string ItemName;
+    public Item (ItemData item)
+    {
+        ItemName = item.name;
+    }
 }

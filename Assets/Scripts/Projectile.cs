@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
         _speed = 500,
         _lifeTime = 3;
 
-    [SerializeField] int _damage = 10;
+    [SerializeField] int _damage;
      
     Transform _enemy;
     Rigidbody2D _rigidbody;
@@ -32,6 +32,10 @@ public class Projectile : MonoBehaviour
             Vector2 direction = (_enemy.position - transform.position).normalized;
             _rigidbody.velocity = direction * _speed * Time.deltaTime * 10f;
         }
+    }
+    public void SetDamage(int damage)
+    {
+        _damage = damage;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

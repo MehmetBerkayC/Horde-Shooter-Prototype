@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
 {
-    [SerializeField] Item _item;
+    [SerializeField] ItemData _item;
     SpriteRenderer _spriteRenderer;
     TextMeshPro _textAmount;
 
@@ -19,13 +19,12 @@ public class ItemWorld : MonoBehaviour
         //}
     }
 
-    public void SetItem(Item item)
+    private void Start()
     {
-        this._item = item;
-        _spriteRenderer.sprite = item.ItemData.Sprite;
-        if (item.ItemData.Amount > 1)
+        _spriteRenderer.sprite = _item.Sprite;
+        if (_item.Amount > 1)
         {
-            _textAmount.SetText(item.ItemData.Amount.ToString());
+            _textAmount.SetText(_item.Amount.ToString());
         }
         else
         {
@@ -33,7 +32,7 @@ public class ItemWorld : MonoBehaviour
         }
     }
 
-    public Item GetItem()
+    public ItemData GetItem()
     {
         return _item;
     }

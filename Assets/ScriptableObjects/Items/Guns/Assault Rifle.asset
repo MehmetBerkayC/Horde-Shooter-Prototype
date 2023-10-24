@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0a5d0df84ff044484e8b08da035729, type: 3}
   m_Name: Assault Rifle
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
+  Sprite: {fileID: 0}
   Type: 1
+  IsStackable: 0
+  Amount: 1
   Description: 
   Damage: 10
   Range: 0
+  BulletsPerMinute: 200

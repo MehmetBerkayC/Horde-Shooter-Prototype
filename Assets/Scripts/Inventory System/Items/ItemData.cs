@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType
-{
-    Passive,
-    WeaponRanged,
-    WeaponMelee
-}
-
-public class ItemData : ScriptableObject
+[System.Serializable]
+public abstract class ItemData : ScriptableObject
 {
     public Sprite Sprite;
-    public ItemType Type;
 
     public bool IsStackable;
     public int Amount;

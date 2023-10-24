@@ -8,10 +8,6 @@ public class PassiveScriptableObject : ItemData
     // Add Stats for the item later
     public int AdditionalHealth;
 
-    public void Awake()
-    {
-        Type = ItemType.Passive;
-    }
 }
 // The ItemObject is there to easily make new items without setting its type
 // For example every time we want a Passive Item, we don't need to change the parameter
