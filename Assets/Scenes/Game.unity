@@ -239,16 +239,16 @@ MonoBehaviour:
   _enemyPrefabs:
   - {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
   - {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
-  _endlessRate: 0.5
+  _endlessRate: 10
   _waves:
   - _waveName: wave 1
     _enemyGroups:
     - _enemyName: 
-      _enemyCount: 50
+      _enemyCount: 1
       _spawnCount: 0
       _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
     - _enemyName: 
-      _enemyCount: 50
+      _enemyCount: 1
       _spawnCount: 0
       _enemyPrefab: {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
     _waveQuota: 4
@@ -261,7 +261,7 @@ MonoBehaviour:
       _spawnCount: 0
       _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
     - _enemyName: 
-      _enemyCount: 24
+      _enemyCount: 10
       _spawnCount: 0
       _enemyPrefab: {fileID: 2175251412589240242, guid: 1b688ff32a1def94ab9428d122ed3d12, type: 3}
     _waveQuota: 4

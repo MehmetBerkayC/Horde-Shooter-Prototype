@@ -73,7 +73,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
         {
             IsAlive = false;
             Destroy(this.gameObject);
-            OnDestroy();
+            
         }
     }
 
@@ -85,7 +85,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
 
     private void OnDestroy()
     {
-        EnemySpawner es = FindObjectOfType<EnemySpawner>();
-        es.onEnemyKilled();
+        EnemySpawner.Instance.onEnemyKilled();
     }
 }
+
