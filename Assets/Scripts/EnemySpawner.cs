@@ -88,8 +88,15 @@ public class EnemySpawner : MonoBehaviour
 
         if (_endlessMode)
         {
-            StartCoroutine(EndlessSpawn());
+            //StartCoroutine(EndlessWave());
+            _spawnTimer += Time.deltaTime;
 
+            //check if its time to spawn the next enemy
+            if (_spawnTimer >= _endlessRate)
+            {
+                _spawnTimer = 0f;
+                SpawnEndless();
+            }
         }
         else
         {
@@ -130,31 +137,21 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    IEnumerator EndlessSpawn()
+    //IEnumerator EndlessWave()
+    //{
+    //    yield return new WaitForSeconds(_endlessRate);
+    //    Debug.Log("ben dogdum");
+    //    SpawnEndless();
+        
+    //}
+    void SpawnEndless()
     {
-        yield return new WaitForSeconds(_endlessRate);
         int rand = Random.Range(0, _enemyPrefabs.Length);
         GameObject enemyToSpawn = _enemyPrefabs[rand];
 
         _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
         Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
-
-    //IEnumerator EndlessSpawn()
-    //{
-    //    WaitForSeconds wait = new WaitForSeconds(_endlessRate);
-
-    //    while (true) // Infinite loop for continuous spawning
-    //    {
-    //        yield return wait;
-
-    //        int rand = Random.Range(0, _enemyPrefabs.Length);
-    //        GameObject enemyToSpawn = _enemyPrefabs[rand];
-
-    //        _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
-    //        Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
-    //    }
-    //}
 
     void CalculateWaveQuota()
     {
