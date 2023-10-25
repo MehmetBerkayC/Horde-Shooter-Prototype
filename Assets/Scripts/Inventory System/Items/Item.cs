@@ -6,6 +6,7 @@ using UnityEngine;
 public class Item
 {
     public string ItemName;
+
     public Item (ItemData item)
     {
         ItemName = item.name;

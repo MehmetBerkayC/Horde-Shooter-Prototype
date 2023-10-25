@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3d93262e81d944a889bae043e18c08, type: 3}
   m_Name: Less HP
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
-  Type: 0
+  Sprite: {fileID: 21300000, guid: 7835bec40f86c2c4fb3f91a6eb3b7034, type: 3}
+  IsStackable: 0
+  Amount: 0
   Description: Takes from your max HP
   AdditionalHealth: -5

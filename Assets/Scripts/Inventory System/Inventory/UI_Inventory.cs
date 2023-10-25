@@ -10,16 +10,18 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] InventorySObject _inventory;
     [SerializeField] Transform _itemSlotContainer;
     [SerializeField] Transform _itemSlotTemplate;
+    [SerializeField] float itemSlotCellSize = 80f;
 
     private void Start()
     {
         _inventory.OnItemListChanged += Inventory_OnItemListChanged;
         RefreshInventoryItems();
     }
-    //public void SetInventory(Inventory inventory)
-    //{
-    //    this._inventory = inventory;
-    //}
+
+    private void OnDisable() // unsub
+    {
+        _inventory.OnItemListChanged -= Inventory_OnItemListChanged;    
+    }
 
     private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
     {
@@ -35,7 +37,6 @@ public class UI_Inventory : MonoBehaviour
         }
 
         int x = 0, y = 0;
-        float itemSlotCellSize = 80f;
         foreach(InventorySlot inventorySlot in _inventory.GetItemList())
         {
             RectTransform itemSlotRectTransform = Instantiate(_itemSlotTemplate, _itemSlotContainer).GetComponent<RectTransform>();

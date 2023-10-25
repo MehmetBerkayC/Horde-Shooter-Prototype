@@ -52,6 +52,14 @@ public class Player : HealthSystem
     {
         _playerInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            _inventory.Save();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            _inventory.Load();
+        }
     }
 
     void Movement()
