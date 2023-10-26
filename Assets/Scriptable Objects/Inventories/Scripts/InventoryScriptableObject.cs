@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="InventoryName", menuName ="Inventory System/Inventory")]
@@ -12,8 +13,17 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
 
     public string SavePath;
 
-    public ItemDatabaseObject ItemDatabase;
+    ItemDatabaseObject ItemDatabase;
     public List<InventorySlot> Container = new List<InventorySlot>();
+
+    private void OnEnable()
+    {
+#if UNITY_EDITOR
+        ItemDatabase = (ItemDatabaseObject)AssetDatabase.LoadAssetAtPath("Assets/Resources/Item Database.asset",typeof(ItemDatabaseObject));
+#else
+        ItemDatabase = Resources.Load<ItemDatabaseObject>("Item Database");
+#endif
+    }
 
     public void AddItem(ItemData item, int amount)
     {
@@ -24,6 +34,7 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
                 if (slot.Item == item)
                 {
                     slot.AddAmount(amount);
+                    RefreshInventoryDisplay();
                     return;
                 }
             }
@@ -33,6 +44,11 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
         {
             Container.Add(new InventorySlot(ItemDatabase.GetID[item], item, amount));
         }
+        RefreshInventoryDisplay();
+    }
+
+    private void RefreshInventoryDisplay()
+    {
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -62,7 +78,7 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
             JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), this);
             file.Close();
         }
-        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+        RefreshInventoryDisplay();
     }
 
     public void OnBeforeSerialize()
