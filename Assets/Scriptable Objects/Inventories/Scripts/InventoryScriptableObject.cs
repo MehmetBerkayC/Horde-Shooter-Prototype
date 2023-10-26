@@ -31,7 +31,7 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
         {
             foreach (InventorySlot slot in Container)
             {
-                if (slot.Item.ItemData == item.ItemData)
+                if (slot.Item.ID == item.ID) // if not working, use item.itemdata (temporarily)
                 {
                     slot.AddAmount(amount);
                     RefreshInventoryDisplay();
