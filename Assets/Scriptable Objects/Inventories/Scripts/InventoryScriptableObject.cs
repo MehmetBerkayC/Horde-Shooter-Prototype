@@ -25,24 +25,24 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
 #endif
     }
 
-    public void AddItem(ItemData item, int amount)
+    public void AddItem(Item item, int amount)
     {
-        if (item.IsStackable)
+        if (item.ItemData.IsStackable)
         {
             foreach (InventorySlot slot in Container)
             {
-                if (slot.Item == item)
+                if (slot.Item.ItemData == item.ItemData)
                 {
                     slot.AddAmount(amount);
                     RefreshInventoryDisplay();
                     return;
                 }
             }
-            Container.Add(new InventorySlot(ItemDatabase.GetID[item], item, amount));
+            Container.Add(new InventorySlot(item.ID, item, amount));
         }
         else
         {
-            Container.Add(new InventorySlot(ItemDatabase.GetID[item], item, amount));
+            Container.Add(new InventorySlot(item.ID, item, amount));
         }
         RefreshInventoryDisplay();
     }
@@ -89,7 +89,7 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
     {
         foreach (InventorySlot slot in Container)
         {
-            slot.Item = ItemDatabase.GetItem[slot.ID]; // Get item from ID
+            slot.Item = new Item(ItemDatabase.GetItem[slot.ID]); // Get item from ID
         }
     }
 }
@@ -98,9 +98,9 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
 public class InventorySlot
 {
     public int ID, Amount;
-    public ItemData Item;
+    public Item Item;
 
-    public InventorySlot(int id, ItemData item, int amount)
+    public InventorySlot(int id, Item item, int amount)
     {
         ID = id;
         Item = item;

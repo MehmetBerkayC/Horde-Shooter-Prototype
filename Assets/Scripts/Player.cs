@@ -72,7 +72,7 @@ public class Player : HealthSystem
     {
         if (collision.TryGetComponent(out ItemWorld item))
         {
-            _inventory.AddItem(item.GetItem(),1);
+            _inventory.AddItem(new Item(item.GetItemData), item.GetItemData.Amount);
             item.DestroySelf();
         }
     }

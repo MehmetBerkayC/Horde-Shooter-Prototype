@@ -8,7 +8,7 @@ public class ItemData : ScriptableObject
     public Sprite Sprite;
 
     public bool IsStackable;
-    public int Amount = 1;
+    public int Amount = 1, ID;
 
     [TextArea(15,20)]
     public string Description = "Description of this item is missing!"; // Use if needed

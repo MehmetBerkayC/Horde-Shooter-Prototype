@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
 {
-    [SerializeField] ItemData _item;
+    [SerializeField] Item _item;
     SpriteRenderer _spriteRenderer;
     TextMeshPro _textAmount;
+
+    public ItemData GetItemData => _item.ItemData;
 
     private void Awake()
     {
@@ -21,20 +23,15 @@ public class ItemWorld : MonoBehaviour
 
     private void Start()
     {
-        _spriteRenderer.sprite = _item.Sprite;
-        if (_item.Amount > 1)
+        _spriteRenderer.sprite = _item.ItemData.Sprite;
+        if (_item.ItemData.Amount > 1)
         {
-            _textAmount.SetText(_item.Amount.ToString());
+            _textAmount.SetText(_item.ItemData.Amount.ToString());
         }
         else
         {
             _textAmount.SetText("");
         }
-    }
-
-    public ItemData GetItem()
-    {
-        return _item;
     }
 
     public void DestroySelf()
