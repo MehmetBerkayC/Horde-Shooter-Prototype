@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class UI_Inventory : MonoBehaviour
 {
-    [SerializeField] InventorySObject _inventory;
+    [SerializeField] InventoryScriptableObject _inventory;
     [SerializeField] Transform _itemSlotContainer;
     [SerializeField] Transform _itemSlotTemplate;
     [SerializeField] float itemSlotCellSize = 80f;

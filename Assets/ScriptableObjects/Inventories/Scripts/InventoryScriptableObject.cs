@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="InventoryName", menuName ="Inventory System/Inventory")]
-public class InventorySObject : ScriptableObject, ISerializationCallbackReceiver
+public class InventoryScriptableObject : ScriptableObject, ISerializationCallbackReceiver
 {
     public event EventHandler OnItemListChanged;
 
@@ -62,6 +62,7 @@ public class InventorySObject : ScriptableObject, ISerializationCallbackReceiver
             JsonUtility.FromJsonOverwrite(binaryFormatter.Deserialize(file).ToString(), this);
             file.Close();
         }
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void OnBeforeSerialize()

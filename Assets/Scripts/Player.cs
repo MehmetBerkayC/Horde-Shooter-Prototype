@@ -11,7 +11,7 @@ public class Player : HealthSystem
     [SerializeField] float _speed = 5f;
     
     [SerializeField] UI_Inventory _uiInventory;
-    [SerializeField] InventorySObject _inventory;
+    [SerializeField] InventoryScriptableObject _inventory;
 
     Vector2 _playerInputs;
 
