@@ -83,7 +83,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
         Health = Mathf.Clamp(Health, 0, MaxHealth);
     }
 
-    private void OnDestroy()
+    private void OnDestroyed()
     {
         EnemySpawner.Instance.onEnemyKilled();
     }

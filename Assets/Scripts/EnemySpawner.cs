@@ -129,7 +129,7 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(_waveInterval);
 
-        if (_currentWaveCount < _waves.Count - 1)
+        if(_currentWaveCount < _waves.Count - 1)
         {
             SpawnEnemies();
             _currentWaveCount++;
@@ -148,7 +148,6 @@ public class EnemySpawner : MonoBehaviour
     {
         int rand = Random.Range(0, _enemyPrefabs.Length);
         GameObject enemyToSpawn = _enemyPrefabs[rand];
-
         _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
         Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
