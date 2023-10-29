@@ -13,6 +13,11 @@ public class ItemWorld : MonoBehaviour
 
     private void Awake()
     {
+        if (_item == null)
+        {
+            Destroy(this.gameObject);
+        }
+
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _textAmount = GetComponentInChildren<TextMeshPro>();
         //if (_textMeshPro != null)

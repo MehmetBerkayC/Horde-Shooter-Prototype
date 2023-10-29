@@ -15,7 +15,17 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: daf2ab606d4db0d4f9ecf4c02137d2a8, type: 3}
   IsStackable: 0
   Amount: 1
+  ID: 3
   Description: IDK
+  Buffs:
+  - Attribute: 0
+    Value: 0
+    Min: 5
+    Max: 15
+  - Attribute: 1
+    Value: 0
+    Min: 2
+    Max: 10
   Damage: 10
   Range: 0
   BulletsPerMinute: 200

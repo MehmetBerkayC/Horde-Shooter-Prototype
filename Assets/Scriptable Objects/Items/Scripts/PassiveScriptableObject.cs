@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Passive Item", menuName ="Inventory System/Items/Passives")]
 public class PassiveScriptableObject : ItemData
 {
-    // Add Stats for the item later
-    public int AdditionalHealth;
 
 }
 // The ItemObject is there to easily make new items without setting its type

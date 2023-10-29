@@ -15,6 +15,10 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 7395bf0bc3cc40e4ab2dda5ec6832261, type: 3}
   IsStackable: 1
   Amount: 1
-  ID: 3
+  ID: 1
   Description: Adds to your max HP
-  AdditionalHealth: 15
+  Buffs:
+  - Attribute: 0
+    Value: 0
+    Min: 5
+    Max: 20
