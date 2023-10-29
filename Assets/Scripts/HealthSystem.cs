@@ -73,7 +73,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
         {
             IsAlive = false;
             Destroy(this.gameObject);
-            
+            OnDestroyed();
         }
     }
 

@@ -55,6 +55,7 @@ public class EnemySpawner : MonoBehaviour
 
     Vector2 _spawnLocation;
 
+    public bool _WaveStartEnd;
     void Start()
     {
         CalculateWaveQuota();
@@ -102,9 +103,11 @@ public class EnemySpawner : MonoBehaviour
         {
             if (_currentWaveCount < _waves.Count)
             {
-                if(_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave)
+                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave)
                 {
+                    _WaveStartEnd = true;
                     StartCoroutine(StartWave());
+
                 }
 
                 _spawnTimer += Time.deltaTime;
@@ -112,6 +115,7 @@ public class EnemySpawner : MonoBehaviour
                 //check if its time to spawn the next enemy
                 if (_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
                 {
+                    _WaveStartEnd = false;
                     _spawnTimer = 0f;
                     SpawnEnemies();
                 }
@@ -125,14 +129,12 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator StartWave()
     {
-        _waveCompleted = false;
-
         yield return new WaitForSeconds(_waveInterval);
 
         if(_currentWaveCount < _waves.Count - 1)
         {
             SpawnEnemies();
-            _currentWaveCount++;
+            _currentWaveCount++;  
             CalculateWaveQuota();
         }
     }
@@ -204,4 +206,5 @@ public class EnemySpawner : MonoBehaviour
         //decrement theh number of enemies alive
         _enemiesAlive--;
     }
+
 }
