@@ -27,6 +27,12 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
 
     public void AddItem(Item item, int amount)
     {
+        if (item.Buffs.Length > 0 && !item.ItemData.IsStackable)
+        {
+            Container.Add(new InventorySlot(item.ID, item, amount));
+            return;
+        }
+
         if (item.ItemData.IsStackable)
         {
             foreach (InventorySlot slot in Container)
