@@ -73,6 +73,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
         {
             IsAlive = false;
             Destroy(this.gameObject);
+            OnDestroyed();
         }
     }
 
@@ -81,4 +82,10 @@ public class HealthSystem : MonoBehaviour, IDamageable
         Health += healAmount;
         Health = Mathf.Clamp(Health, 0, MaxHealth);
     }
+
+    private void OnDestroyed()
+    {
+        EnemySpawner.Instance.onEnemyKilled();
+    }
 }
+
