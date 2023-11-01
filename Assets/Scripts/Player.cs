@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,8 @@ using UnityEngine;
 public class Player : HealthSystem
 {
     [SerializeField] float _speed = 5f;
-    
+
+    [SerializeField] Camera _uiCamera;
     [SerializeField] UI_Inventory _uiInventory;
     [SerializeField] InventoryScriptableObject _inventory;
 
@@ -42,11 +44,6 @@ public class Player : HealthSystem
     {
         Movement();
     }
-
-    public Vector2 GetPlayerInputs()
-    {
-        return _playerInputs;
-    }
     
     void InputManagement()
     {
@@ -60,6 +57,20 @@ public class Player : HealthSystem
         {
             _inventory.Load();
         }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        { 
+            ToggleUIView();
+        }
+    }
+
+    private void ToggleUIView()
+    {
+        _uiCamera.gameObject.SetActive(!_uiCamera.isActiveAndEnabled);
+    }
+
+    public Vector2 GetPlayerInputs()
+    {
+        return _playerInputs;
     }
 
     void Movement()
