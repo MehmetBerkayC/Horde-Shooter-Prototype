@@ -38,18 +38,27 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Background
     uniqueID: 1141046405
     locked: 0
-  - name: Player,Entities
-    uniqueID: 3782236657
+  - name: Items
+    uniqueID: 2679077775
+    locked: 0
+  - name: Projectile
+    uniqueID: 602004605
     locked: 0
   - name: Weapons
     uniqueID: 2008275245
     locked: 0
-  - name: Projectile
-    uniqueID: 602004605
+  - name: Player
+    uniqueID: 3782236657
+    locked: 0
+  - name: Enemies
+    uniqueID: 4109407447
+    locked: 0
+  - name: UI
+    uniqueID: 2452858671
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
