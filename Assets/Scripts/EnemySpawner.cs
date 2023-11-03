@@ -184,7 +184,8 @@ public class EnemySpawner : MonoBehaviour
                         _maxEnemiesReached = true;
                         return;
                     }
-                    _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+                    //_spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+                    Vector2 _spawnLocation = CalculateSpawnPosition();
                     Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
 
                     enemyGroup._spawnCount++;
@@ -200,6 +201,24 @@ public class EnemySpawner : MonoBehaviour
             _maxEnemiesReached = false;
         }
     }
+
+    private Vector2 CalculateSpawnPosition()
+    {
+        float mapBorder = 9.5f; // Adjust this value based on your map size.
+        float minDistanceFromPlayer = 3.0f; // Minimum distance from the player.
+
+        Vector2 spawnPosition;
+        do
+        {
+            float randomX = Random.Range(-mapBorder, mapBorder);
+            float randomY = Random.Range(-mapBorder, mapBorder);
+
+            spawnPosition = new Vector2(randomX, randomY);
+        } while (Vector2.Distance(spawnPosition, _player.position) < minDistanceFromPlayer);
+
+        return spawnPosition;
+    }
+
     //call this function when enemey is killed
     public void onEnemyKilled()
     {

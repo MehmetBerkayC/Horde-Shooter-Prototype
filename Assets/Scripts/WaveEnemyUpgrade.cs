@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaveEnemyUpgrade : MonoBehaviour
 {
-    public GameObject[] prefab;
+    public GameObject[] _enemyPrefabs;
     private void Start()
     {
         WaveEnemyUpgradeEvent testingEvents = GetComponent<WaveEnemyUpgradeEvent>();
@@ -14,9 +14,9 @@ public class WaveEnemyUpgrade : MonoBehaviour
     private void TestingEvents_WavePassed(object sender, System.EventArgs e)
     {
         Debug.Log("Wave Pass bro");
-        foreach (var enemies in prefab)
+        foreach (var enemy in _enemyPrefabs)
         {
-        
+            
         }
     }
     
