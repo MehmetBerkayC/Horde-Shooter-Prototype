@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -11,6 +12,7 @@ public enum GameMode
 
 public class EnemySpawner : MonoBehaviour
 {
+    public event EventHandler OnWavePassed;
     [SerializeField] GameObject[] _enemyPrefabs;
     [SerializeField] float _endlessRate;
  
@@ -55,7 +57,10 @@ public class EnemySpawner : MonoBehaviour
 
     Vector2 _spawnLocation;
 
-    public bool _WaveStartEnd;
+    public float timeInterval = 10.0f; // The time interval you want to restrict the event to
+    private float lastEventTime = 0.5f;
+    private bool canInvoke = true;
+
     void Start()
     {
         CalculateWaveQuota();
@@ -105,7 +110,19 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave)
                 {
-                    _WaveStartEnd = true;
+
+                    if (canInvoke)
+                    {
+                        OnWavePassed?.Invoke(this, EventArgs.Empty);
+                        canInvoke = false;
+                        
+                    }
+                    lastEventTime = Time.time;
+                    if (!canInvoke && Time.time - lastEventTime >= timeInterval)
+                    {
+                        canInvoke = true;
+                    }
+
                     StartCoroutine(StartWave());
 
                 }
@@ -115,7 +132,6 @@ public class EnemySpawner : MonoBehaviour
                 //check if its time to spawn the next enemy
                 if (_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
                 {
-                    _WaveStartEnd = false;
                     _spawnTimer = 0f;
                     SpawnEnemies();
                 }
@@ -148,9 +164,9 @@ public class EnemySpawner : MonoBehaviour
     //}
     void SpawnEndless()
     {
-        int rand = Random.Range(0, _enemyPrefabs.Length);
+        int rand = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
         GameObject enemyToSpawn = _enemyPrefabs[rand];
-        _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+        _spawnLocation = new Vector2(UnityEngine.Random.Range(-9.5f, 9.5f), UnityEngine.Random.Range(-9.5f, 9.5f));
         Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
 
@@ -210,8 +226,8 @@ public class EnemySpawner : MonoBehaviour
         Vector2 spawnPosition;
         do
         {
-            float randomX = Random.Range(-mapBorder, mapBorder);
-            float randomY = Random.Range(-mapBorder, mapBorder);
+            float randomX = UnityEngine.Random.Range(-mapBorder, mapBorder);
+            float randomY = UnityEngine.Random.Range(-mapBorder, mapBorder);
 
             spawnPosition = new Vector2(randomX, randomY);
         } while (Vector2.Distance(spawnPosition, _player.position) < minDistanceFromPlayer);

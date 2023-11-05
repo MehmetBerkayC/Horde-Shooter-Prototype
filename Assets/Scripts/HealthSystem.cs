@@ -34,7 +34,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
         {
             return _maxHealth;
         }
-        private set
+        set
         {
             _maxHealth = value;
         }
