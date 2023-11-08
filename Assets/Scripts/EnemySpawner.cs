@@ -61,6 +61,8 @@ public class EnemySpawner : MonoBehaviour
     private float lastEventTime = 0.5f;
     private bool canInvoke = true;
 
+    private bool _waveEndSignal = true;
+
     void Start()
     {
         CalculateWaveQuota();
@@ -78,6 +80,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton Pattern
         if(Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -108,25 +111,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (_currentWaveCount < _waves.Count)
             {
-                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave)
-                {
-
-                    if (canInvoke)
-                    {
-                        OnWavePassed?.Invoke(this, EventArgs.Empty);
-                        canInvoke = false;
-                        
-                    }
-                    lastEventTime = Time.time;
-                    if (!canInvoke && Time.time - lastEventTime >= timeInterval)
-                    {
-                        canInvoke = true;
-                    }
-
-                    StartCoroutine(StartWave());
-
-                }
-
+                // Spawning Mobs
                 _spawnTimer += Time.deltaTime;
 
                 //check if its time to spawn the next enemy
@@ -135,6 +120,15 @@ public class EnemySpawner : MonoBehaviour
                     _spawnTimer = 0f;
                     SpawnEnemies();
                 }
+               
+                // Wave End Check
+                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave && canInvoke)
+                {
+                    canInvoke = false;
+                    OnWavePassed?.Invoke(this, EventArgs.Empty);
+                    StartCoroutine(StartWave());
+                }
+
             }
             else
             {
@@ -149,6 +143,7 @@ public class EnemySpawner : MonoBehaviour
 
         if(_currentWaveCount < _waves.Count - 1)
         {
+            canInvoke = true;
             SpawnEnemies();
             _currentWaveCount++;  
             CalculateWaveQuota();
