@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class HealthSystem : IDamageable
+public class HealthSystem
 {
     public event EventHandler OnDamaged;
     public event EventHandler OnDead;
