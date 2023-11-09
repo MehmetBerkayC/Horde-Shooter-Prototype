@@ -971,7 +971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &824039198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,6 +2352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster
       objectReference: {fileID: 0}
+    - target: {fileID: 2175251412589240246, guid: 74f65723d34117341b0a609da2222190, type: 3}
+      propertyPath: _maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2175251412589240247, guid: 74f65723d34117341b0a609da2222190, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2468,6 +2472,14 @@ PrefabInstance:
     - target: {fileID: 9074964620052891775, guid: 6208350ea6354844e80224a688226f75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074964620813938809, guid: 6208350ea6354844e80224a688226f75, type: 3}
+      propertyPath: _damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074964620813938809, guid: 6208350ea6354844e80224a688226f75, type: 3}
+      propertyPath: _bulletsPerMinute
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6208350ea6354844e80224a688226f75, type: 3}
