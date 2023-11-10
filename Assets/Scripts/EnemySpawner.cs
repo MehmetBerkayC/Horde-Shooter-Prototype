@@ -31,7 +31,11 @@ public class EnemyGroup
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Endless Mode Enemies")]
     [SerializeField] GameObject[] _enemyPrefabs;
+
+    public List<Wave> _waves; //a list of all the waves in the game
+
     [SerializeField] Transform _player;
     [SerializeField] float _endlessRate;
 
@@ -40,17 +44,16 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float _mapBorder = 9.5f; // Adjust this value based on your map size.
     [SerializeField] float _minDistanceFromPlayer = 3.0f; // Minimum distance from the player.
 
-    public GameMode GameMode;
-
-    public List<Wave> _waves; //a list of all the waves in the game
-    public int _currentWaveCount; // the index of the current wave
+    [Header("Game Mode Choosing")]
+    public GameMode GameMode; 
 
     [Header("Spawner Attributes")]
     public int _enemiesAlive;
     public int _maxEnemiesAllowed; //the maximum number of enemies allowed on the map at once
     public bool _maxEnemiesReached; // a flag indicating if the maximum number of enemis has been reached
     public float _waveInterval; //the interval between each wave
-    
+    public int _currentWaveCount; // the index of the current wave
+
     float _spawnTimer; //timer use to determine when to spawn next enemy
     float _enemiesSpawnedInWave;
     Vector2 _spawnLocation;

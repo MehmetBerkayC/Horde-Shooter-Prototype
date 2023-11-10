@@ -989,17 +989,42 @@ MonoBehaviour:
   - {fileID: 4430543312814173287, guid: abc040f19f928de49a27f69720eb7339, type: 3}
   - {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
   - {fileID: 7124891138553952260, guid: 6dfeeb4c49c62144a85e26f6a1c73b61, type: 3}
+  _waves:
+  - _waveName: 
+    _enemyGroups: []
+    _waveQuota: 0
+    _spawnInterval: 0
+    _spawnCount: 0
+  - _waveName: 
+    _enemyGroups: []
+    _waveQuota: 0
+    _spawnInterval: 0
+    _spawnCount: 0
+  - _waveName: 
+    _enemyGroups: []
+    _waveQuota: 0
+    _spawnInterval: 0
+    _spawnCount: 0
+  - _waveName: 
+    _enemyGroups: []
+    _waveQuota: 0
+    _spawnInterval: 0
+    _spawnCount: 0
+  - _waveName: 
+    _enemyGroups: []
+    _waveQuota: 0
+    _spawnInterval: 0
+    _spawnCount: 0
   _player: {fileID: 899471654}
   _endlessRate: 0
   _mapBorder: 9.5
   _minDistanceFromPlayer: 3
   GameMode: 0
-  _waves: []
-  _currentWaveCount: 0
   _enemiesAlive: 0
   _maxEnemiesAllowed: 0
   _maxEnemiesReached: 0
   _waveInterval: 0
+  _currentWaveCount: 0
 --- !u!4 &824039199
 Transform:
   m_ObjectHideFlags: 0
