@@ -15,8 +15,8 @@ public class Wave
 {
     public string _waveName;
     public List<EnemyGroup> _enemyGroups; // a list of groups of enemies to spawn in this wave
-    public int _waveQuota; // total number of the enemies ti spawn in this wave
-    public float _spawnInterval; //the interval at which to spawn enemies
+    public int _waveQuota = 10; // total number of the enemies ti spawn in this wave
+    public float _spawnInterval = 3f; //the interval at which to spawn enemies
     public int _spawnCount; //the number of enemies already spawned in this wave
 }
 
@@ -87,7 +87,6 @@ public class EnemySpawner : MonoBehaviour
         {
             _endlessMode = false;
         }
-
     }
 
     void Update()
@@ -220,5 +219,6 @@ public class EnemySpawner : MonoBehaviour
     {
         //decrement the number of enemies alive
         _enemiesAlive--;
+        Debug.Log(_enemiesAlive);
     }
 }

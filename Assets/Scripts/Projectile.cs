@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.TryGetComponent(out IDamageable enemy))
         {
-            //Debug.Log("Projectile hit to:" + enemy);
+            Debug.Log("Projectile hit to:" + enemy);
             enemy.TakeDamage(_damage);
             Destroy(this.gameObject);
         }

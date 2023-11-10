@@ -22,7 +22,7 @@ public class HealthSystem
 
         OnDamaged?.Invoke(this, EventArgs.Empty);
 
-        //Debug.Log("Current Health: " + Health);
+        Debug.Log("Current Health: " + Health);
 
         if (Health <= 0)
         {

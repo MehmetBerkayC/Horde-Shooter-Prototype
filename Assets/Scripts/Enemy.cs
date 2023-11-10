@@ -34,8 +34,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void UnitKilled(object sender, EventArgs eventArgs)
     {
+        Destroy(this.gameObject);
         _healthSystem.OnDead -= UnitKilled;
         EnemySpawner.Instance.EnemyKilled();
-        Destroy(this.gameObject);
     }
 }
