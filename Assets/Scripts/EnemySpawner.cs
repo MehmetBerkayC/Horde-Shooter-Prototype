@@ -9,30 +9,30 @@ public enum GameMode
     EndlessGame
 }
 
+[System.Serializable]
+public class Wave
+{
+    public string _waveName;
+    public List<EnemyGroup> _enemyGroups; // a list of groups of enemies to spawn in this wave
+    public int _waveQuota; // total number of the enemies ti spawn in this wave
+    public float _spawnInterval; //the interval at which to spawn enemies
+    public int _spawnCount; //the number of enemies already spawned in this wave
+}
+
+[System.Serializable]
+public class EnemyGroup
+{
+    public string _enemyName;
+    public int _enemyCount; // the number of enemies to spawn in this wave
+    public float _spawnCount; // the number of enemies of this type already spawned in this wave
+    public GameObject _enemyPrefab;
+}
+
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] _enemyPrefabs;
     [SerializeField] float _endlessRate;
  
-    [System.Serializable]
-    public class Wave
-    {
-        public string _waveName;
-        public List<EnemyGroup> _enemyGroups; // a list of groups of enemies to spawn in this wave
-        public int _waveQuota; // total number of the enemies ti spawn in this wave
-        public float _spawnInterval; //the interval at which to spawn enemies
-        public int _spawnCount; //the number of enemies already spawned in this wave
-    }
-
-    [System.Serializable]
-    public class EnemyGroup
-    {
-        public string _enemyName;
-        public int _enemyCount; // the number of enemies to spawn in this wave
-        public float _spawnCount; // the number of enemies of this type already spawned in this wave
-        public GameObject _enemyPrefab;
-    }
-
     //public Endless _endless;
     public List<Wave> _waves; //a list of all the waves in the game
     public int _currentWaveCount; // the index of the current wave
@@ -123,6 +123,7 @@ public class EnemySpawner : MonoBehaviour
             else
             {
                 // All waves are completed, you can handle game victory here.
+                // Probably an event to GameManager
             }
         }
     }
@@ -200,11 +201,4 @@ public class EnemySpawner : MonoBehaviour
             _maxEnemiesReached = false;
         }
     }
-    //call this function when enemey is killed
-    public void onEnemyKilled()
-    {
-        //decrement theh number of enemies alive
-        _enemiesAlive--;
-    }
-
 }
