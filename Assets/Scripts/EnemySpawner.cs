@@ -35,48 +35,32 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] Transform _player;
     [SerializeField] float _endlessRate;
 
-    public event EventHandler OnWavePassed;
-    //public Endless _endless;
+    // Spawn Map Config
+    [Header("Map Configuration")]
+    [SerializeField] float _mapBorder = 9.5f; // Adjust this value based on your map size.
+    [SerializeField] float _minDistanceFromPlayer = 3.0f; // Minimum distance from the player.
+
+    public GameMode GameMode;
+
     public List<Wave> _waves; //a list of all the waves in the game
     public int _currentWaveCount; // the index of the current wave
 
-
     [Header("Spawner Attributes")]
-    float _spawnTimer; //timer use to determine when to spawn next enemy
     public int _enemiesAlive;
     public int _maxEnemiesAllowed; //the maximum number of enemies allowed on the map at once
     public bool _maxEnemiesReached; // a flag indicating if the maximum number of enemis has been reached
     public float _waveInterval; //the interval between each wave
+    
+    float _spawnTimer; //timer use to determine when to spawn next enemy
     float _enemiesSpawnedInWave;
-
-    bool _waveCompleted;
-    public GameMode gameMode;
+    Vector2 _spawnLocation;
     bool _endlessMode = false;
 
-    public static EnemySpawner Instance;
+    // Singleton
+    public static EnemySpawner Instance { get; private set; }
 
-    Vector2 _spawnLocation;
-
-    public float timeInterval = 10.0f; // The time interval you want to restrict the event to
-    private float lastEventTime = 0.5f;
-    private bool canInvoke = true;
-
-    private bool _waveEndSignal = true;
-
-    void Start()
-    {
-        CalculateWaveQuota();
-
-        if (gameMode == GameMode.EndlessGame)
-        {
-            _endlessMode = true;
-        }
-        else
-        {
-            _endlessMode = false;
-        }
-
-    }
+    // Events
+    public event EventHandler OnWavePassed;
 
     private void Awake()
     {
@@ -91,10 +75,23 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        CalculateWaveQuota();
+
+        if (GameMode == GameMode.EndlessGame)
+        {
+            _endlessMode = true;
+        }
+        else
+        {
+            _endlessMode = false;
+        }
+
+    }
+
     void Update()
     {
-
         if (_endlessMode)
         {
             //StartCoroutine(EndlessWave());
@@ -122,9 +119,8 @@ public class EnemySpawner : MonoBehaviour
                 }
 
                 // Wave End Check
-                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave && canInvoke)
+                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave)
                 {
-                    canInvoke = false;
                     OnWavePassed?.Invoke(this, EventArgs.Empty);
                     StartCoroutine(StartWave());
                 }
@@ -133,7 +129,7 @@ public class EnemySpawner : MonoBehaviour
             else
             {
                 // All waves are completed, you can handle game victory here.
-                // Probably an event to GameManager
+                // Probably an event to GameManager on all waves completed
             }
         }
     }
@@ -144,26 +140,10 @@ public class EnemySpawner : MonoBehaviour
 
         if (_currentWaveCount < _waves.Count - 1)
         {
-            canInvoke = true;
+            _currentWaveCount++;    // Index the next wave
+            CalculateWaveQuota();   // Calculate mob limit
             SpawnEnemies();
-            _currentWaveCount++;
-            CalculateWaveQuota();
         }
-    }
-
-    //IEnumerator EndlessWave()
-    //{
-    //    yield return new WaitForSeconds(_endlessRate);
-    //    Debug.Log("ben dogdum");
-    //    SpawnEndless();
-
-    //}
-    void SpawnEndless()
-    {
-        int rand = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
-        GameObject enemyToSpawn = _enemyPrefabs[rand];
-        _spawnLocation = new Vector2(UnityEngine.Random.Range(-9.5f, 9.5f), UnityEngine.Random.Range(-9.5f, 9.5f));
-        Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
 
     void CalculateWaveQuota()
@@ -177,8 +157,15 @@ public class EnemySpawner : MonoBehaviour
         //Debug.LogWarning(currentWaveQuota);
     }
 
+    void SpawnEndless() // Missing Mob Scaling
+    {
+        int rand = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
+        GameObject enemyToSpawn = _enemyPrefabs[rand];
+        _spawnLocation = CalculateSpawnPosition();
+        Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
+    }
 
-    void SpawnEnemies()
+    void SpawnEnemies() // Missing Mob Scaling
     {
         //check if the minimum number of enemies in the wave have been spawned
         if (_waves[_currentWaveCount]._spawnCount < _waves[_currentWaveCount]._waveQuota && !_maxEnemiesReached)
@@ -216,25 +203,22 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector2 CalculateSpawnPosition()
     {
-        float mapBorder = 9.5f; // Adjust this value based on your map size.
-        float minDistanceFromPlayer = 3.0f; // Minimum distance from the player.
-
         Vector2 spawnPosition;
         do
         {
-            float randomX = UnityEngine.Random.Range(-mapBorder, mapBorder);
-            float randomY = UnityEngine.Random.Range(-mapBorder, mapBorder);
+            float randomX = UnityEngine.Random.Range(-_mapBorder, _mapBorder);
+            float randomY = UnityEngine.Random.Range(-_mapBorder, _mapBorder);
 
             spawnPosition = new Vector2(randomX, randomY);
-        } while (Vector2.Distance(spawnPosition, _player.position) < minDistanceFromPlayer);
+        } while (Vector2.Distance(spawnPosition, _player.position) < _minDistanceFromPlayer);
 
         return spawnPosition;
     }
 
     //call this function when enemey is killed
-    public void onEnemyKilled()
+    public void EnemyKilled()
     {
-        //decrement theh number of enemies alive
+        //decrement the number of enemies alive
         _enemiesAlive--;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
+    // Missing Pathing using NavMesh or Custom
     [SerializeField] int _maxHealth;
     [SerializeField] float _moveSpeed;
     [SerializeField] float _damage;
@@ -14,7 +15,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void Start()
     {
-        _player = FindObjectOfType<Player>().transform;
+        _player = FindObjectOfType<Player>().transform; // Pull from GameManager if needed
         
         // Health System
         _healthSystem = new HealthSystem(_maxHealth);
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void UnitKilled(object sender, EventArgs eventArgs)
     {
         _healthSystem.OnDead -= UnitKilled;
+        EnemySpawner.Instance.EnemyKilled();
         Destroy(this.gameObject);
     }
 }
