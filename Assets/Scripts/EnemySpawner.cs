@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,15 +10,21 @@ public enum GameMode
     EndlessGame
 }
 
-[System.Serializable]
-public class Wave
+public class EnemySpawner : MonoBehaviour
 {
-    public string _waveName;
-    public List<EnemyGroup> _enemyGroups; // a list of groups of enemies to spawn in this wave
-    public int _waveQuota; // total number of the enemies ti spawn in this wave
-    public float _spawnInterval; //the interval at which to spawn enemies
-    public int _spawnCount; //the number of enemies already spawned in this wave
-}
+    public event EventHandler OnWavePassed;
+    [SerializeField] GameObject[] _enemyPrefabs;
+    [SerializeField] float _endlessRate;
+ 
+    [System.Serializable]
+    public class Wave
+    {
+        public string _waveName;
+        public List<EnemyGroup> _enemyGroups; // a list of groups of enemies to spawn in this wave
+        public int _waveQuota; // total number of the enemies ti spawn in this wave
+        public float _spawnInterval; //the interval at which to spawn enemies
+        public int _spawnCount; //the number of enemies already spawned in this wave
+    }
 
 [System.Serializable]
 public class EnemyGroup
@@ -55,7 +62,12 @@ public class EnemySpawner : MonoBehaviour
 
     Vector2 _spawnLocation;
 
-    public bool _WaveStartEnd;
+    public float timeInterval = 10.0f; // The time interval you want to restrict the event to
+    private float lastEventTime = 0.5f;
+    private bool canInvoke = true;
+
+    private bool _waveEndSignal = true;
+
     void Start()
     {
         CalculateWaveQuota();
@@ -73,6 +85,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton Pattern
         if(Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -103,22 +116,24 @@ public class EnemySpawner : MonoBehaviour
         {
             if (_currentWaveCount < _waves.Count)
             {
-                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave)
-                {
-                    _WaveStartEnd = true;
-                    StartCoroutine(StartWave());
-
-                }
-
+                // Spawning Mobs
                 _spawnTimer += Time.deltaTime;
 
                 //check if its time to spawn the next enemy
                 if (_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
                 {
-                    _WaveStartEnd = false;
                     _spawnTimer = 0f;
                     SpawnEnemies();
                 }
+               
+                // Wave End Check
+                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave && canInvoke)
+                {
+                    canInvoke = false;
+                    OnWavePassed?.Invoke(this, EventArgs.Empty);
+                    StartCoroutine(StartWave());
+                }
+
             }
             else
             {
@@ -134,6 +149,7 @@ public class EnemySpawner : MonoBehaviour
 
         if(_currentWaveCount < _waves.Count - 1)
         {
+            canInvoke = true;
             SpawnEnemies();
             _currentWaveCount++;  
             CalculateWaveQuota();
@@ -149,9 +165,9 @@ public class EnemySpawner : MonoBehaviour
     //}
     void SpawnEndless()
     {
-        int rand = Random.Range(0, _enemyPrefabs.Length);
+        int rand = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
         GameObject enemyToSpawn = _enemyPrefabs[rand];
-        _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+        _spawnLocation = new Vector2(UnityEngine.Random.Range(-9.5f, 9.5f), UnityEngine.Random.Range(-9.5f, 9.5f));
         Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
 
@@ -185,7 +201,8 @@ public class EnemySpawner : MonoBehaviour
                         _maxEnemiesReached = true;
                         return;
                     }
-                    _spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+                    //_spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
+                    Vector2 _spawnLocation = CalculateSpawnPosition();
                     Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
 
                     enemyGroup._spawnCount++;
@@ -201,4 +218,29 @@ public class EnemySpawner : MonoBehaviour
             _maxEnemiesReached = false;
         }
     }
+
+    private Vector2 CalculateSpawnPosition()
+    {
+        float mapBorder = 9.5f; // Adjust this value based on your map size.
+        float minDistanceFromPlayer = 3.0f; // Minimum distance from the player.
+
+        Vector2 spawnPosition;
+        do
+        {
+            float randomX = UnityEngine.Random.Range(-mapBorder, mapBorder);
+            float randomY = UnityEngine.Random.Range(-mapBorder, mapBorder);
+
+            spawnPosition = new Vector2(randomX, randomY);
+        } while (Vector2.Distance(spawnPosition, _player.position) < minDistanceFromPlayer);
+
+        return spawnPosition;
+    }
+
+    //call this function when enemey is killed
+    public void onEnemyKilled()
+    {
+        //decrement theh number of enemies alive
+        _enemiesAlive--;
+    }
+
 }
