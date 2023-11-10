@@ -1,91 +1,33 @@
+using System;
 using UnityEngine;
 
-public enum EntityType
+public class HealthSystem
 {
-    Player,
-    Monster
-}
+    public event EventHandler OnDamaged;
+    public event EventHandler OnDead;
 
-public class HealthSystem : MonoBehaviour, IDamageable
-{
-    // Fields
-    [SerializeField] float _maxHealth;
-    float _currentHealth;
-    bool _isAlive;
+    private int _health, _maxHealth;
 
-    [SerializeField] EntityType _entityType;
+    public int Health { get => _health; private set => _health = value; }
 
-    // Properties
-    public float Health
+    public HealthSystem (int maxHealth)
     {
-        get
-        {
-            return _currentHealth;
-        }
-        private set
-        {
-            _currentHealth = value;
-        }
+        _maxHealth = maxHealth;
+        Health = _maxHealth;
     }
 
-    public float MaxHealth
-    {
-        get
-        {
-            return _maxHealth;
-        }
-        set
-        {
-            _maxHealth = value;
-        }
-    }
-
-    public bool IsAlive
-    {
-        get
-        {
-            return _isAlive;
-        }
-        private set
-        {
-            _isAlive = value;
-        }
-    }
-
-    public EntityType Entity
-    {
-        get 
-        { 
-            return _entityType; 
-        }
-        private set
-        {
-            _entityType = value;
-        }
-    }
-
-    // Functions
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(int damageAmount)
     {
         Health -= damageAmount;
 
-        if (Health < 0f)
+        OnDamaged?.Invoke(this, EventArgs.Empty);
+
+        //Debug.Log("Current Health: " + Health);
+
+        if (Health <= 0)
         {
-            IsAlive = false;
-            Destroy(this.gameObject);
-            OnDestroyed();
+            OnDead?.Invoke(this, EventArgs.Empty);
         }
-    }
-
-    public void Heal(float healAmount)
-    {
-        Health += healAmount;
-        Health = Mathf.Clamp(Health, 0, MaxHealth);
-    }
-
-    private void OnDestroyed()
-    {
-        EnemySpawner.Instance.onEnemyKilled();
     }
 }
 

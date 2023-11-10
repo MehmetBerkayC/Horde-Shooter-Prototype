@@ -7,8 +7,9 @@ using UnityEngine;
     RequireComponent(typeof(Rigidbody2D)), 
     RequireComponent(typeof(PlayerAnimator))
 ]
-public class Player : HealthSystem
+public class Player : MonoBehaviour, IDamageable
 {
+    [SerializeField] int _maxHealth = 100;
     [SerializeField] float _speed = 5f;
 
     [SerializeField] Camera _uiCamera;
@@ -19,13 +20,17 @@ public class Player : HealthSystem
 
     Rigidbody2D _rigidbody;
     PlayerAnimator _animator;
+    HealthSystem _healthSystem;
 
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
-    }
 
+        // Health System
+        _healthSystem = new HealthSystem(_maxHealth);
+        _healthSystem.OnDead += UnitKilled;
+    }
     void Start()
     {
         //_inventory = new Inventory();
@@ -92,4 +97,17 @@ public class Player : HealthSystem
     {
         _inventory.Container.Clear();
     }
+    
+    public void TakeDamage(int damageAmount)
+    {
+        _healthSystem.TakeDamage(damageAmount);
+    }
+
+    private void UnitKilled(object sender, EventArgs e)
+    {
+        _healthSystem.OnDead -= UnitKilled;
+        Destroy(this.gameObject);
+    }
+
+   
 }

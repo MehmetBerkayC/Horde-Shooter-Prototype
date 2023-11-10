@@ -1,38 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : HealthSystem
+public class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] EnemyDataSO _enemyData;
-     float _moveSpeed;
-     float _damage;
+    [SerializeField] int _maxHealth;
+    [SerializeField] float _moveSpeed;
+    [SerializeField] float _damage;
 
     Transform _player;
-    
+    HealthSystem _healthSystem;
+
     void Start()
     {
         _player = FindObjectOfType<Player>().transform;
-        InitEnemy();
-        EnemySpawner.Instance.OnWavePassed += EnemyUnitUpgrade;
-    }
-
-    private void InitEnemy()
-    {
-        if (_enemyData != null)
-        {
-            GetComponent<SpriteRenderer>().sprite = _enemyData.sprite;
-            _moveSpeed = _enemyData.Speed;
-            _damage = _enemyData.Damage;
-            MaxHealth = _enemyData.Health;
-        }
-    }
-    public void EnemyUnitUpgrade(object sender, System.EventArgs e)
-    {
-        Debug.Log("Wave Pass");
-        _damage += 2f;
-        _moveSpeed += 1f;
-        MaxHealth += 5f;         
+        
+        // Health System
+        _healthSystem = new HealthSystem(_maxHealth);
+        _healthSystem.OnDead += UnitKilled;
     }
 
     void Update()
@@ -40,12 +26,14 @@ public class Enemy : HealthSystem
         transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _moveSpeed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void TakeDamage(int damageAmount)
     {
-        if (collision.gameObject.TryGetComponent(out IDamageable enemy))
-        {
-            //Debug.Log("Hit detected, from:" + gameObject.name + " to:" + enemy.gameObject.name);
-            enemy.TakeDamage(_damage);
-        }
+        _healthSystem.TakeDamage(damageAmount);
+    }
+
+    private void UnitKilled(object sender, EventArgs eventArgs)
+    {
+        _healthSystem.OnDead -= UnitKilled;
+        Destroy(this.gameObject);
     }
 }
