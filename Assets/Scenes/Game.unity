@@ -1004,6 +1004,42 @@ MonoBehaviour:
     _waveQuota: 0
     _spawnInterval: 2
     _spawnCount: 0
+  - _waveName: 
+    _enemyGroups:
+    - _enemyName: Gobbo
+      _enemyCount: 3
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 4430543312814173287, guid: abc040f19f928de49a27f69720eb7339, type: 3}
+    _waveQuota: 0
+    _spawnInterval: 2
+    _spawnCount: 0
+  - _waveName: 
+    _enemyGroups:
+    - _enemyName: Gobbo
+      _enemyCount: 3
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 4430543312814173287, guid: abc040f19f928de49a27f69720eb7339, type: 3}
+    _waveQuota: 0
+    _spawnInterval: 2
+    _spawnCount: 0
+  - _waveName: 
+    _enemyGroups:
+    - _enemyName: Gobbo
+      _enemyCount: 3
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 4430543312814173287, guid: abc040f19f928de49a27f69720eb7339, type: 3}
+    _waveQuota: 0
+    _spawnInterval: 2
+    _spawnCount: 0
+  - _waveName: 
+    _enemyGroups:
+    - _enemyName: Gobbo
+      _enemyCount: 3
+      _spawnCount: 0
+      _enemyPrefab: {fileID: 4430543312814173287, guid: abc040f19f928de49a27f69720eb7339, type: 3}
+    _waveQuota: 0
+    _spawnInterval: 2
+    _spawnCount: 0
   _currentWaveCount: 0
   _enemiesAlive: 0
   _maxEnemiesAllowed: 10
