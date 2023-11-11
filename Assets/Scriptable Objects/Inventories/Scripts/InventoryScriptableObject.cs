@@ -6,6 +6,25 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEditor;
 using UnityEngine;
 
+[System.Serializable]
+public class InventorySlot
+{
+    public int ID, Amount;
+    public Item Item;
+
+    public InventorySlot(int id, Item item, int amount)
+    {
+        ID = id;
+        Item = item;
+        Amount = amount;
+    }
+
+    public void AddAmount(int amount)
+    {
+        Amount += amount;
+    }
+}
+
 [CreateAssetMenu(fileName ="InventoryName", menuName ="Inventory System/Inventory")]
 public class InventoryScriptableObject : ScriptableObject, ISerializationCallbackReceiver
 {
@@ -97,24 +116,5 @@ public class InventoryScriptableObject : ScriptableObject, ISerializationCallbac
         {
             slot.Item = new Item(ItemDatabase.GetItem[slot.ID]); // Get item from ID
         }
-    }
-}
-
-[System.Serializable]
-public class InventorySlot
-{
-    public int ID, Amount;
-    public Item Item;
-
-    public InventorySlot(int id, Item item, int amount)
-    {
-        ID = id;
-        Item = item;
-        Amount = amount;
-    }
-
-    public void AddAmount(int amount)
-    {
-        Amount += amount;
     }
 }

@@ -7,7 +7,8 @@ using UnityEngine;
 public class EnemyDataSO : ScriptableObject
 {
     public Sprite sprite;
-    public float Health;
-    public float Damage;
+    public int Health;
+    public int Damage;
     public float Speed;
+
 }

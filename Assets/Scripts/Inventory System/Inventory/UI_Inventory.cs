@@ -15,14 +15,20 @@ public class UI_Inventory : MonoBehaviour
     private void Start()
     {
         _inventory.OnItemListChanged += Inventory_OnItemListChanged;
+        // Don't show on game start (find better way)
+        gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
         RefreshInventoryItems();
     }
 
-    private void OnDisable() // unsub
+    private void OnApplicationQuit()
     {
-        _inventory.OnItemListChanged -= Inventory_OnItemListChanged;    
-    }
+        _inventory.OnItemListChanged -= Inventory_OnItemListChanged;
 
+    }
     private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
     {
         RefreshInventoryItems();

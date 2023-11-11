@@ -12,15 +12,23 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] int _maxHealth = 100;
     [SerializeField] float _speed = 5f;
 
+    // UI
     [SerializeField] Camera _uiCamera;
     [SerializeField] UI_Inventory _uiInventory;
     [SerializeField] InventoryScriptableObject _inventory;
+    [SerializeField] UI_LevelBar _uiLevelBar;
+    
+    // Health
+    HealthSystem _healthSystem;
+    
+    // Level
+    LevelSystem _levelSystem;
+    LevelSystemAnimated _levelSystemAnimated;
 
     Vector2 _playerInputs;
 
     Rigidbody2D _rigidbody;
     PlayerAnimator _animator;
-    HealthSystem _healthSystem;
 
     void Awake()
     {
@@ -30,10 +38,18 @@ public class Player : MonoBehaviour, IDamageable
         // Health System
         _healthSystem = new HealthSystem(_maxHealth);
         _healthSystem.OnDead += UnitKilled;
+
+        // Level System
+        _levelSystem = new LevelSystem();
+        _levelSystemAnimated = new LevelSystemAnimated(_levelSystem);
+       
+        _uiLevelBar.SetLevelSystem(_levelSystem);
+        _uiLevelBar.SetLevelSystemAnimated(_levelSystemAnimated);
     }
+
     void Start()
     {
-        //_inventory = new Inventory();
+        //_inventory = new Inventory(); // may want to return to basic class
         if (_inventory == null)
         {
             Debug.LogError("Player is missing its inventory");
@@ -64,13 +80,16 @@ public class Player : MonoBehaviour, IDamageable
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         { 
-            ToggleUIView();
+            ToggleInventoryView();
         }
-    }
-
-    private void ToggleUIView()
-    {
-        _uiCamera.gameObject.SetActive(!_uiCamera.isActiveAndEnabled);
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _levelSystem.AddExperience(20);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _levelSystem.AddExperience(200);
+        }
     }
 
     public Vector2 GetPlayerInputs()
@@ -78,10 +97,26 @@ public class Player : MonoBehaviour, IDamageable
         return _playerInputs;
     }
 
+    private void ToggleInventoryView()
+    {
+        _uiInventory.gameObject.SetActive(!_uiInventory.isActiveAndEnabled);
+    }
+
     void Movement()
     {
         _rigidbody.velocity = _playerInputs * _speed;
         _animator.Flip(_playerInputs.x);
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        _healthSystem.TakeDamage(damageAmount);
+    }
+
+    private void UnitKilled(object sender, EventArgs e)
+    {
+        _healthSystem.OnDead -= UnitKilled;
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -97,17 +132,4 @@ public class Player : MonoBehaviour, IDamageable
     {
         _inventory.Container.Clear();
     }
-    
-    public void TakeDamage(int damageAmount)
-    {
-        _healthSystem.TakeDamage(damageAmount);
-    }
-
-    private void UnitKilled(object sender, EventArgs e)
-    {
-        _healthSystem.OnDead -= UnitKilled;
-        Destroy(this.gameObject);
-    }
-
-   
 }
