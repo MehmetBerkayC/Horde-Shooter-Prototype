@@ -16,7 +16,7 @@ public class UI_Inventory : MonoBehaviour
     {
         _inventory.OnItemListChanged += Inventory_OnItemListChanged;
         // Don't show on game start (find better way)
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     private void OnEnable()

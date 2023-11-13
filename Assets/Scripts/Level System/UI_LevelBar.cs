@@ -18,11 +18,6 @@ public class UI_LevelBar : MonoBehaviour
         _experienceBarImage = transform.Find("Bar Image").GetComponent<Image>();
     }
 
-    void SetExperienceBarSize(float experienceNormalized)
-    {
-        _experienceBarImage.fillAmount = experienceNormalized;
-    }
-
     void SetLevelNumber(int levelNumber)
     {
         _levelText.SetText("Level " + (levelNumber + 1)); // starts 0
@@ -55,5 +50,9 @@ public class UI_LevelBar : MonoBehaviour
     private void LevelSystemAnimated_OnExperienceChanged(object sender, System.EventArgs e)
     {
         SetExperienceBarSize(_levelSystemAnimated.GetExperienceNormalized());
+    }
+    void SetExperienceBarSize(float experienceNormalized)
+    {
+        _experienceBarImage.fillAmount = experienceNormalized;
     }
 }

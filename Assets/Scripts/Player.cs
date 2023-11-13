@@ -43,8 +43,6 @@ public class Player : MonoBehaviour, IDamageable
         _levelSystem = new LevelSystem();
         _levelSystemAnimated = new LevelSystemAnimated(_levelSystem);
        
-        _uiLevelBar.SetLevelSystem(_levelSystem);
-        _uiLevelBar.SetLevelSystemAnimated(_levelSystemAnimated);
     }
 
     void Start()
@@ -54,6 +52,10 @@ public class Player : MonoBehaviour, IDamageable
         {
             Debug.LogError("Player is missing its inventory");
         }
+
+        // Level Bar Initialize
+        _uiLevelBar.SetLevelSystem(_levelSystem);
+        _uiLevelBar.SetLevelSystemAnimated(_levelSystemAnimated);
     }
 
     void Update()
