@@ -39,7 +39,8 @@ public class Player : MonoBehaviour, IDamageable
         _healthSystem = new HealthSystem(_maxHealth);
         _healthSystem.OnDead += UnitKilled;
 
-        // Level System
+        // Level System -> Level system should be in GameManager, player only interacts with animated level system
+        // Make a SetLevelSystem function when that happens and sub to the animated events
         _levelSystem = new LevelSystem();
         _levelSystemAnimated = new LevelSystemAnimated(_levelSystem);
        
@@ -53,7 +54,7 @@ public class Player : MonoBehaviour, IDamageable
             Debug.LogError("Player is missing its inventory");
         }
 
-        // Level Bar Initialize
+        // Level Bar Initialize -> Should be in GameManager.cs
         _uiLevelBar.SetLevelSystem(_levelSystem);
         _uiLevelBar.SetLevelSystemAnimated(_levelSystemAnimated);
     }
@@ -84,6 +85,8 @@ public class Player : MonoBehaviour, IDamageable
         { 
             ToggleInventoryView();
         }
+
+        // Placeholder Experience
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _levelSystem.AddExperience(20);

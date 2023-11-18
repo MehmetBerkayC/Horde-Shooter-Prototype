@@ -12,17 +12,19 @@ public class LevelSystemAnimated
     LevelSystem _levelSystem;
     bool _isAnimating;
 
+    float _updateTimer, _updateTimerMax;
+
     int _level;
     int _experience; 
-    int _experienceToNextLevel;
 
     public int Level { get => _level; private set => _level = value; }
     public int Experience { get => _experience; private set => _experience = value; }
-    public int ExperienceToNextLevel { get => _experienceToNextLevel; private set => _experienceToNextLevel = value; }
 
     public LevelSystemAnimated(LevelSystem levelSystem)
     {
         SetLevelSystem(levelSystem);
+
+        _updateTimerMax = .016f; // 60 FPS
 
         FunctionUpdater.Create(() => Update());
     }
@@ -33,7 +35,6 @@ public class LevelSystemAnimated
 
         _level = _levelSystem.Level;
         _experience = _levelSystem.Experience;
-        _experienceToNextLevel = _levelSystem.ExperienceToNextLevel;
 
         _levelSystem.OnExperienceChanged += _levelSystem_OnExperienceChanged;
         _levelSystem.OnLevelChanged += _levelSystem_OnLevelChanged;
@@ -52,31 +53,41 @@ public class LevelSystemAnimated
     {
         if (_isAnimating)
         {
-            if (_level < _levelSystem.Level)
+            _updateTimer += Time.deltaTime;
+            while (_updateTimer > _updateTimerMax)
             {
-                // Local level under target level
-                AddExperience();
-            }
-            else
-            {
-                // Local level equals the target level
-                if (_experience < _levelSystem.Experience)
-                {
-                    AddExperience();
-                }
-                else
-                {
-                    _isAnimating = false;
-                }
+                _updateTimer -= _updateTimerMax;
+                UpdateAddExperience();
             }
         }
         //Debug.Log(Level +" "+ Experience);
     }
 
+    void UpdateAddExperience()
+    {
+        if (_level < _levelSystem.Level)
+        {
+            // Local level under target level
+            AddExperience();
+        }
+        else
+        {
+            // Local level equals the target level
+            if (_experience < _levelSystem.Experience)
+            {
+                AddExperience();
+            }
+            else
+            {
+                _isAnimating = false;
+            }
+        }
+    }
+
     void AddExperience()
     {
         _experience++;
-        if(_experience >= _experienceToNextLevel)
+        if(_experience >= _levelSystem.GetExperienceToNextLevel(Level))
         {
             _level++;
             _experience = 0;
@@ -87,6 +98,6 @@ public class LevelSystemAnimated
 
     public float GetExperienceNormalized()
     {
-        return (float)_experience / _experienceToNextLevel;
+        return (float)_experience / _levelSystem.GetExperienceToNextLevel(Level);
     }
 }
