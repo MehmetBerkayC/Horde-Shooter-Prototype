@@ -1,60 +1,68 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] Transform _bulletSpawnPoint; 
-    [SerializeField] GameObject _bulletPrefab; 
-    [SerializeField] float _bulletsPerMinute = 100;
-    [SerializeField] float _range = 3;
-    [SerializeField] int _damage = 10;
-    [SerializeField] LayerMask _enemyLayer;
-    float _nextShot = 0;
+    [SerializeField] private Transform _bulletSpawnPoint;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private float _bulletsPerMinute = 100;
+    [SerializeField] private float _range = 3;
+    [SerializeField] private int _damage = 10;
+    [SerializeField] private LayerMask _enemyLayer;
+    private float _nextShot = 0;
 
-    Transform _target;
+    private Transform _target;
 
-    void Update()
+    private void Update()
     {
         CheckAndShoot();
-
-        //if (Input.GetButton("Fire1"))
-        //{
-        //    Shoot();
-        //}
     }
 
-    /// need Targeting system, range, automatic shooting and targeting prefered
-    void CheckAndShoot()
+    private void CheckAndShoot()
     {
-        if (_target == null)
+        if (_target != null)
         {
-            Collider2D targetCandidate = Physics2D.OverlapCircle(transform.position, _range, _enemyLayer);
-            if (targetCandidate != null)
+            CheckDistance();
+        }
+        else
+        {
+            FindTarget();
+        }
+    }
+
+    private void FindTarget()
+    {
+        // Search for a target
+        Collider2D targetCandidate = Physics2D.OverlapCircle(transform.position, _range, _enemyLayer);
+        if (targetCandidate != null)
+        {
+            if (targetCandidate.TryGetComponent(out Transform enemyTransform))
             {
-                if (targetCandidate.TryGetComponent(out Transform enemyTransform))
-                {
-                    _target = enemyTransform;
-                }
+                _target = enemyTransform;
             }
         }
+    }
 
-        if (_target != null)
+    private void CheckDistance()
+    {
+        if ((_target.transform.position - transform.position).magnitude > _range)
+        {
+            FindTarget();
+        }
+        else
         {
             Shoot();
         }
-
     }
 
-    void Shoot()
+    private void Shoot()
     {
         if (Time.time >= _nextShot)
         {
-            _nextShot = Time.time + (60f / _bulletsPerMinute);
+            _nextShot = Time.time + (60 / _bulletsPerMinute);
 
-            Projectile projectile = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation).GetComponent<Projectile>();
-            projectile.SetEnemy(_target.GetComponent<Transform>());
-            projectile.SetDamage(_damage);
+            Projectile projectile = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, Quaternion.identity).GetComponent<Projectile>();
+            Vector3 shootDirection = (_target.position - transform.position).normalized;
+            projectile.Setup(shootDirection, _damage, 10, 3f); // Change
         }
     }
 

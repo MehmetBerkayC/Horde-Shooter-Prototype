@@ -1,50 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CodeMonkey.Utils;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField]
-    float
-        _speed = 500,
-        _lifeTime = 3;
+    int _damage;
+    Rigidbody2D _rigidbody2D;
 
-    [SerializeField] int _damage;
-     
-    Transform _enemy;
-    Rigidbody2D _rigidbody;
-
-    private void Start()
-    {
-        Destroy(this.gameObject, _lifeTime);
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    public void SetEnemy(Transform enemy)
-    {
-        _enemy = enemy;
-    }
-
-    void FixedUpdate()
-    {
-        if (_enemy != null)
-        {
-            Vector2 direction = (_enemy.position - transform.position).normalized;
-            _rigidbody.velocity = direction * _speed * Time.deltaTime * 10f;
-        }
-    }
-    public void SetDamage(int damage)
+    public void Setup(Vector3 shootDir,int damage, float projectileSpeed, float projectileLifeTime)
     {
         _damage = damage;
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D.AddForce(shootDir * projectileSpeed, ForceMode2D.Impulse);
+
+        transform.eulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVector(shootDir));
+        Destroy(gameObject, projectileLifeTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IDamageable enemy))
+        if (collision.TryGetComponent(out IDamageable damagableObj))
         {
-            Debug.Log("Projectile hit to:" + enemy);
-            enemy.TakeDamage(_damage);
-            Destroy(this.gameObject);
+            Debug.Log("Projectile hit to:" + damagableObj + " Damage: " + _damage);
+            damagableObj.TakeDamage(_damage);
+            Destroy(gameObject);
         }
     }
 }
