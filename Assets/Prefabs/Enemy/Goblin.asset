@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fc1053474076d4699cf583fc34f479, type: 3}
   m_Name: Goblin
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 454932149, guid: 7f5c8f3c50506b04fa5b92079c655d65, type: 3}
   _baseHealth: 75
   _baseDamage: 3
   _baseSpeed: 0.8

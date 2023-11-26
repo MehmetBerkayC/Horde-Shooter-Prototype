@@ -1274,7 +1274,7 @@ MonoBehaviour:
     - _enemyName: 
       _enemyCount: 10
       _spawnCount: 0
-      _enemyPrefab: {fileID: 8440882667303053777, guid: a872e54e9a60b1345842069192f1d15e, type: 3}
+      _enemyPrefab: {fileID: 4430543312814173287, guid: cfff573317eee594d8188bcb9d0fa189, type: 3}
     _waveQuota: 0
     _spawnInterval: 0.5
     _spawnCount: 0
@@ -1283,7 +1283,7 @@ MonoBehaviour:
     - _enemyName: 
       _enemyCount: 5
       _spawnCount: 0
-      _enemyPrefab: {fileID: 8440882667303053777, guid: a872e54e9a60b1345842069192f1d15e, type: 3}
+      _enemyPrefab: {fileID: 9035520415131122101, guid: dd9d55c7d19e1ea4b94d8e643c0a1082, type: 3}
     - _enemyName: 
       _enemyCount: 15
       _spawnCount: 0
@@ -1311,8 +1311,8 @@ MonoBehaviour:
   _player: {fileID: 899471654}
   _endlessRate: 0.4
   _mapBorder: 9.5
-  _minDistanceFromPlayer: 3
-  GameMode: 1
+  _minDistanceFromPlayer: 4
+  GameMode: 0
   _enemiesAlive: 0
   _maxEnemiesAllowed: 50
   _maxEnemiesReached: 0

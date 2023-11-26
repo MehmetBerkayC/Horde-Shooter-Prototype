@@ -55,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
     public int _currentWaveCount; // the index of the current wave
 
     float _spawnTimer; //timer use to determine when to spawn next enemy
-    float _enemiesSpawnedInWave;
+    public float _enemiesSpawnedInWave;
     Vector2 _spawnLocation;
     bool _endlessMode = false;
     GameObject spawnPointMarker;
@@ -120,7 +120,7 @@ public class EnemySpawner : MonoBehaviour
                 if (_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
                 {
                     _spawnTimer = 0f;
-                    SpawnEnemies();
+                    StartSpawnEnemies();
                 }
 
                 // Wave End Check
@@ -147,7 +147,7 @@ public class EnemySpawner : MonoBehaviour
         {
             _currentWaveCount++;    // Index the next wave
             CalculateWaveQuota();   // Calculate mob limit
-            SpawnEnemies();
+            //StartSpawnEnemies();
         }
     }
 
@@ -162,6 +162,12 @@ public class EnemySpawner : MonoBehaviour
         //Debug.LogWarning(currentWaveQuota);
     }
 
+    void StartSpawnEnemies()
+    {
+        StartCoroutine(SpawnEnemiesCoroutine());
+    }
+
+
     void SpawnEndless() // Missing Mob Scaling
     {
         int rand = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
@@ -170,7 +176,7 @@ public class EnemySpawner : MonoBehaviour
         Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
 
-    void SpawnEnemies() // Missing Mob Scaling
+    IEnumerator SpawnEnemiesCoroutine() // Missing Mob Scaling
     {
         //check if the minimum number of enemies in the wave have been spawned
         if (_waves[_currentWaveCount]._spawnCount < _waves[_currentWaveCount]._waveQuota && !_maxEnemiesReached)
@@ -186,12 +192,33 @@ public class EnemySpawner : MonoBehaviour
                     if (_enemiesAlive >= _maxEnemiesAllowed)
                     {
                         _maxEnemiesReached = true;
-                        return;
+                        break;
                     }
                     //_spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
                     Vector2 _spawnLocation = CalculateSpawnPosition();
 
+                    //StartCoroutine(MarkPoint(_spawnLocation));
 
+                    Debug.Log("Before Instantiate ");
+                    spawnPointMarker = Instantiate(_spawnPointMarkerPrefab, _spawnLocation, Quaternion.identity);
+
+                    float spawntimer = 0f;
+                    float time = 1f;
+                    while (spawntimer < time)
+                    {
+
+                        spawntimer += Time.deltaTime;
+                        yield return null;
+                    }
+
+                    Debug.Log("Before Destroy ");
+                    if (spawnPointMarker != null)
+                    {
+                        Destroy(spawnPointMarker);
+                    }
+
+
+                    Debug.Log("bu log kac saniyede bir calisiyor");
                     Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
 
                     enemyGroup._spawnCount++;
@@ -219,7 +246,7 @@ public class EnemySpawner : MonoBehaviour
             spawnPosition = new Vector2(randomX, randomY);
         } while (Vector2.Distance(spawnPosition, _player.position) < _minDistanceFromPlayer);
 
-        StartCoroutine(MarkPoint(spawnPosition)); // delayed enemy spawn marker instantiate
+        
 
         return spawnPosition;
     }
@@ -231,19 +258,27 @@ public class EnemySpawner : MonoBehaviour
         _enemiesAlive--;
     }
 
-    IEnumerator MarkPoint(Vector2 spawnPosition) // delayed enemy spawn marker instantiate func
+    IEnumerator MarkPoint(Vector2 spawnPosition)
     {
         Debug.Log("Before Instantiate Marker");
         spawnPointMarker = Instantiate(_spawnPointMarkerPrefab, spawnPosition, Quaternion.identity);
         Debug.Log("After Instantiate Marker");
 
         // Delayed destruction of the spawn point marker
-        yield return new WaitForSecondsRealtime(2);
-        if (spawnPointMarker != null)
+        //yield return new WaitForSecondsRealtime(2); // Subtracting 2 seconds to align with the enemy spawn delay
+
+        float spawntimer = 0f;
+        float time = 2f;
+        while (spawntimer < time)
         {
-            Debug.Log("Before Destroy Marker");
-            Destroy(spawnPointMarker);
-            Debug.Log("After Destroy Marker");
+            
+            spawntimer += Time.deltaTime;
+            yield return null;
         }
+
+        Debug.Log("Before Destroy Marker");
+        Destroy(spawnPointMarker.gameObject);
+        Debug.Log("After Destroy Marker");
     }
+
 }

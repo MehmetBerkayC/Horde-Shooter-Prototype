@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fc1053474076d4699cf583fc34f479, type: 3}
   m_Name: Hyena
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _sprite: {fileID: -1878467030, guid: cf714e1b21bc2ba4ca99bc85832eb208, type: 3}
   _baseHealth: 80
   _baseDamage: 2
   _baseSpeed: 1.2

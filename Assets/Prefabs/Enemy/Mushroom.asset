@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fc1053474076d4699cf583fc34f479, type: 3}
   m_Name: Mushroom
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _sprite: {fileID: -663234744, guid: a61c1e3a2556f784c8336b25ae9e2ece, type: 3}
   _baseHealth: 150
   _baseDamage: 3
   _baseSpeed: 0.3

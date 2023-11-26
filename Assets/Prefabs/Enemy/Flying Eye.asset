@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fc1053474076d4699cf583fc34f479, type: 3}
   m_Name: Flying Eye
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _sprite: {fileID: -490901837, guid: 9c401ab38ef7c774e98c7b25ae72ebb2, type: 3}
   _baseHealth: 50
   _baseDamage: 2
   _baseSpeed: 1.3
