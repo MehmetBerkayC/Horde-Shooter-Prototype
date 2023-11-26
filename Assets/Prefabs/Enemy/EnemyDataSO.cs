@@ -6,10 +6,11 @@ using UnityEngine;
 [CreateAssetMenu (fileName ="EnemyDataSO",menuName ="Enemy Data")] 
 public class EnemyDataSO : ScriptableObject
 {
-    public Sprite sprite;
-    public float Health;
-    public float Damage;
-    public float Speed;
+    public Sprite _sprite;
+    public float _baseHealth;
+    public float _baseDamage;
+    public float _baseSpeed;
+    public int _baseEXP;
 
     private void OnEnable()
     {
@@ -29,8 +30,8 @@ public class EnemyDataSO : ScriptableObject
 
     public void Upgrade(object sender, EventArgs e)
     {
-        Health += 5;
-        Speed += 1;
-        Damage += 2;
+        _baseHealth += 5;
+        _baseSpeed += 1;
+        _baseDamage += 2;
     }
 }

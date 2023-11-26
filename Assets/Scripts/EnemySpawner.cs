@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float _minDistanceFromPlayer = 3.0f; // Minimum distance from the player.
 
     [Header("Game Mode Choosing")]
-    public GameMode GameMode; 
+    public GameMode GameMode;
 
     [Header("Spawner Attributes")]
     public int _enemiesAlive;
@@ -58,6 +58,8 @@ public class EnemySpawner : MonoBehaviour
     float _enemiesSpawnedInWave;
     Vector2 _spawnLocation;
     bool _endlessMode = false;
+    GameObject spawnPointMarker;
+    [SerializeField] GameObject _spawnPointMarkerPrefab;
 
     // Singleton
     public static EnemySpawner Instance { get; private set; }
@@ -188,6 +190,8 @@ public class EnemySpawner : MonoBehaviour
                     }
                     //_spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
                     Vector2 _spawnLocation = CalculateSpawnPosition();
+
+
                     Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
 
                     enemyGroup._spawnCount++;
@@ -215,6 +219,8 @@ public class EnemySpawner : MonoBehaviour
             spawnPosition = new Vector2(randomX, randomY);
         } while (Vector2.Distance(spawnPosition, _player.position) < _minDistanceFromPlayer);
 
+        StartCoroutine(MarkPoint(spawnPosition)); // delayed enemy spawn marker instantiate
+
         return spawnPosition;
     }
 
@@ -223,5 +229,21 @@ public class EnemySpawner : MonoBehaviour
     {
         //decrement the number of enemies alive
         _enemiesAlive--;
+    }
+
+    IEnumerator MarkPoint(Vector2 spawnPosition) // delayed enemy spawn marker instantiate func
+    {
+        Debug.Log("Before Instantiate Marker");
+        spawnPointMarker = Instantiate(_spawnPointMarkerPrefab, spawnPosition, Quaternion.identity);
+        Debug.Log("After Instantiate Marker");
+
+        // Delayed destruction of the spawn point marker
+        yield return new WaitForSecondsRealtime(2);
+        if (spawnPointMarker != null)
+        {
+            Debug.Log("Before Destroy Marker");
+            Destroy(spawnPointMarker);
+            Debug.Log("After Destroy Marker");
+        }
     }
 }
