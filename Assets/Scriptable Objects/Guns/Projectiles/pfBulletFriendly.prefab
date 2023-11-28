@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1735445467259742859}
   - component: {fileID: 9047290219474667111}
   m_Layer: 8
-  m_Name: pfProjectileFriendly
+  m_Name: pfBulletFriendly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

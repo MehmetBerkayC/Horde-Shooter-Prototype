@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (fileName ="EnemyDataSO",menuName ="Enemy Data")] 
+[CreateAssetMenu (fileName ="New Enemy Data", menuName ="Scriptable Objects/Enemies/Enemy Data")] 
 public class EnemyDataSO : ScriptableObject
 {
     public Sprite sprite;

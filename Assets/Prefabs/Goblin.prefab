@@ -126,9 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba257474cec65541ba0acbeb185ce4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 1
-  _entityType: 1
-  _enemyData: {fileID: 11400000, guid: 74ba0361a41bba240b9194c82ca05f61, type: 2}
+  _maxHealth: 5
   _moveSpeed: 1
   _damage: 1
 --- !u!50 &4430543312814173294
