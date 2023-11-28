@@ -16,6 +16,6 @@ MonoBehaviour:
   GunPrefab: {fileID: 8672343408668094406, guid: 20bc28bfa6e97d246b420e102915aecc, type: 3}
   Damage: 1
   ProjectilesPerMinute: 60
-  Range: 2
+  Range: 3
   ProjectileSpeed: 10
   ProjectileLifeTime: 5

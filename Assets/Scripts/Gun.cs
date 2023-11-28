@@ -1,3 +1,4 @@
+using CodeMonkey.Utils;
 using System;
 using UnityEngine;
 
@@ -55,13 +56,16 @@ public class Gun : MonoBehaviour
 
     private void CheckAndShoot()
     {
-        if (_target != null)
+        if (_target == null)
         {
-            CheckDistance();
+            FindTarget();
         }
         else
         {
-            FindTarget();
+            CheckDistance();
+            // Flip direction when rotation between 90-270 -> Not Implemented Yet
+            Vector3 lookDirection = (_target.position - transform.position).normalized;
+            transform.eulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVector(lookDirection));
         }
     }
     private void CheckDistance()
@@ -98,6 +102,7 @@ public class Gun : MonoBehaviour
             Projectile projectile = Instantiate(_projectilePrefab, _projectileSpawnPosition.position, Quaternion.identity).GetComponent<Projectile>();
             Vector3 shootDirection = (_target.position - transform.position).normalized;
             projectile.Setup(shootDirection, _damage, _projectileSpeed, _projectileLifeTime); // Change
+
         }
     }
 
