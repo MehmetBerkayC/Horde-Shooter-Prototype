@@ -64,6 +64,17 @@ public class Gun : MonoBehaviour
             FindTarget();
         }
     }
+    private void CheckDistance()
+    {
+        if ((_target.position - transform.position).magnitude > _range)
+        {
+            FindTarget();
+        }
+        else
+        {
+            Shoot();
+        }
+    }
 
     private void FindTarget()
     {
@@ -75,18 +86,6 @@ public class Gun : MonoBehaviour
             {
                 _target = enemyTransform;
             }
-        }
-    }
-
-    private void CheckDistance()
-    {
-        if ((_target.position - transform.position).magnitude > _range)
-        {
-            FindTarget();
-        }
-        else
-        {
-            Shoot();
         }
     }
 
