@@ -16,6 +16,9 @@ public class Gun : MonoBehaviour
     private float _projectileSpeed;
     private float _projectileLifeTime;
 
+    private SpriteRenderer _gunSprite;
+    private bool _flippedLeft;
+
     private float _nextShot = 0;
 
     private Transform _target;
@@ -33,6 +36,7 @@ public class Gun : MonoBehaviour
 
         // Prefab and Transform Initializing
         _gunPrefab = Instantiate(_gunDataSO.GunPrefab, this.transform, false);
+        _gunSprite = _gunPrefab.transform.Find("Graphic").GetComponent<SpriteRenderer>();
         _projectilePrefab = _gunDataSO.ProjectilePrefab;
         _projectileSpawnPosition = _gunPrefab.transform.Find("Projectile Spawn Position"); // Use the same in prefabs
         
@@ -63,11 +67,27 @@ public class Gun : MonoBehaviour
         else
         {
             CheckDistance();
-            // Flip direction when rotation between 90-270 -> Not Implemented Yet
-            Vector3 lookDirection = (_target.position - transform.position).normalized;
-            transform.eulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVector(lookDirection));
+            LookAtTarget();
         }
     }
+
+    private void LookAtTarget()
+    {
+        Vector3 lookDirection = (_target.position - transform.position).normalized;
+        Vector3 angle = new Vector3(0, 0, UtilsClass.GetAngleFromVector(lookDirection));
+        if (angle.z > 90 && angle.z < 270)
+        {   // if in left semicircle
+            _flippedLeft = true;
+            _gunSprite.flipY = _flippedLeft;
+        }
+        else
+        {   // Flip Right
+            _flippedLeft = false;
+            _gunSprite.flipY = _flippedLeft;
+        }
+        transform.eulerAngles = angle;
+    }
+
     private void CheckDistance()
     {
         if ((_target.position - transform.position).magnitude > _range)
