@@ -25,7 +25,10 @@ public class Gun : MonoBehaviour
 
     private void Start()
     {
-        InitializeTheGun();
+        if (_gunDataSO != null)
+        {
+            InitializeTheGun();
+        }
     }
 
     private void InitializeTheGun()

@@ -1466,6 +1466,8 @@ MonoBehaviour:
   _uiInventory: {fileID: 1397749613}
   _inventory: {fileID: 11400000, guid: 69f24275adec00c40afd8879b2a9e3d4, type: 2}
   _uiLevelBar: {fileID: 1890347131}
+  _availableGunSlots:
+  - {fileID: 1715167519}
 --- !u!1 &982426184
 GameObject:
   m_ObjectHideFlags: 0

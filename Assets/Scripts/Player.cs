@@ -30,6 +30,10 @@ public class Player : MonoBehaviour, IDamageable
     Rigidbody2D _rigidbody;
     PlayerAnimator _animator;
 
+    // Gun Slots
+    [SerializeField] Transform[] _availableGunSlots;
+    GunLoadout _equippedGunsList;
+
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -57,6 +61,7 @@ public class Player : MonoBehaviour, IDamageable
         // Level Bar Initialize -> Should be in GameManager.cs
         _uiLevelBar.SetLevelSystem(_levelSystem);
         _uiLevelBar.SetLevelSystemAnimated(_levelSystemAnimated);
+
     }
 
     void Update()
