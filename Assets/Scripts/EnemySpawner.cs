@@ -124,7 +124,8 @@ public class EnemySpawner : MonoBehaviour
                 }
 
                 // Wave End Check
-                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave)
+                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota <= _enemiesSpawnedInWave) // suanda bug var enemy spawn count hep bi fazla oluyor o
+                                                                                                         // yuzden sonraki wave gevisi olsun diye <= sonradan duzeltilecek
                 {
                     OnWavePassed?.Invoke(this, EventArgs.Empty);
                     StartCoroutine(StartWave());
