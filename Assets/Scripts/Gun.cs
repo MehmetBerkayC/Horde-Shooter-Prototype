@@ -25,10 +25,28 @@ public class Gun : MonoBehaviour
 
     private void Start()
     {
+        //if (_gunDataSO == null && gameObject.activeInHierarchy)
+        //{
+        //    gameObject.SetActive(false);
+        //}
+    }
+
+    private void OnEnable()
+    {
         if (_gunDataSO != null)
         {
             InitializeTheGun();
         }
+    }
+
+    public void EquipGun(GunDataSO gunDataSO)
+    {
+        //if (!gameObject.activeInHierarchy)
+        //{
+        //    gameObject.SetActive(true);
+        //}
+        _gunDataSO = gunDataSO;
+        InitializeTheGun();
     }
 
     private void InitializeTheGun()
@@ -58,7 +76,10 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        CheckAndShoot();
+        if (_gunDataSO != null)
+        {
+            CheckAndShoot();    
+        }
     }
 
     private void CheckAndShoot()

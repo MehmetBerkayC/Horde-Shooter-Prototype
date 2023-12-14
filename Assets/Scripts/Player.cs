@@ -31,8 +31,9 @@ public class Player : MonoBehaviour, IDamageable
     PlayerAnimator _animator;
 
     // Gun Slots
-    [SerializeField] Transform[] _availableGunSlots;
-    GunLoadout _equippedGunsList;
+    [SerializeField] Transform[] _availableGunSlots; // May automatically search using transform.find later
+    [SerializeField] GunLoadoutDataSO _gunLoadoutData;
+    GunLoadout _gunLoadout;
 
     void Awake()
     {
@@ -62,6 +63,10 @@ public class Player : MonoBehaviour, IDamageable
         _uiLevelBar.SetLevelSystem(_levelSystem);
         _uiLevelBar.SetLevelSystemAnimated(_levelSystemAnimated);
 
+        if (_gunLoadoutData != null) // decide what to do if loadout not assigned
+        {
+            _gunLoadout = new GunLoadout(_gunLoadoutData, _availableGunSlots);
+        }
     }
 
     void Update()
