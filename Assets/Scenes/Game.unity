@@ -1517,7 +1517,7 @@ MonoBehaviour:
   _availableGunSlots:
   - {fileID: 1715167519}
   - {fileID: 207896843}
-  _gunLoadoutData: {fileID: 11400000, guid: 58916a5fca7c2ac47a25893266af1378, type: 2}
+  _gunLoadoutData: {fileID: 11400000, guid: 1c137818232dbed4c95d473bcdfd659e, type: 2}
 --- !u!1 &982426184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,7 +2669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0225b2ceef414ee47a354c1399fe8d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunDataSO: {fileID: 11400000, guid: 9d042e09597688745aca4d1b2c14f7d1, type: 2}
+  _gunDataSO: {fileID: 0}
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128
