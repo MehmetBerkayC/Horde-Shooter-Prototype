@@ -67,7 +67,7 @@ public class EnemySpawner : MonoBehaviour
         // Singleton Pattern
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
