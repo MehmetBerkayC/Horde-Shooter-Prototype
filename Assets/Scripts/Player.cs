@@ -9,6 +9,9 @@ using UnityEngine;
 ]
 public class Player : MonoBehaviour, IDamageable
 {
+    public static Player Instance { get; private set; }
+
+    // This will become a SO based upgradable stat system later
     [SerializeField] int _maxHealth = 100;
     [SerializeField] float _speed = 5f;
 
@@ -36,7 +39,17 @@ public class Player : MonoBehaviour, IDamageable
     GunLoadout _gunLoadout;
 
     void Awake()
-    {
+    { 
+        // Singleton Pattern
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
 

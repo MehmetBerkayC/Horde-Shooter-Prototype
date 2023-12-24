@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public static Player Player; // May want to make Playerscript a singleton instead
 
     private void Awake()
     {
