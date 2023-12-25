@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour, IDamageable
         Destroy(this.gameObject);
         
         // Add Exp to player
-        GameManager.Instance.PlayerLevelSystem.AddExperience(_baseExperience);
+        GameManager.Instance.PlayerLevelSystem.AddExperience(_baseExperience * GameManager.Instance.DifficultyMultiplier);
         
         // Unsub from HealthSystem
         _healthSystem.OnDead -= UnitKilled;

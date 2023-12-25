@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 1264445416881527232, guid: 00c951d7d2cdac44ebc021ae06f21961, type: 3}
   GunPrefab: {fileID: 8672343408668094406, guid: 20bc28bfa6e97d246b420e102915aecc, type: 3}
-  Damage: 1
+  Damage: 5
   ProjectilesPerMinute: 60
   Range: 3
   ProjectileSpeed: 10

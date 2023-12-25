@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.TryGetComponent(out IDamageable damagableObj))
         {
-            Debug.Log("Projectile hit to:" + damagableObj + " Damage: " + _damage);
+            //Debug.Log("Projectile hit to:" + damagableObj + " Damage: " + _damage);
             damagableObj.TakeDamage(_damage);
             Destroy(gameObject);
         }

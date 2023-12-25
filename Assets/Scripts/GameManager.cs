@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,10 @@ public class GameManager : MonoBehaviour
     public LevelSystem PlayerLevelSystem { get; private set; }
     public LevelSystemAnimated PlayerLevelSystemAnimated { get; private set; }
     
-    [SerializeField ]private UI_LevelBar _playerLevelBar;
+    [SerializeField] private UI_LevelBar _playerLevelBar;
+
+    // Scaling
+    public float DifficultyMultiplier { get; private set; } = 1; // Initialize with value
 
     private void Awake()
     {
@@ -31,6 +35,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         InitializeUILevelBar();
+
+       EnemySpawner.Instance.OnWavePassed += UpgradeMultiplier;
+    }
+
+    public void UpgradeMultiplier(object sender, EventArgs eventArgs)
+    {
+        DifficultyMultiplier += 0.25f;
+        Debug.Log("New Difficulty Multiplier : " + DifficultyMultiplier);
     }
 
     public void InitializeUILevelBar()

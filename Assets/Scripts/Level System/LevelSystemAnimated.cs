@@ -15,10 +15,10 @@ public class LevelSystemAnimated
     float _updateTimer, _updateTimerMax;
 
     int _level;
-    int _experience; 
+    float _experience; 
 
     public int Level { get => _level; private set => _level = value; }
-    public int Experience { get => _experience; private set => _experience = value; }
+    public float Experience { get => _experience; private set => _experience = value; }
 
     public LevelSystemAnimated(LevelSystem levelSystem)
     {

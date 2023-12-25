@@ -56,6 +56,8 @@ public class EnemySpawner : MonoBehaviour
     Vector2 _spawnLocation;
     bool _endlessMode = false;
 
+    private bool waveEndFlag;
+
     // Singleton
     public static EnemySpawner Instance { get; private set; }
 
@@ -118,8 +120,9 @@ public class EnemySpawner : MonoBehaviour
                 }
 
                 // Wave End Check
-                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave)
+                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave && !waveEndFlag)
                 {
+                    waveEndFlag = true;
                     OnWavePassed?.Invoke(this, EventArgs.Empty);
                     StartCoroutine(StartWave());
                 }
@@ -143,6 +146,8 @@ public class EnemySpawner : MonoBehaviour
             CalculateWaveQuota();   // Calculate mob limit
             SpawnEnemies();
         }
+
+        waveEndFlag = false;
     }
 
     void CalculateWaveQuota()
@@ -219,6 +224,6 @@ public class EnemySpawner : MonoBehaviour
     {
         //decrement the number of enemies alive
         _enemiesAlive--;
-        Debug.Log(_enemiesAlive);
+        //Debug.Log(_enemiesAlive);
     }
 }

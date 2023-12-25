@@ -9,11 +9,13 @@ public class LevelSystem
     public event EventHandler OnLevelChanged;
 
     int _level;
-    int _experience;
+    float _experience;
 
+    // Might make it scalable with base experience * multiplier etc...
     static readonly int[] _experiencePerLevel = { 100, 150, 200, 250, 300, 350, 400, 450, 500 };
+
     public int Level { get => _level; private set => _level = value; }
-    public int Experience { get => _experience; private set => _experience = value; }
+    public float Experience { get => _experience; private set => _experience = value; }
     public bool IsMaxLevel { get => Level == _experiencePerLevel.Length - 1;}
 
     public LevelSystem()
@@ -27,7 +29,7 @@ public class LevelSystem
         return level == _experiencePerLevel.Length - 1;
     }
 
-    public void AddExperience(int amount)
+    public void AddExperience(float amount)
     {
         if (!IsMaxLevel)
         {
