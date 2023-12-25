@@ -22,11 +22,10 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void Start()
     {
-        _player = FindObjectOfType<Player>().transform; // Pull from GameManager if needed
-        
-        // Health System
-        _healthSystem = new HealthSystem(_baseHealth);
-        _healthSystem.OnDead += UnitKilled;
+        // Player Transform for tracking
+        _player = Player.Instance.transform;
+
+        InitializeEnemy();
     }
 
     void InitializeEnemy() // Call in start
@@ -41,7 +40,7 @@ public class Enemy : MonoBehaviour, IDamageable
         _healthSystem = new HealthSystem(_baseHealth);
         _healthSystem.OnDead += UnitKilled;
 
-        // Don't know what to do with sprites and animations
+        // Default Sprites
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteRenderer.sprite = _enemyData.Sprite;
     }

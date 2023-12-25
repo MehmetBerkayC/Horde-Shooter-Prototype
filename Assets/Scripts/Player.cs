@@ -23,10 +23,6 @@ public class Player : MonoBehaviour, IDamageable
     
     // Health
     HealthSystem _healthSystem;
-    
-    // Level
-    LevelSystem _levelSystem;
-    LevelSystemAnimated _levelSystemAnimated;
 
     Vector2 _playerInputs;
 
@@ -53,15 +49,6 @@ public class Player : MonoBehaviour, IDamageable
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
 
-        // Health System
-        _healthSystem = new HealthSystem(_maxHealth);
-        _healthSystem.OnDead += UnitKilled;
-
-        // Level System -> Level system should be in GameManager, player only interacts with animated level system
-        // Make a SetLevelSystem function when that happens and sub to the animated events
-        _levelSystem = new LevelSystem();
-        _levelSystemAnimated = new LevelSystemAnimated(_levelSystem);
-       
     }
 
     void Start()
@@ -72,13 +59,14 @@ public class Player : MonoBehaviour, IDamageable
             Debug.LogError("Player is missing its inventory");
         }
 
-        // Level Bar Initialize -> Should be in GameManager.cs
-        _uiLevelBar.SetLevelSystem(_levelSystem);
-        _uiLevelBar.SetLevelSystemAnimated(_levelSystemAnimated);
+        // Health System
+        _healthSystem = new HealthSystem(_maxHealth);
+        _healthSystem.OnDead += UnitKilled;
 
+        // Gun Loadout
         if (_gunLoadoutData != null) // decide what to do if loadout not assigned
         {
-            _gunLoadout = new GunLoadout(_gunLoadoutData, _availableGunSlots);
+            _gunLoadout = new GunLoadout(_gunLoadoutData, _availableGunSlots); // First time loadout equipping
         }
     }
 
@@ -112,11 +100,11 @@ public class Player : MonoBehaviour, IDamageable
         // Placeholder Experience
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _levelSystem.AddExperience(20);
+            GameManager.Instance.PlayerLevelSystem.AddExperience(20);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _levelSystem.AddExperience(200);
+            GameManager.Instance.PlayerLevelSystem.AddExperience(200);
         }
     }
 

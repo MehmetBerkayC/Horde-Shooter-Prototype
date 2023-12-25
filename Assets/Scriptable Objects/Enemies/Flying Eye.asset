@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fc1053474076d4699cf583fc34f479, type: 3}
   m_Name: Flying Eye
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
-  BaseHealth: 0
-  BaseDamage: 0
-  BaseMovementSpeed: 0
-  BaseExperience: 0
+  Sprite: {fileID: -490901837, guid: 9c401ab38ef7c774e98c7b25ae72ebb2, type: 3}
+  BaseHealth: 5
+  BaseDamage: 5
+  BaseMovementSpeed: 10
+  BaseExperience: 50
