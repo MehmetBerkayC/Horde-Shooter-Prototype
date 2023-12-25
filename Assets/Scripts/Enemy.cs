@@ -57,8 +57,16 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void UnitKilled(object sender, EventArgs eventArgs)
     {
+        // Destroy doesn't destroy gameobject until frame ends
         Destroy(this.gameObject);
+        
+        // Add Exp to player
+        GameManager.Instance.PlayerLevelSystem.AddExperience(_baseExperience);
+        
+        // Unsub from HealthSystem
         _healthSystem.OnDead -= UnitKilled;
+        
+        // Flag EnemySpawner for the kill
         EnemySpawner.Instance.EnemyKilled();
     }
 }
