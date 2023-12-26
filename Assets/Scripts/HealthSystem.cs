@@ -6,17 +6,17 @@ public class HealthSystem
     public event EventHandler OnDamaged;
     public event EventHandler OnDead;
 
-    private int _health, _maxHealth;
+    private float _health, _maxHealth;
 
-    public int Health { get => _health; private set => _health = value; }
+    public float Health { get => _health; private set => _health = value; }
 
-    public HealthSystem (int maxHealth)
+    public HealthSystem (float maxHealth)
     {
         _maxHealth = maxHealth;
         Health = _maxHealth;
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float damageAmount)
     {
         Health -= damageAmount;
 

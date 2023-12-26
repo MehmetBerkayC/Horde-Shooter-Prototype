@@ -9,11 +9,11 @@ public class Enemy : MonoBehaviour, IDamageable
     // Take base info from SO, make it functional with upgradability
 
     // Missing Pathing using NavMesh or Custom
-    [SerializeField] EnemyDataSO _enemyData;
+    [SerializeField] EnemyBaseDataSO _enemyData;
 
     float _baseDamage;
-    int _baseHealth;
-    int _baseExperience;
+    float _baseHealth;
+    float _baseExperience;
     float _baseMovementSpeed;
 
     Transform _player;
@@ -31,10 +31,10 @@ public class Enemy : MonoBehaviour, IDamageable
     void InitializeEnemy() // Call in start
     {   
         // Base Stats
-        _baseDamage = _enemyData.BaseDamage;
-        _baseHealth = _enemyData.BaseHealth;
-        _baseExperience     = _enemyData.BaseExperience;
-        _baseMovementSpeed  = _enemyData.BaseMovementSpeed;
+        _baseDamage = _enemyData.BaseDamage * GameManager.Instance.DifficultyMultiplier;
+        _baseHealth = _enemyData.BaseHealth * GameManager.Instance.DifficultyMultiplier;
+        _baseExperience     = _enemyData.BaseExperience * GameManager.Instance.DifficultyMultiplier;
+        _baseMovementSpeed  = _enemyData.BaseMovementSpeed * GameManager.Instance.DifficultyMultiplier;
 
         // Health System
         _healthSystem = new HealthSystem(_baseHealth);

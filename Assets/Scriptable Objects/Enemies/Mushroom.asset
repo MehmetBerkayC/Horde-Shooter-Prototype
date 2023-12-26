@@ -15,5 +15,5 @@ MonoBehaviour:
   Sprite: {fileID: -663234744, guid: a61c1e3a2556f784c8336b25ae9e2ece, type: 3}
   BaseHealth: 30
   BaseDamage: 8
-  BaseMovementSpeed: 7.5
-  BaseExperience: 5
+  BaseMovementSpeed: 5.5
+  BaseExperience: 90
