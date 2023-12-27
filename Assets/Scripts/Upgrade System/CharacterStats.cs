@@ -99,7 +99,7 @@ namespace Coruk.CharacterStats
             {
                 StatModifier modifier = _statModifiers[i];
 
-
+                // Change to if checks when error occurs
                 switch (modifier.Type)
                 {
                     default:
@@ -117,14 +117,6 @@ namespace Coruk.CharacterStats
                     case StatModifierType.PercentageMultiplicative:
                         finalValue = finalValue * modifier.Value / 100;
                         continue;
-                }
-                if (modifier.Type == StatModifierType.Flat)
-                {
-                    finalValue += modifier.Value;
-                }
-                else if (modifier.Type == StatModifierType.PercentageMultiplicative)
-                {
-                    finalValue = finalValue * modifier.Value / 100;
                 }
             }
 
