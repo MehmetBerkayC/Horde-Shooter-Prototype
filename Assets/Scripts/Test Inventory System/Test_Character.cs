@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Coruk.CharacterStats;
 
-public class Test_InventoryManager : MonoBehaviour
+public class Test_Character : MonoBehaviour
 {
+    CharacterStats Strength;
+    CharacterStats Speed;
+    CharacterStats Agility;
+    CharacterStats Vitality;
+
     [SerializeField] Test_Inventory _inventory;
     [SerializeField] Test_EquipmentPanel _equipmentPanel;
 
