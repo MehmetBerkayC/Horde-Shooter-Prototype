@@ -30,7 +30,6 @@ public class Test_StatPanel : MonoBehaviour
         {
             _statDisplays[i].gameObject.SetActive(i < _stats.Length);
         }
-        
     }
 
     public void UpdateStatValues()
