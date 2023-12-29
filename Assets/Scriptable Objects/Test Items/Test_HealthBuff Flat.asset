@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba7a73f02e167ab46af740955d12bfd3, type: 3}
-  m_Name: Test_HealthBuff
+  m_Name: Test_HealthBuff Flat
   m_EditorClassIdentifier: 
-  ItemName: 
+  ItemName: Health Pot
   Icon: {fileID: 21300000, guid: 3bb4f6230f817c24485cea9e9511dae3, type: 3}
+  StrengthBonus: 0
+  SpeedBonus: 0
   HealthBonus: 55
   DamageBonus: 0
-  HealthPercentBonus: 3
+  StrengthPercentBonus: 0
+  SpeedPercentBonus: 0
+  HealthPercentBonus: 0
   DamagePercentBonus: 0
   EquipmentType: 0

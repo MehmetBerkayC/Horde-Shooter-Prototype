@@ -285,6 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3414c84b3a2a70c439eb4118b8541dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NameText: {fileID: 490258114}
+  ValueText: {fileID: 1555341986}
 --- !u!1 &231546728
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,9 +740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Vitality
-
-'
+  m_text: Damage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 77f1bf6fcc9a03d4ab025a6b26be4c7c, type: 2}
   m_sharedMaterial: {fileID: 8883157266870348191, guid: 77f1bf6fcc9a03d4ab025a6b26be4c7c, type: 2}
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627654749}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 0290adc8f4725394d915c8e99c784df0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1574,6 +1574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3414c84b3a2a70c439eb4118b8541dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NameText: {fileID: 1857999249}
+  ValueText: {fileID: 400998515}
 --- !u!1 &969344231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,6 +1716,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3414c84b3a2a70c439eb4118b8541dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NameText: {fileID: 1538478126}
+  ValueText: {fileID: 2063069773}
 --- !u!1 &1170437512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,6 +2088,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1338758639}
   - component: {fileID: 1338758640}
+  - component: {fileID: 1338758641}
   m_Layer: 5
   m_Name: Stats Panel
   m_TagString: Untagged
@@ -2141,6 +2146,28 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1338758641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338758638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fda472bee9907147ab758966c1681c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statDisplays:
+  - {fileID: 2011758262}
+  - {fileID: 1125765247}
+  - {fileID: 908635177}
+  - {fileID: 168350566}
+  _statNames:
+  - Strength
+  - Speed
+  - Health
+  - Damage
 --- !u!1 &1368276330
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,7 +2317,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427145053}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2303,7 +2330,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cbc9d6854e2a97c47848a562f3108613, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ebbd9788d7d24684cb34b55dad9c1a34, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2423,7 +2450,7 @@ GameObject:
   - component: {fileID: 1482778691}
   - component: {fileID: 1482778690}
   m_Layer: 0
-  m_Name: Inventory Manager
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2441,8 +2468,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1758798c5585a478f4b6ba36d466af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Strength:
+    BaseValue: 100
+  Speed:
+    BaseValue: 100
+  Health:
+    BaseValue: 100
+  Damage:
+    BaseValue: 100
   _inventory: {fileID: 1612957235}
   _equipmentPanel: {fileID: 844046031}
+  _statPanel: {fileID: 1338758641}
 --- !u!4 &1482778691
 Transform:
   m_ObjectHideFlags: 0
@@ -2554,9 +2590,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Speed
-
-'
+  m_text: Speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 77f1bf6fcc9a03d4ab025a6b26be4c7c, type: 2}
   m_sharedMaterial: {fileID: 8883157266870348191, guid: 77f1bf6fcc9a03d4ab025a6b26be4c7c, type: 2}
@@ -2862,6 +2896,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ccb9412fcfd54b9469f51b316b5a9186, type: 2}
   - {fileID: 11400000, guid: bf5895245a30aeb40bf593d203800419, type: 2}
   - {fileID: 11400000, guid: 49c900b57506da64d9342ba457986966, type: 2}
+  - {fileID: 11400000, guid: a6732f1b7dff6114d9bf46aab12baef6, type: 2}
+  - {fileID: 11400000, guid: ca91c49c156f14949b0368f1efad6553, type: 2}
   _itemsParent: {fileID: 415878064}
   _itemSlots:
   - {fileID: 1233301933}
@@ -3479,7 +3515,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Agility
+  m_text: Health
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 77f1bf6fcc9a03d4ab025a6b26be4c7c, type: 2}
   m_sharedMaterial: {fileID: 8883157266870348191, guid: 77f1bf6fcc9a03d4ab025a6b26be4c7c, type: 2}
@@ -3718,6 +3754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3414c84b3a2a70c439eb4118b8541dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NameText: {fileID: 1170437514}
+  ValueText: {fileID: 1263378774}
 --- !u!1 &2063069771
 GameObject:
   m_ObjectHideFlags: 0

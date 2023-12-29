@@ -5,18 +5,25 @@ using Coruk.CharacterStats;
 
 public class Test_Character : MonoBehaviour
 {
-    CharacterStats Strength;
-    CharacterStats Speed;
-    CharacterStats Agility;
-    CharacterStats Vitality;
+    public CharacterStats Strength;
+    public CharacterStats Speed;
+    public CharacterStats Health;
+    public CharacterStats Damage;
 
     [SerializeField] Test_Inventory _inventory;
     [SerializeField] Test_EquipmentPanel _equipmentPanel;
+    [SerializeField] Test_StatPanel _statPanel;
 
     private void Awake()
     {
         _inventory.OnItemRightClickedEvent += EquipFromInventory;
         _equipmentPanel.OnItemRightClickedEvent += UnequipFromEquipPanel;
+    }
+
+    private void Start()
+    {
+        _statPanel.SetStats(Strength, Speed, Health, Damage);
+        _statPanel.UpdateStatValues(); // Will make it not manual
     }
 
     private void EquipFromInventory(Test_Item item)
@@ -45,7 +52,11 @@ public class Test_Character : MonoBehaviour
                 if (previousItem != null) // not empty
                 {
                     _inventory.AddItem(previousItem); // send previous item to inventory
+                    previousItem.Unequip(this);
+                    _statPanel.UpdateStatValues();
                 }
+                item.Equip(this);
+                _statPanel.UpdateStatValues();
             }
             else // couldn't equip item
             {
@@ -58,6 +69,8 @@ public class Test_Character : MonoBehaviour
     {
         if (!_inventory.IsFull() && _equipmentPanel.RemoveItem(item))
         {
+            item.Unequip(this);
+            _statPanel.UpdateStatValues();
             _inventory.AddItem(item);
         }
     }

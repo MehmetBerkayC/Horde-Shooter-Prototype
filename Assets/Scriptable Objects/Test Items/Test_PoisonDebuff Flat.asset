@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7a73f02e167ab46af740955d12bfd3, type: 3}
+  m_Name: Test_PoisonDebuff Flat
+  m_EditorClassIdentifier: 
+  ItemName: Poison Pot
+  Icon: {fileID: 21300000, guid: d8ef600d59c84444c9013fc5e0278f08, type: 3}
+  StrengthBonus: 0
+  SpeedBonus: 0
+  HealthBonus: -35
+  DamageBonus: 0
+  StrengthPercentBonus: 0
+  SpeedPercentBonus: 0
+  HealthPercentBonus: 0
+  DamagePercentBonus: 0
+  EquipmentType: 1

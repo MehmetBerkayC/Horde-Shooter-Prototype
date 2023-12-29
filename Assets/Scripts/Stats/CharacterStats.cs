@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 namespace Coruk.CharacterStats
 {
     /// Code usage from: https://youtu.be/uvOSx5FzDnU?si=rCdt1YvaykAN13dF&t=497
@@ -62,6 +63,7 @@ namespace Coruk.CharacterStats
                 return 0;
             }
         }
+
         public virtual bool RemoveModifier(StatModifier modifier)
         {
             if (_statModifiers.Remove(modifier))
@@ -99,25 +101,43 @@ namespace Coruk.CharacterStats
             {
                 StatModifier modifier = _statModifiers[i];
 
-                // Change to if checks when error occurs
-                switch (modifier.Type)
+                if (modifier.Type == StatModifierType.Flat)
                 {
-                    default:
-                    case StatModifierType.Flat:
-                        finalValue += modifier.Value;
-                        continue;
-                    case StatModifierType.PercentAdditive:
-                        sumPercentageAdditive += modifier.Value;
-                        if (i + 1 >= _statModifiers.Count || _statModifiers[i + 1].Type != StatModifierType.PercentAdditive)
-                        {
-                            finalValue = finalValue * modifier.Value / 100;
-                            sumPercentageAdditive = 0;
-                        }
-                        continue;
-                    case StatModifierType.PercentageMultiplicative:
-                        finalValue = finalValue * modifier.Value / 100;
-                        continue;
+                    finalValue += modifier.Value;
                 }
+                else if (modifier.Type == StatModifierType.PercentAdditive)
+                {
+                    sumPercentageAdditive += modifier.Value;
+                    if (i + 1 >= _statModifiers.Count || _statModifiers[i + 1].Type != StatModifierType.PercentAdditive)
+                    {
+                        finalValue *= sumPercentageAdditive / 100;
+                        sumPercentageAdditive = 0;
+                    }
+                }
+                else if (modifier.Type == StatModifierType.PercentageMultiplicative)
+                {
+                    finalValue *= modifier.Value / 100;
+                }
+
+                //// Change to if checks when error occurs
+                //switch (modifier.Type)
+                //{
+                //    default:
+                //    case StatModifierType.Flat:
+                //        finalValue += modifier.Value;
+                //        continue;
+                //    case StatModifierType.PercentAdditive: // (%M + %N + ...) * previousValue = result
+                //        sumPercentageAdditive += modifier.Value;
+                //        if (i + 1 >= _statModifiers.Count || _statModifiers[i + 1].Type != StatModifierType.PercentAdditive)
+                //        {
+                //            finalValue = finalValue * (modifier.Value / 100);
+                //            sumPercentageAdditive = 0;
+                //        }
+                //        continue;
+                //    case StatModifierType.PercentageMultiplicative: // (%M * previousValue) => result * %N => newResult...
+                //        finalValue *= modifier.Value + 1;
+                //        continue;
+                //}
             }
 
             // Rounds the float calculation solution so this won't happen 12.00 != 12.01
