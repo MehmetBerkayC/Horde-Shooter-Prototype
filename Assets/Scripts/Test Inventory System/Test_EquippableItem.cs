@@ -6,7 +6,8 @@ using UnityEngine;
 public enum EquipmentType
 {
     Buff,
-    Debuff
+    Debuff,
+    SecondBuff
 }
 
 [CreateAssetMenu]

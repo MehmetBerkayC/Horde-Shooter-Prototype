@@ -110,13 +110,15 @@ namespace Coruk.CharacterStats
                     sumPercentageAdditive += modifier.Value;
                     if (i + 1 >= _statModifiers.Count || _statModifiers[i + 1].Type != StatModifierType.PercentAdditive)
                     {
-                        finalValue *= 1 + (sumPercentageAdditive / 100);
-                        sumPercentageAdditive = 0;
+                        finalValue *= 1 + (sumPercentageAdditive / 100); // (%M + %N + %P) * previousValue = result
+                        sumPercentageAdditive = 0; // 150 * (200+200+200)  -> 1050% * baseValue => result
                     }
                 }
                 else if (modifier.Type == StatModifierType.PercentageMultiplicative)
                 {
-                    finalValue *= 1 + (modifier.Value / 100);
+                    finalValue *= 1 + (modifier.Value / 100); // (%M * previous Value) => (%N * newValue) => ... = result
+                    // 5 <- base
+                    // 5 * %100 => 10 * %200 -> 30...
                 }
             }
 

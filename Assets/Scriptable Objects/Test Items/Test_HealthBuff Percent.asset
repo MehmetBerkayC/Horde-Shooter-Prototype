@@ -21,5 +21,5 @@ MonoBehaviour:
   StrengthPercentBonus: 0
   SpeedPercentBonus: 0
   HealthPercentBonus: 50
-  DamagePercentBonus: 0
-  EquipmentType: 0
+  DamagePercentBonus: 200
+  EquipmentType: 1
