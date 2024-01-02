@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Test_ItemSlot : MonoBehaviour, IPointerClickHandler
+public class Test_ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Image _image;
+    [SerializeField] Test_ItemTooltip _tooltip;
+
 
     public event Action<Test_Item> OnRightClickEvent;
     public Test_Item Item
@@ -37,6 +39,11 @@ public class Test_ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             _image = GetComponent<Image>();
         }
+
+        if (_tooltip == null)
+        {
+            _tooltip = FindObjectOfType<Test_ItemTooltip>(); // Call findobjectof... only in Onvalidate() -> works only on editor not builds
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -48,5 +55,18 @@ public class Test_ItemSlot : MonoBehaviour, IPointerClickHandler
                 OnRightClickEvent(Item);
             }
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (Item is Test_EquippableItem)
+        {
+            _tooltip.ShowTooltip((Test_EquippableItem)Item);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _tooltip.HideTooltip();
     }
 }

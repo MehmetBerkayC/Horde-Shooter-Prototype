@@ -5,7 +5,7 @@ namespace Coruk.CharacterStats
 {
     /// Code usage from: https://youtu.be/uvOSx5FzDnU?si=rCdt1YvaykAN13dF&t=497
     [Serializable]
-    public class CharacterStats
+    public class CharacterStat
     {
         public float BaseValue;
 
@@ -30,13 +30,13 @@ namespace Coruk.CharacterStats
         protected readonly List<StatModifier> _statModifiers;
         public readonly IReadOnlyCollection<StatModifier> StatModifiers;
 
-        public CharacterStats()
+        public CharacterStat()
         {
             _statModifiers = new List<StatModifier>();
             StatModifiers = _statModifiers.AsReadOnly();
         }
 
-        public CharacterStats(float baseValue) : this()
+        public CharacterStat(float baseValue) : this()
         {
             BaseValue = baseValue;
         }

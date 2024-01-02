@@ -8,7 +8,7 @@ public class Test_StatPanel : MonoBehaviour
     [SerializeField] Test_StatDisplay[] _statDisplays;
     [SerializeField] string[] _statNames;
 
-    private CharacterStats[] _stats;
+    private CharacterStat[] _stats;
 
     private void OnValidate()
     {
@@ -16,7 +16,7 @@ public class Test_StatPanel : MonoBehaviour
         UpdateStatNames();
     }
 
-    public void SetStats(params CharacterStats[] characterStats)
+    public void SetStats(params CharacterStat[] characterStats)
     {
         _stats = characterStats;
 
@@ -29,6 +29,11 @@ public class Test_StatPanel : MonoBehaviour
         for (int i = 0; i < _statDisplays.Length; i++)
         {
             _statDisplays[i].gameObject.SetActive(i < _stats.Length);
+
+            if (i < _stats.Length)
+            {
+                _statDisplays[i].Stat = _stats[i];
+            }
         }
     }
 
@@ -36,7 +41,7 @@ public class Test_StatPanel : MonoBehaviour
     {
         for (int i = 0; i < _stats.Length; i++)
         {
-            _statDisplays[i].ValueText.text = _stats[i].Value.ToString();
+            _statDisplays[i].UpdateStatValue();
         }
     }
     
@@ -44,7 +49,7 @@ public class Test_StatPanel : MonoBehaviour
     {
         for (int i = 0; i < _statNames.Length; i++)
         {
-            _statDisplays[i].NameText.text = _statNames[i];
+            _statDisplays[i].Name = _statNames[i];
         }
     }
 }

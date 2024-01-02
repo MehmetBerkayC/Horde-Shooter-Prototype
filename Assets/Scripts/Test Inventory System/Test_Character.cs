@@ -5,10 +5,10 @@ using Coruk.CharacterStats;
 
 public class Test_Character : MonoBehaviour
 {
-    public CharacterStats Strength;
-    public CharacterStats Speed;
-    public CharacterStats Health;
-    public CharacterStats Damage;
+    public CharacterStat Strength;
+    public CharacterStat Speed;
+    public CharacterStat Health;
+    public CharacterStat Damage;
 
     [SerializeField] Test_Inventory _inventory;
     [SerializeField] Test_EquipmentPanel _equipmentPanel;
