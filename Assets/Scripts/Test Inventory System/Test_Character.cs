@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Test_Character : MonoBehaviour
 {
+    // Make this script decoupled from movement and stat segments
     public CharacterStat Strength;
     public CharacterStat Speed;
     public CharacterStat Health;
