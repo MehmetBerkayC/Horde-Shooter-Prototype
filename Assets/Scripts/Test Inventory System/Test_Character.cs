@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Coruk.CharacterStats;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Test_Character : MonoBehaviour
@@ -11,11 +9,13 @@ public class Test_Character : MonoBehaviour
     public CharacterStat Health;
     public CharacterStat Damage;
 
-    [SerializeField] Test_Inventory inventory;
-    [SerializeField] Test_EquipmentPanel equipmentPanel;
-    [SerializeField] Test_StatPanel statPanel;
-    [SerializeField] Test_ItemTooltip ItemTooltip;
-    [SerializeField] Image image;
+    [SerializeField] private Test_Inventory inventory;
+    [SerializeField] private Test_EquipmentPanel equipmentPanel;
+    [SerializeField] private Test_StatPanel statPanel;
+    [SerializeField] private Test_ItemTooltip ItemTooltip;
+    [SerializeField] private Image draggableItem;
+
+    private Test_ItemSlot draggedItemSlot;
 
     private void Awake()
     {
@@ -66,7 +66,7 @@ public class Test_Character : MonoBehaviour
             }
         }
     }
-    
+
     private void UnEquip(object sender, Test_ItemSlot itemSlot)
     {
         if (itemSlot.Item is Test_EquippableItem)
@@ -78,7 +78,7 @@ public class Test_Character : MonoBehaviour
             }
         }
     }
-    
+
     private void ShowTooltip(object sender, Test_ItemSlot itemSlot)
     {
         if (itemSlot.Item is Test_EquippableItem)
@@ -87,7 +87,7 @@ public class Test_Character : MonoBehaviour
             ItemTooltip.ShowTooltip(equippableItem);
         }
     }
-    
+
     private void HideTooltip(object sender, Test_ItemSlot itemSlot)
     {
         ItemTooltip.HideTooltip();
@@ -95,19 +95,65 @@ public class Test_Character : MonoBehaviour
 
     private void BeginDrag(object sender, Test_ItemSlot itemSlot)
     {
-
+        if (itemSlot.Item != null)
+        {
+            draggedItemSlot = itemSlot;
+            draggableItem.sprite = itemSlot.Item.Icon;
+            draggableItem.transform.position = Input.mousePosition;
+            draggableItem.enabled = true;
+            draggableItem.raycastTarget = false; // Raycast cannot know whats beneath if enabled while dropping
+        }
     }
+
     private void Drag(object sender, Test_ItemSlot itemSlot)
     {
-
+        if (draggableItem.enabled)
+        {
+            draggableItem.transform.position = Input.mousePosition;
+        }
     }
+
     private void EndDrag(object sender, Test_ItemSlot itemSlot)
     {
-
+        draggedItemSlot = null;
+        draggableItem.enabled = false;
+        draggableItem.raycastTarget = true;
     }
-    private void Drop(object sender, Test_ItemSlot itemSlot)
-    {
 
+    private void Drop(object sender, Test_ItemSlot droppeditemSlot)
+    {
+        // Swap possible
+        if (droppeditemSlot.CanReceiveItem(draggedItemSlot.Item) && draggedItemSlot.CanReceiveItem(droppeditemSlot.Item))
+        {
+            // Swapping Equippable items
+            Test_EquippableItem dragItem = draggedItemSlot.Item as Test_EquippableItem;
+            Test_EquippableItem dropItem = droppeditemSlot.Item as Test_EquippableItem;
+
+            if (draggedItemSlot is Test_EquipmentSlot)
+            {
+                if (dragItem != null) dragItem.Unequip(this);
+                if (dropItem != null) dropItem.Equip(this);
+            }
+
+            if (droppeditemSlot is Test_EquipmentSlot)
+            {
+                if (dragItem != null) dragItem.Equip(this);
+                if (dropItem != null) dropItem.Unequip(this);
+            }
+
+            // Items aren't equippable ones, swap normally
+            Test_Item draggedItem = draggedItemSlot.Item;
+            draggedItemSlot.Item = droppeditemSlot.Item;
+            droppeditemSlot.Item = draggedItem;
+
+            statPanel.UpdateStatValues();
+        }
+        else if (droppeditemSlot.CanReceiveItem(draggedItemSlot.Item) && droppeditemSlot.Item == null)
+        {
+            droppeditemSlot.Item = draggedItemSlot.Item;
+
+            statPanel.UpdateStatValues();
+        }
     }
 
     public void EquipItem(Test_EquippableItem item)

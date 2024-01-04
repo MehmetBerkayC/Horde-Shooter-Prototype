@@ -11,4 +11,15 @@ public class Test_EquipmentSlot : Test_ItemSlot
         base.OnValidate();
         gameObject.name = EquipmentType.ToString() + " Slot";
     }
+
+    public override bool CanReceiveItem(Test_Item item)
+    {
+        if (item == null)
+        {
+            return true;
+        }
+
+        var equippableItem = item as Test_EquippableItem;
+        return equippableItem != null && equippableItem.EquipmentType == EquipmentType;
+    }
 }

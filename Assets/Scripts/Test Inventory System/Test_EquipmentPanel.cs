@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Test_EquipmentPanel : MonoBehaviour
 {
-    [SerializeField] Transform _equipmentSlotsParent;
-    [SerializeField] Test_EquipmentSlot[] _equipmentSlots;
+    [SerializeField] private Transform _equipmentSlotsParent;
+    [SerializeField] private Test_EquipmentSlot[] _equipmentSlots;
 
     public EventHandler<Test_ItemSlot> OnPointerEnterEvent;
     public EventHandler<Test_ItemSlot> OnPointerExitEvent;
@@ -20,14 +18,14 @@ public class Test_EquipmentPanel : MonoBehaviour
     {
         for (int i = 0; i < _equipmentSlots.Length; i++)
         {
-            _equipmentSlots[i].OnPointerEnterEvent  += OnPointerEnterEvent;
-            _equipmentSlots[i].OnPointerExitEvent   += OnPointerExitEvent;
-            _equipmentSlots[i].OnRightClickEvent    += OnRightClickEvent;
-            _equipmentSlots[i].OnBeginDragEvent     += OnBeginDragEvent;
-            _equipmentSlots[i].OnDragEvent          += OnDragEvent;
-            _equipmentSlots[i].OnEndDragEvent       += OnEndDragEvent;
-            _equipmentSlots[i].OnDropEvent          += OnDropEvent;
-        }    
+            _equipmentSlots[i].OnPointerEnterEvent += OnPointerEnterEvent;
+            _equipmentSlots[i].OnPointerExitEvent += OnPointerExitEvent;
+            _equipmentSlots[i].OnRightClickEvent += OnRightClickEvent;
+            _equipmentSlots[i].OnBeginDragEvent += OnBeginDragEvent;
+            _equipmentSlots[i].OnDragEvent += OnDragEvent;
+            _equipmentSlots[i].OnEndDragEvent += OnEndDragEvent;
+            _equipmentSlots[i].OnDropEvent += OnDropEvent;
+        }
     }
 
     private void OnValidate()
@@ -49,6 +47,7 @@ public class Test_EquipmentPanel : MonoBehaviour
         previousItem = null;
         return false;
     }
+
     public bool RemoveItem(Test_EquippableItem item)
     {
         for (int i = 0; i < _equipmentSlots.Length; i++)
@@ -61,6 +60,4 @@ public class Test_EquipmentPanel : MonoBehaviour
         }
         return false;
     }
-
-
 }

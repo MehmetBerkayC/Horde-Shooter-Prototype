@@ -44,6 +44,11 @@ public class Test_ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         }
     }
 
+    public virtual bool CanReceiveItem(Test_Item item)
+    {
+        return true;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData != null && eventData.button == PointerEventData.InputButton.Right)

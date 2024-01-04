@@ -1,13 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Test_Inventory : MonoBehaviour
 {
-    [SerializeField] List<Test_Item> _startingItems;
-    [SerializeField] Transform _itemsParent;
-    [SerializeField] Test_ItemSlot[] _itemSlots;
+    [SerializeField] private List<Test_Item> _startingItems;
+    [SerializeField] private Transform _itemsParent;
+    [SerializeField] private Test_ItemSlot[] _itemSlots;
 
     public EventHandler<Test_ItemSlot> OnPointerEnterEvent;
     public EventHandler<Test_ItemSlot> OnPointerExitEvent;
@@ -21,13 +20,13 @@ public class Test_Inventory : MonoBehaviour
     {
         for (int i = 0; i < _itemSlots.Length; i++)
         {
-            _itemSlots[i].OnPointerEnterEvent   += OnPointerEnterEvent;
-            _itemSlots[i].OnPointerExitEvent    += OnPointerExitEvent;
-            _itemSlots[i].OnRightClickEvent     += OnRightClickEvent;
-            _itemSlots[i].OnBeginDragEvent      += OnBeginDragEvent;
-            _itemSlots[i].OnDragEvent           += OnDragEvent;
-            _itemSlots[i].OnEndDragEvent        += OnEndDragEvent;
-            _itemSlots[i].OnDropEvent           += OnDropEvent;
+            _itemSlots[i].OnPointerEnterEvent += OnPointerEnterEvent;
+            _itemSlots[i].OnPointerExitEvent += OnPointerExitEvent;
+            _itemSlots[i].OnRightClickEvent += OnRightClickEvent;
+            _itemSlots[i].OnBeginDragEvent += OnBeginDragEvent;
+            _itemSlots[i].OnDragEvent += OnDragEvent;
+            _itemSlots[i].OnEndDragEvent += OnEndDragEvent;
+            _itemSlots[i].OnDropEvent += OnDropEvent;
         }
     }
 
@@ -45,7 +44,7 @@ public class Test_Inventory : MonoBehaviour
     {
         // Uses same variable for both loops
         int i = 0;
-        
+
         // When there is an item this loop works
         for (; i < _startingItems.Count && i < _itemSlots.Length; i++)
         {
@@ -59,7 +58,7 @@ public class Test_Inventory : MonoBehaviour
         }
     }
 
-    public bool AddItem(Test_Item item) // Check all slots, if empty put item there 
+    public bool AddItem(Test_Item item) // Check all slots, if empty put item there
     {
         for (int i = 0; i < _itemSlots.Length; i++)
         {
