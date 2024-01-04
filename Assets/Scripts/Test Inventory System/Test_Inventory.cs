@@ -5,17 +5,29 @@ using UnityEngine;
 
 public class Test_Inventory : MonoBehaviour
 {
-    [SerializeField] List<Test_Item> _items;
+    [SerializeField] List<Test_Item> _startingItems;
     [SerializeField] Transform _itemsParent;
     [SerializeField] Test_ItemSlot[] _itemSlots;
 
-    public event Action<Test_Item> OnItemRightClickedEvent;
+    public EventHandler<Test_ItemSlot> OnPointerEnterEvent;
+    public EventHandler<Test_ItemSlot> OnPointerExitEvent;
+    public EventHandler<Test_ItemSlot> OnRightClickEvent;
+    public EventHandler<Test_ItemSlot> OnBeginDragEvent;
+    public EventHandler<Test_ItemSlot> OnDragEvent;
+    public EventHandler<Test_ItemSlot> OnEndDragEvent;
+    public EventHandler<Test_ItemSlot> OnDropEvent;
 
-    private void Awake()
+    private void Start()
     {
         for (int i = 0; i < _itemSlots.Length; i++)
         {
-            _itemSlots[i].OnRightClickEvent += OnItemRightClickedEvent;
+            _itemSlots[i].OnPointerEnterEvent   += OnPointerEnterEvent;
+            _itemSlots[i].OnPointerExitEvent    += OnPointerExitEvent;
+            _itemSlots[i].OnRightClickEvent     += OnRightClickEvent;
+            _itemSlots[i].OnBeginDragEvent      += OnBeginDragEvent;
+            _itemSlots[i].OnDragEvent           += OnDragEvent;
+            _itemSlots[i].OnEndDragEvent        += OnEndDragEvent;
+            _itemSlots[i].OnDropEvent           += OnDropEvent;
         }
     }
 
@@ -26,18 +38,18 @@ public class Test_Inventory : MonoBehaviour
             _itemSlots = _itemsParent.GetComponentsInChildren<Test_ItemSlot>();
         }
 
-        RefreshUI();
+        SetStartingItems();
     }
 
-    private void RefreshUI()
+    private void SetStartingItems()
     {
         // Uses same variable for both loops
         int i = 0;
         
         // When there is an item this loop works
-        for (; i < _items.Count && i < _itemSlots.Length; i++)
+        for (; i < _startingItems.Count && i < _itemSlots.Length; i++)
         {
-            _itemSlots[i].Item = _items[i];
+            _itemSlots[i].Item = _startingItems[i];
         }
 
         // When there isn't an item this loop works
@@ -47,29 +59,41 @@ public class Test_Inventory : MonoBehaviour
         }
     }
 
-    public bool AddItem(Test_Item item)
+    public bool AddItem(Test_Item item) // Check all slots, if empty put item there 
     {
-        if (IsFull())
+        for (int i = 0; i < _itemSlots.Length; i++)
         {
-            return false;
+            if (_itemSlots[i].Item == null)
+            {
+                _itemSlots[i].Item = item;
+                return true;
+            }
         }
-        _items.Add(item);
-        RefreshUI();
-        return true;
+        return false;
     }
 
-    public bool RemoveItem(Test_Item item)
+    public bool RemoveItem(Test_Item item) // Check all slots, if item exists remove it
     {
-        if (_items.Remove(item))
+        for (int i = 0; i < _itemSlots.Length; i++)
         {
-            RefreshUI();
-            return true;
+            if (_itemSlots[i].Item == item)
+            {
+                _itemSlots[i].Item = null;
+                return true;
+            }
         }
         return false;
     }
 
     public bool IsFull()
     {
-        return _items.Count >= _itemSlots.Length;
+        for (int i = 0; i < _itemSlots.Length; i++)
+        {
+            if (_itemSlots[i].Item == null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

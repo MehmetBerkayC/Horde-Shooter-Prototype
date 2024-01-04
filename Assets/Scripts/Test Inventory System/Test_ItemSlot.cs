@@ -1,32 +1,35 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Test_ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class Test_ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    [SerializeField] Image _image;
-    [SerializeField] Test_ItemTooltip _tooltip;
+    [SerializeField] private Image _image;
 
+    public EventHandler<Test_ItemSlot> OnPointerEnterEvent;
+    public EventHandler<Test_ItemSlot> OnPointerExitEvent;
+    public EventHandler<Test_ItemSlot> OnRightClickEvent;
+    public EventHandler<Test_ItemSlot> OnBeginDragEvent;
+    public EventHandler<Test_ItemSlot> OnDragEvent;
+    public EventHandler<Test_ItemSlot> OnEndDragEvent;
+    public EventHandler<Test_ItemSlot> OnDropEvent;
 
-    public event Action<Test_Item> OnRightClickEvent;
     public Test_Item Item
     {
         get { return _item; }
-        
+
         set
-        { 
+        {
             _item = value;
             if (_item == null)
             {
-                _image.enabled = false;
+                _image.color = Color.clear;
             }
             else
             {
                 _image.sprite = _item.Icon;
-                _image.enabled = true;
+                _image.color = Color.white;
             }
         }
     }
@@ -39,34 +42,46 @@ public class Test_ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         {
             _image = GetComponent<Image>();
         }
-
-        if (_tooltip == null)
-        {
-            _tooltip = FindObjectOfType<Test_ItemTooltip>(); // Call findobjectof... only in Onvalidate() -> works only on editor not builds
-        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
         {
-            if (Item != null && OnRightClickEvent != null)
+            if (OnRightClickEvent != null)
             {
-                OnRightClickEvent(Item);
+                OnRightClickEvent(this, this);
             }
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (Item is Test_EquippableItem)
-        {
-            _tooltip.ShowTooltip((Test_EquippableItem)Item);
-        }
+        OnPointerEnterEvent?.Invoke(this, this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _tooltip.HideTooltip();
+        OnPointerExitEvent?.Invoke(this, this);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        OnBeginDragEvent?.Invoke(this, this);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        OnDragEvent?.Invoke(this, this);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        OnEndDragEvent?.Invoke(this, this);
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        OnDropEvent?.Invoke(this, this);
     }
 }
