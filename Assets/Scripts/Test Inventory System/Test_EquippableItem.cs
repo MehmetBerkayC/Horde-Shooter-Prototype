@@ -26,7 +26,7 @@ public class Test_EquippableItem : Test_Item
     [Space]
     public EquipmentType EquipmentType;
 
-    public void Equip(Test_Character character)
+    public void Equip(Test_PlayerInventory character)
     {
         //--------------------- Flat
         if (StrengthBonus != 0)
@@ -66,7 +66,7 @@ public class Test_EquippableItem : Test_Item
 
     }
 
-    public void Unequip(Test_Character character)
+    public void Unequip(Test_PlayerInventory character)
     {
         character.Strength.RemoveAllModifiersFromSource(this);
         character.Speed.RemoveAllModifiersFromSource(this);

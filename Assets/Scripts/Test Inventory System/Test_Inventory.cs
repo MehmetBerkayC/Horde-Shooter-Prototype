@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_Inventory : MonoBehaviour
+public class Test_Inventory : MonoBehaviour, IItemContainer
 {
     [SerializeField] private List<Test_Item> _startingItems;
     [SerializeField] private Transform _itemsParent;
@@ -48,7 +48,7 @@ public class Test_Inventory : MonoBehaviour
         // When there is an item this loop works
         for (; i < _startingItems.Count && i < _itemSlots.Length; i++)
         {
-            _itemSlots[i].Item = _startingItems[i];
+            _itemSlots[i].Item = Instantiate(_startingItems[i]);
         }
 
         // When there isn't an item this loop works
@@ -71,18 +71,7 @@ public class Test_Inventory : MonoBehaviour
         return false;
     }
 
-    public bool RemoveItem(Test_Item item) // Check all slots, if item exists remove it
-    {
-        for (int i = 0; i < _itemSlots.Length; i++)
-        {
-            if (_itemSlots[i].Item == item)
-            {
-                _itemSlots[i].Item = null;
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public bool IsFull()
     {
@@ -94,5 +83,46 @@ public class Test_Inventory : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public int ItemCount(string itemID)
+    {
+        int number = 0;
+        for (int i = 0; i < _itemSlots.Length; i++)
+        {
+            if (_itemSlots[i].Item.ID == itemID)
+            {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    public Test_Item RemoveItem(string itemID)
+    {
+        for (int i = 0; i < _itemSlots.Length; i++)
+        {
+            Test_Item item = _itemSlots[i].Item;
+
+            if (item != null && item.ID == itemID)
+            {
+                _itemSlots[i].Item = null;
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public bool RemoveItem(Test_Item item) // Check all slots, if item exists remove it
+    {
+        for (int i = 0; i < _itemSlots.Length; i++)
+        {
+            if (_itemSlots[i].Item == item)
+            {
+                _itemSlots[i].Item = null;
+                return true;
+            }
+        }
+        return false;
     }
 }

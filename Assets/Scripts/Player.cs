@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [
-    RequireComponent(typeof(Rigidbody2D)), 
+    RequireComponent(typeof(Rigidbody2D)),
     RequireComponent(typeof(PlayerAnimator))
 ]
 public class Player : MonoBehaviour, IDamageable
@@ -12,30 +10,33 @@ public class Player : MonoBehaviour, IDamageable
     public static Player Instance { get; private set; }
 
     // This will become a SO based upgradable stat system later
-    [SerializeField] int _maxHealth = 100;
-    [SerializeField] float _speed = 5f;
+    [SerializeField] private int _maxHealth = 100;
+
+    [SerializeField] private float _speed = 5f;
 
     // UI
-    [SerializeField] Camera _uiCamera;
-    [SerializeField] UI_Inventory _uiInventory;
-    [SerializeField] InventoryScriptableObject _inventory;
-    [SerializeField] UI_LevelBar _uiLevelBar;
-    
+    [SerializeField] private Camera _uiCamera;
+
+    [SerializeField] private UI_Inventory _uiInventory;
+    [SerializeField] private InventoryScriptableObject _inventory;
+    [SerializeField] private UI_LevelBar _uiLevelBar;
+
     // Health
-    HealthSystem _healthSystem;
+    private HealthSystem _healthSystem;
 
-    Vector2 _playerInputs;
+    private Vector2 _playerInputs;
 
-    Rigidbody2D _rigidbody;
-    PlayerAnimator _animator;
+    private Rigidbody2D _rigidbody;
+    private PlayerAnimator _animator;
 
     // Gun Slots
-    [SerializeField] Transform[] _availableGunSlots; // May automatically search using transform.find later
-    [SerializeField] GunLoadoutDataSO _gunLoadoutData;
-    GunLoadout _gunLoadout;
+    [SerializeField] private Transform[] _availableGunSlots; // May automatically search using transform.find later
 
-    void Awake()
-    { 
+    [SerializeField] private GunLoadoutDataSO _gunLoadoutData;
+    private GunLoadout _gunLoadout;
+
+    private void Awake()
+    {
         // Singleton Pattern
         if (Instance != null && Instance != this)
         {
@@ -48,10 +49,9 @@ public class Player : MonoBehaviour, IDamageable
 
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<PlayerAnimator>();
-
     }
 
-    void Start()
+    private void Start()
     {
         //_inventory = new Inventory(); // may want to return to basic class
         if (_inventory == null)
@@ -70,17 +70,17 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    void Update()
+    private void Update()
     {
         InputManagement();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Movement();
     }
-    
-    void InputManagement()
+
+    private void InputManagement()
     {
         _playerInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour, IDamageable
             _inventory.Load();
         }
         if (Input.GetKeyDown(KeyCode.Tab))
-        { 
+        {
             ToggleInventoryView();
         }
 
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour, IDamageable
         _uiInventory.gameObject.SetActive(!_uiInventory.isActiveAndEnabled);
     }
 
-    void Movement()
+    private void Movement()
     {
         _rigidbody.velocity = _playerInputs * _speed;
         _animator.Flip(_playerInputs.x);

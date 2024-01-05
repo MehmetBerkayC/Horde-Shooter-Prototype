@@ -2,7 +2,7 @@ using Coruk.CharacterStats;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Test_Character : MonoBehaviour
+public class Test_PlayerInventory : MonoBehaviour
 {
     // Make this script decoupled from movement and stat segments
     public CharacterStat Strength;
@@ -15,6 +15,15 @@ public class Test_Character : MonoBehaviour
     [SerializeField] private Test_StatPanel statPanel;
     [SerializeField] private Test_ItemTooltip ItemTooltip;
     [SerializeField] private Image draggableItem;
+
+    public Test_Inventory PlayerInventory
+    {
+        get { return inventory; }
+        private set
+        {
+            inventory = value;
+        }
+    }
 
     private Test_ItemSlot draggedItemSlot;
 
@@ -101,7 +110,7 @@ public class Test_Character : MonoBehaviour
             draggedItemSlot = itemSlot;
             draggableItem.sprite = itemSlot.Item.Icon;
             draggableItem.transform.position = Input.mousePosition;
-            draggableItem.enabled = true;
+            draggableItem.gameObject.SetActive(true);
             draggableItem.raycastTarget = false; // Raycast cannot know whats beneath if enabled while dropping
         }
     }
@@ -117,12 +126,14 @@ public class Test_Character : MonoBehaviour
     private void EndDrag(object sender, Test_ItemSlot itemSlot)
     {
         draggedItemSlot = null;
-        draggableItem.enabled = false;
+        draggableItem.gameObject.SetActive(false);
         draggableItem.raycastTarget = true;
     }
 
     private void Drop(object sender, Test_ItemSlot droppeditemSlot)
     {
+        if (draggedItemSlot == null) return;
+        
         // Swap possible
         if (droppeditemSlot.CanReceiveItem(draggedItemSlot.Item) && draggedItemSlot.CanReceiveItem(droppeditemSlot.Item))
         {
