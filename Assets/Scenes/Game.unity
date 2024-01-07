@@ -1278,46 +1278,16 @@ MonoBehaviour:
     _waveQuota: 0
     _spawnInterval: 0.5
     _spawnCount: 0
-  - _waveName: wave 2
-    _enemyGroups:
-    - _enemyName: 
-      _enemyCount: 5
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 9035520415131122101, guid: dd9d55c7d19e1ea4b94d8e643c0a1082, type: 3}
-    - _enemyName: 
-      _enemyCount: 15
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 4430543312814173287, guid: abc040f19f928de49a27f69720eb7339, type: 3}
-    _waveQuota: 0
-    _spawnInterval: 0.75
-    _spawnCount: 0
-  - _waveName: wave 3
-    _enemyGroups:
-    - _enemyName: 
-      _enemyCount: 15
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 7124891138553952260, guid: 6dfeeb4c49c62144a85e26f6a1c73b61, type: 3}
-    - _enemyName: 
-      _enemyCount: 10
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 4430543312814173287, guid: abc040f19f928de49a27f69720eb7339, type: 3}
-    - _enemyName: 
-      _enemyCount: 15
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 2175251412589240242, guid: 74f65723d34117341b0a609da2222190, type: 3}
-    _waveQuota: 0
-    _spawnInterval: 0.9
-    _spawnCount: 0
   _player: {fileID: 899471654}
   _endlessRate: 0.4
   _mapBorder: 9.5
   _minDistanceFromPlayer: 4
-  GameMode: 0
   _enemiesAlive: 0
   _maxEnemiesAllowed: 50
   _maxEnemiesReached: 0
   _waveInterval: 5
   _currentWaveCount: 0
+  _enemiesSpawnedInWave: 0
   _spawnPointMarkerPrefab: {fileID: 3592391809555087744, guid: dc9eb230df443aa4080be4e262d25af4, type: 3}
 --- !u!4 &824039199
 Transform:
@@ -3488,7 +3458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 899471654}
-  _mapX: {x: -2.7, y: 2.7}
+  _mapX: {x: -1, y: 1}
   _mapY: {x: -10.5, y: 10.5}
 --- !u!1001 &2070133114
 PrefabInstance:
