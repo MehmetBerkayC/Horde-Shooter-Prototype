@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Test_ItemChest : MonoBehaviour
 {
-    [SerializeField] private Test_ItemSO item;
+    [SerializeField] private Test_Item item;
     [SerializeField] int amount = 1;
     
     private Test_Inventory inventory;
@@ -16,7 +16,7 @@ public class Test_ItemChest : MonoBehaviour
     {
         if (_isInRange && Input.GetKeyDown(itemPickupKeycode) && !_isEmpty)
         {
-            Test_ItemSO itemCopy = item.GetCopy();
+            Test_Item itemCopy = item.GetCopy();
             if (inventory.AddItem(itemCopy))
             {
                 amount--;

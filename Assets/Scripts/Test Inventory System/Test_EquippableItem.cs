@@ -11,7 +11,7 @@ public enum EquipmentType
 }
 
 [CreateAssetMenu]
-public class Test_EquippableItem : Test_ItemSO
+public class Test_EquippableItem : Test_Item
 {
 
     public float StrengthBonus;
@@ -26,7 +26,7 @@ public class Test_EquippableItem : Test_ItemSO
     [Space]
     public EquipmentType EquipmentType;
 
-    public override Test_ItemSO GetCopy()
+    public override Test_Item GetCopy()
     {
         return Instantiate(this);
     }

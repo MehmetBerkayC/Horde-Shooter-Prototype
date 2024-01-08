@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu]
-public class Test_CraftingRecipeSO : ScriptableObject
+public class Test_CraftingRecipe : ScriptableObject
 {
     public List<ItemAmount> Materials;
     public List<ItemAmount> Products;
@@ -28,7 +28,7 @@ public class Test_CraftingRecipeSO : ScriptableObject
         {
             foreach (ItemAmount itemAmount in Materials)
             {
-                Test_ItemSO oldItem = itemContainer.RemoveItem(itemAmount.Item.ID);
+                Test_Item oldItem = itemContainer.RemoveItem(itemAmount.Item.ID);
                 oldItem.Destroy();
             }
 

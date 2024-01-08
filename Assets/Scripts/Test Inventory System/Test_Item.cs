@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName ="Test Scriptable Objects/Items")]
-public class Test_ItemSO : ScriptableObject
+public class Test_Item : ScriptableObject
 {
     [SerializeField] string id;
     public string ID { get { return id; } }
@@ -19,7 +19,7 @@ public class Test_ItemSO : ScriptableObject
         id = AssetDatabase.AssetPathToGUID(path);
     }
 
-    public virtual Test_ItemSO GetCopy()
+    public virtual Test_Item GetCopy()
     {
         return this;
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_EquipmentSlot : Test_BaseItemSlot
+public class Test_EquipmentSlot : Test_ItemSlot
 {
     public EquipmentType EquipmentType;
 
@@ -12,7 +12,7 @@ public class Test_EquipmentSlot : Test_BaseItemSlot
         gameObject.name = EquipmentType.ToString() + " Slot";
     }
 
-    public override bool CanReceiveItem(Test_ItemSO item)
+    public override bool CanReceiveItem(Test_Item item)
     {
         if (item == null)
         {

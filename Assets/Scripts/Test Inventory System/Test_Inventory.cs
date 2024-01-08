@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Test_Inventory : ItemContainer
 {
-    [SerializeField] private List<Test_ItemSO> _startingItems;
-    [SerializeField] private Transform _itemsParent;
+    [SerializeField] private List<Test_Item> startingItems;
+    [SerializeField] private Transform itemsParent;
 
     public EventHandler<Test_BaseItemSlot> OnPointerEnterEvent;
     public EventHandler<Test_BaseItemSlot> OnPointerExitEvent;
@@ -31,9 +31,9 @@ public class Test_Inventory : ItemContainer
 
     private void OnValidate()
     {
-        if (_itemsParent != null)
+        if (itemsParent != null)
         {
-            _itemSlots = _itemsParent.GetComponentsInChildren<Test_BaseItemSlot>();
+            _itemSlots = itemsParent.GetComponentsInChildren<Test_ItemSlot>();
         }
 
         SetStartingItems();
@@ -45,9 +45,9 @@ public class Test_Inventory : ItemContainer
         int i = 0;
 
         // When there is an item this loop works
-        for (; i < _startingItems.Count && i < _itemSlots.Length; i++)
+        for (; i < startingItems.Count && i < _itemSlots.Length; i++)
         {
-            _itemSlots[i].Item = _startingItems[i].GetCopy();
+            _itemSlots[i].Item = startingItems[i].GetCopy();
             _itemSlots[i].Amount = 1;
         }
 

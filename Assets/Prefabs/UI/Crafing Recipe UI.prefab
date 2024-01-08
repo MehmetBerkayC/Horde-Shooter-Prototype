@@ -395,7 +395,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7854840399987753554}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1737059122933361607}
+        m_TargetAssemblyTypeName: Test_CraftingRecipeUI, Assembly-CSharp
+        m_MethodName: OnCraftButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7854840400123076526
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +419,7 @@ GameObject:
   - component: {fileID: 7854840400123076527}
   - component: {fileID: 7854840400123076525}
   - component: {fileID: 7854840400123076524}
+  - component: {fileID: 5647973080114511989}
   m_Layer: 5
   m_Name: Crafting Item Slot (2)
   m_TagString: Untagged
@@ -473,6 +486,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5647973080114511989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854840400123076526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24866a33c2c7d3240a703dc344da2bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 7854840400123076524}
+  amountText: {fileID: 7854840400863801659}
 --- !u!1 &7854840400185348988
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7854840400185348989}
   - component: {fileID: 7854840400185348978}
+  - component: {fileID: 1737059122933361607}
   m_Layer: 5
   m_Name: Crafing Recipe UI
   m_TagString: Untagged
@@ -497,7 +525,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7854840400185348988}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -542,6 +570,26 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1737059122933361607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854840400185348988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a523089e458c13845a0b8dfcae70f3ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowParent: {fileID: 7854840401426686175}
+  ItemSlots:
+  - {fileID: 1407201220171504477}
+  - {fileID: 1529082543924453451}
+  - {fileID: 5647973080114511989}
+  - {fileID: 4898910407277134147}
+  ItemContainer: {fileID: 0}
+  _craftingRecipe: {fileID: 11400000, guid: ecb9f21ca3143d14f8b7106ba71fe06a, type: 2}
 --- !u!1 &7854840400330107803
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +678,7 @@ GameObject:
   - component: {fileID: 7854840400404171155}
   - component: {fileID: 7854840400404171153}
   - component: {fileID: 7854840400404171152}
+  - component: {fileID: 1529082543924453451}
   m_Layer: 5
   m_Name: Crafting Item Slot (1)
   m_TagString: Untagged
@@ -696,6 +745,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1529082543924453451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854840400404171154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24866a33c2c7d3240a703dc344da2bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 7854840400404171152}
+  amountText: {fileID: 7854840400696575758}
 --- !u!1 &7854840400498472987
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,6 +1044,7 @@ GameObject:
   - component: {fileID: 7854840400779761781}
   - component: {fileID: 7854840400779761771}
   - component: {fileID: 7854840400779761770}
+  - component: {fileID: 4898910407277134147}
   m_Layer: 5
   m_Name: Crafting Item Slot (3)
   m_TagString: Untagged
@@ -1047,6 +1111,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4898910407277134147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854840400779761780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24866a33c2c7d3240a703dc344da2bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 7854840400779761770}
+  amountText: {fileID: 7854840399704413656}
 --- !u!1 &7854840400840554524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1626,7 @@ GameObject:
   - component: {fileID: 7854840401563726054}
   - component: {fileID: 7854840401563726052}
   - component: {fileID: 7854840401563726055}
+  - component: {fileID: 1407201220171504477}
   m_Layer: 5
   m_Name: Crafting Item Slot
   m_TagString: Untagged
@@ -1614,3 +1693,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1407201220171504477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854840401563726049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24866a33c2c7d3240a703dc344da2bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 7854840401563726055}
+  amountText: {fileID: 7854840400498472985}

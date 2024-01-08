@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class ItemContainer : MonoBehaviour, IItemContainer
 {
-    [SerializeField] protected Test_BaseItemSlot[] _itemSlots;
+    [SerializeField] protected Test_ItemSlot[] _itemSlots;
 
-    public virtual bool AddItem(Test_ItemSO item) // Check all slots, if empty put item there
+    public virtual bool AddItem(Test_Item item) // Check all slots, if empty put item there
     {
         for (int i = 0; i < _itemSlots.Length; i++)
         {
@@ -20,11 +20,11 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
         return false;
     }
 
-    public virtual Test_ItemSO RemoveItem(string itemID)
+    public virtual Test_Item RemoveItem(string itemID)
     {
         for (int i = 0; i < _itemSlots.Length; i++)
         {
-            Test_ItemSO item = _itemSlots[i].Item;
+            Test_Item item = _itemSlots[i].Item;
 
             if (item != null && item.ID == itemID)
             {
@@ -39,7 +39,7 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
         return null;
     }
 
-    public virtual bool RemoveItem(Test_ItemSO item) // Check all slots, if item exists remove it
+    public virtual bool RemoveItem(Test_Item item) // Check all slots, if item exists remove it
     {
         for (int i = 0; i < _itemSlots.Length; i++)
         {

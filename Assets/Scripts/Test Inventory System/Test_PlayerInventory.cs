@@ -154,7 +154,7 @@ public class Test_PlayerInventory : MonoBehaviour
             }
 
             // Items aren't equippable ones, swap normally
-            Test_ItemSO draggedItem = draggedItemSlot.Item;
+            Test_Item draggedItem = draggedItemSlot.Item;
             int draggedItemAmount = draggedItemSlot.Amount;
 
             draggedItemSlot.Item = droppeditemSlot.Item;

@@ -2752,7 +2752,6 @@ GameObject:
   - component: {fileID: 6826661182771045652}
   - component: {fileID: 6826661182771045655}
   - component: {fileID: 6826661182771045654}
-  - component: {fileID: 6826661182771045653}
   m_Layer: 5
   m_Name: Item Slot (6)
   m_TagString: Untagged
@@ -2819,20 +2818,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6826661182771045653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6826661182771045651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24866a33c2c7d3240a703dc344da2bd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 6826661182771045654}
-  amountText: {fileID: 5051061565516032740}
 --- !u!1 &6826661182785936558
 GameObject:
   m_ObjectHideFlags: 0
@@ -5589,33 +5574,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f83b86bfbff463d4e978a114b4a10be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingItems:
-  - {fileID: 11400000, guid: ccb9412fcfd54b9469f51b316b5a9186, type: 2}
-  - {fileID: 11400000, guid: a6732f1b7dff6114d9bf46aab12baef6, type: 2}
-  - {fileID: 11400000, guid: bf5895245a30aeb40bf593d203800419, type: 2}
-  - {fileID: 11400000, guid: 84e85215f29c9624884a27c598e85939, type: 2}
-  - {fileID: 11400000, guid: ca91c49c156f14949b0368f1efad6553, type: 2}
-  - {fileID: 11400000, guid: 49c900b57506da64d9342ba457986966, type: 2}
-  _itemsParent: {fileID: 6826661182144164368}
   _itemSlots:
-  - {fileID: 6826661183474223117}
-  - {fileID: 6826661182853156656}
-  - {fileID: 6826661182997899306}
-  - {fileID: 6826661183131482367}
-  - {fileID: 6826661182855068159}
-  - {fileID: 6826661182930892869}
-  - {fileID: 6826661182771045653}
-  - {fileID: 6826661182246567235}
-  - {fileID: 6826661183861478457}
-  - {fileID: 6826661183970567330}
-  - {fileID: 6826661183070749900}
-  - {fileID: 6826661182785936560}
-  - {fileID: 6826661183891849070}
-  - {fileID: 6826661183633150875}
-  - {fileID: 6826661182902136958}
-  - {fileID: 6826661184005609983}
-  - {fileID: 6826661183811096695}
-  - {fileID: 6826661182137950588}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  startingItems: []
+  itemsParent: {fileID: 0}
 --- !u!1 &6826661183891849068
 GameObject:
   m_ObjectHideFlags: 0
