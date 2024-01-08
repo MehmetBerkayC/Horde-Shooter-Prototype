@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c4acdb40c7d28744a4fde2277e4cb0d, type: 3}
-  m_Name: Test_UselessPotion
+  m_Name: Test_Coin
   m_EditorClassIdentifier: 
-  ItemName: Useless Potion
-  Icon: {fileID: 21300000, guid: cbc9d6854e2a97c47848a562f3108613, type: 3}
+  id: 49c900b57506da64d9342ba457986966
+  ItemName: Coin
+  MaximumStackSize: 10
+  Icon: {fileID: 21300000, guid: b9b6d1769f5cc774594729ad016eb966, type: 3}

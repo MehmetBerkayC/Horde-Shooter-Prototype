@@ -11,7 +11,7 @@ public enum EquipmentType
 }
 
 [CreateAssetMenu]
-public class Test_EquippableItem : Test_Item
+public class Test_EquippableItem : Test_ItemSO
 {
 
     public float StrengthBonus;
@@ -25,6 +25,16 @@ public class Test_EquippableItem : Test_Item
     public float DamagePercentBonus;
     [Space]
     public EquipmentType EquipmentType;
+
+    public override Test_ItemSO GetCopy()
+    {
+        return Instantiate(this);
+    }
+
+    public override void Destroy()
+    {
+        Destroy(this);
+    }
 
     public void Equip(Test_PlayerInventory character)
     {

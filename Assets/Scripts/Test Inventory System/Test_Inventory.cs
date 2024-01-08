@@ -2,19 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_Inventory : MonoBehaviour, IItemContainer
+public class Test_Inventory : ItemContainer
 {
-    [SerializeField] private List<Test_Item> _startingItems;
+    [SerializeField] private List<Test_ItemSO> _startingItems;
     [SerializeField] private Transform _itemsParent;
-    [SerializeField] private Test_ItemSlot[] _itemSlots;
 
-    public EventHandler<Test_ItemSlot> OnPointerEnterEvent;
-    public EventHandler<Test_ItemSlot> OnPointerExitEvent;
-    public EventHandler<Test_ItemSlot> OnRightClickEvent;
-    public EventHandler<Test_ItemSlot> OnBeginDragEvent;
-    public EventHandler<Test_ItemSlot> OnDragEvent;
-    public EventHandler<Test_ItemSlot> OnEndDragEvent;
-    public EventHandler<Test_ItemSlot> OnDropEvent;
+    public EventHandler<Test_BaseItemSlot> OnPointerEnterEvent;
+    public EventHandler<Test_BaseItemSlot> OnPointerExitEvent;
+    public EventHandler<Test_BaseItemSlot> OnRightClickEvent;
+    public EventHandler<Test_BaseItemSlot> OnBeginDragEvent;
+    public EventHandler<Test_BaseItemSlot> OnDragEvent;
+    public EventHandler<Test_BaseItemSlot> OnEndDragEvent;
+    public EventHandler<Test_BaseItemSlot> OnDropEvent;
 
     private void Start()
     {
@@ -34,7 +33,7 @@ public class Test_Inventory : MonoBehaviour, IItemContainer
     {
         if (_itemsParent != null)
         {
-            _itemSlots = _itemsParent.GetComponentsInChildren<Test_ItemSlot>();
+            _itemSlots = _itemsParent.GetComponentsInChildren<Test_BaseItemSlot>();
         }
 
         SetStartingItems();
@@ -48,81 +47,16 @@ public class Test_Inventory : MonoBehaviour, IItemContainer
         // When there is an item this loop works
         for (; i < _startingItems.Count && i < _itemSlots.Length; i++)
         {
-            _itemSlots[i].Item = Instantiate(_startingItems[i]);
+            _itemSlots[i].Item = _startingItems[i].GetCopy();
+            _itemSlots[i].Amount = 1;
         }
 
         // When there isn't an item this loop works
         for (; i < _itemSlots.Length; i++)
         {
             _itemSlots[i].Item = null;
+            _itemSlots[i].Amount = 0;
         }
     }
 
-    public bool AddItem(Test_Item item) // Check all slots, if empty put item there
-    {
-        for (int i = 0; i < _itemSlots.Length; i++)
-        {
-            if (_itemSlots[i].Item == null)
-            {
-                _itemSlots[i].Item = item;
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-
-    public bool IsFull()
-    {
-        for (int i = 0; i < _itemSlots.Length; i++)
-        {
-            if (_itemSlots[i].Item == null)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public int ItemCount(string itemID)
-    {
-        int number = 0;
-        for (int i = 0; i < _itemSlots.Length; i++)
-        {
-            if (_itemSlots[i].Item.ID == itemID)
-            {
-                number++;
-            }
-        }
-        return number;
-    }
-
-    public Test_Item RemoveItem(string itemID)
-    {
-        for (int i = 0; i < _itemSlots.Length; i++)
-        {
-            Test_Item item = _itemSlots[i].Item;
-
-            if (item != null && item.ID == itemID)
-            {
-                _itemSlots[i].Item = null;
-                return item;
-            }
-        }
-        return null;
-    }
-
-    public bool RemoveItem(Test_Item item) // Check all slots, if item exists remove it
-    {
-        for (int i = 0; i < _itemSlots.Length; i++)
-        {
-            if (_itemSlots[i].Item == item)
-            {
-                _itemSlots[i].Item = null;
-                return true;
-            }
-        }
-        return false;
-    }
 }

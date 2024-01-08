@@ -2,19 +2,30 @@ using UnityEngine;
 
 public class Test_ItemChest : MonoBehaviour
 {
-    [SerializeField] private Test_Item item;
+    [SerializeField] private Test_ItemSO item;
+    [SerializeField] int amount = 1;
+    
     private Test_Inventory inventory;
 
     [SerializeField] private KeyCode itemPickupKeycode = KeyCode.E;
 
     private bool _isInRange;
+    private bool _isEmpty;
 
     private void Update()
     {
-        if (_isInRange && Input.GetKeyDown(itemPickupKeycode))
+        if (_isInRange && Input.GetKeyDown(itemPickupKeycode) && !_isEmpty)
         {
-            inventory.AddItem(Instantiate(item));
-            item = null;
+            Test_ItemSO itemCopy = item.GetCopy();
+            if (inventory.AddItem(itemCopy))
+            {
+                amount--;
+                if (amount == 0)
+                {
+                    _isEmpty = true;
+                    itemCopy.Destroy();
+                }
+            }
         }
     }
 

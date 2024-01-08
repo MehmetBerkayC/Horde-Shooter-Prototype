@@ -6,13 +6,13 @@ public class Test_EquipmentPanel : MonoBehaviour
     [SerializeField] private Transform _equipmentSlotsParent;
     [SerializeField] private Test_EquipmentSlot[] _equipmentSlots;
 
-    public EventHandler<Test_ItemSlot> OnPointerEnterEvent;
-    public EventHandler<Test_ItemSlot> OnPointerExitEvent;
-    public EventHandler<Test_ItemSlot> OnRightClickEvent;
-    public EventHandler<Test_ItemSlot> OnBeginDragEvent;
-    public EventHandler<Test_ItemSlot> OnDragEvent;
-    public EventHandler<Test_ItemSlot> OnEndDragEvent;
-    public EventHandler<Test_ItemSlot> OnDropEvent;
+    public EventHandler<Test_BaseItemSlot> OnPointerEnterEvent;
+    public EventHandler<Test_BaseItemSlot> OnPointerExitEvent;
+    public EventHandler<Test_BaseItemSlot> OnRightClickEvent;
+    public EventHandler<Test_BaseItemSlot> OnBeginDragEvent;
+    public EventHandler<Test_BaseItemSlot> OnDragEvent;
+    public EventHandler<Test_BaseItemSlot> OnEndDragEvent;
+    public EventHandler<Test_BaseItemSlot> OnDropEvent;
 
     private void Start()
     {

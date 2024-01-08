@@ -25,7 +25,7 @@ public class Test_PlayerInventory : MonoBehaviour
         }
     }
 
-    private Test_ItemSlot draggedItemSlot;
+    private Test_BaseItemSlot draggedItemSlot;
 
     private void Awake()
     {
@@ -65,7 +65,7 @@ public class Test_PlayerInventory : MonoBehaviour
         statPanel.UpdateStatValues(); // Will make it not manual
     }
 
-    private void Equip(object sender, Test_ItemSlot itemSlot)
+    private void Equip(object sender, Test_BaseItemSlot itemSlot)
     {
         if (itemSlot.Item is Test_EquippableItem)
         {
@@ -77,7 +77,7 @@ public class Test_PlayerInventory : MonoBehaviour
         }
     }
 
-    private void UnEquip(object sender, Test_ItemSlot itemSlot)
+    private void UnEquip(object sender, Test_BaseItemSlot itemSlot)
     {
         if (itemSlot.Item is Test_EquippableItem)
         {
@@ -89,7 +89,7 @@ public class Test_PlayerInventory : MonoBehaviour
         }
     }
 
-    private void ShowTooltip(object sender, Test_ItemSlot itemSlot)
+    private void ShowTooltip(object sender, Test_BaseItemSlot itemSlot)
     {
         if (itemSlot.Item is Test_EquippableItem)
         {
@@ -98,12 +98,12 @@ public class Test_PlayerInventory : MonoBehaviour
         }
     }
 
-    private void HideTooltip(object sender, Test_ItemSlot itemSlot)
+    private void HideTooltip(object sender, Test_BaseItemSlot itemSlot)
     {
         ItemTooltip.HideTooltip();
     }
 
-    private void BeginDrag(object sender, Test_ItemSlot itemSlot)
+    private void BeginDrag(object sender, Test_BaseItemSlot itemSlot)
     {
         if (itemSlot.Item != null)
         {
@@ -115,7 +115,7 @@ public class Test_PlayerInventory : MonoBehaviour
         }
     }
 
-    private void Drag(object sender, Test_ItemSlot itemSlot)
+    private void Drag(object sender, Test_BaseItemSlot itemSlot)
     {
         if (draggableItem.enabled)
         {
@@ -123,14 +123,14 @@ public class Test_PlayerInventory : MonoBehaviour
         }
     }
 
-    private void EndDrag(object sender, Test_ItemSlot itemSlot)
+    private void EndDrag(object sender, Test_BaseItemSlot itemSlot)
     {
         draggedItemSlot = null;
         draggableItem.gameObject.SetActive(false);
         draggableItem.raycastTarget = true;
     }
 
-    private void Drop(object sender, Test_ItemSlot droppeditemSlot)
+    private void Drop(object sender, Test_BaseItemSlot droppeditemSlot)
     {
         if (draggedItemSlot == null) return;
         
@@ -154,9 +154,14 @@ public class Test_PlayerInventory : MonoBehaviour
             }
 
             // Items aren't equippable ones, swap normally
-            Test_Item draggedItem = draggedItemSlot.Item;
+            Test_ItemSO draggedItem = draggedItemSlot.Item;
+            int draggedItemAmount = draggedItemSlot.Amount;
+
             draggedItemSlot.Item = droppeditemSlot.Item;
+            draggedItemSlot.Amount = droppeditemSlot.Amount;
+
             droppeditemSlot.Item = draggedItem;
+            droppeditemSlot.Amount = draggedItemAmount;
 
             statPanel.UpdateStatValues();
         }
@@ -177,7 +182,7 @@ public class Test_PlayerInventory : MonoBehaviour
             {
                 if (previousItem != null) // not empty
                 {
-                    inventory.AddItem(previousItem); // send previous item to inventory
+                    inventory.AddItem(previousItem); 
                     previousItem.Unequip(this);
                     statPanel.UpdateStatValues();
                 }
@@ -186,7 +191,7 @@ public class Test_PlayerInventory : MonoBehaviour
             }
             else // couldn't equip item
             {
-                inventory.AddItem(item); // back to inventory
+                inventory.AddItem(item); 
             }
         }
     }
