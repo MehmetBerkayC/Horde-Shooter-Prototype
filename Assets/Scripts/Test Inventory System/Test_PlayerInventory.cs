@@ -12,6 +12,7 @@ public class Test_PlayerInventory : MonoBehaviour
 
     [SerializeField] private Test_Inventory inventory;
     [SerializeField] private Test_EquipmentPanel equipmentPanel;
+    [SerializeField] private Test_CraftingWindow craftingWindow;
     [SerializeField] private Test_StatPanel statPanel;
     [SerializeField] private Test_ItemTooltip ItemTooltip;
     [SerializeField] private Image draggableItem;
@@ -27,7 +28,7 @@ public class Test_PlayerInventory : MonoBehaviour
 
     private Test_BaseItemSlot draggedItemSlot;
 
-    private void Awake()
+    private void Start()
     {
         // Setup Events
         //Right Click
@@ -37,10 +38,12 @@ public class Test_PlayerInventory : MonoBehaviour
         // Pointer Enter
         inventory.OnPointerEnterEvent += ShowTooltip;
         equipmentPanel.OnPointerEnterEvent += ShowTooltip;
+        craftingWindow.OnPointerEnterEvent += ShowTooltip;
 
         // Pointer Exit
         inventory.OnPointerExitEvent += HideTooltip;
         equipmentPanel.OnPointerExitEvent += HideTooltip;
+        craftingWindow.OnPointerExitEvent += HideTooltip;
 
         // Begin Drag
         inventory.OnBeginDragEvent += BeginDrag;
@@ -57,10 +60,7 @@ public class Test_PlayerInventory : MonoBehaviour
         // Drop
         inventory.OnDropEvent += Drop;
         equipmentPanel.OnDropEvent += Drop;
-    }
 
-    private void Start()
-    {
         statPanel.SetStats(Strength, Speed, Health, Damage);
         statPanel.UpdateStatValues(); // Will make it not manual
     }
