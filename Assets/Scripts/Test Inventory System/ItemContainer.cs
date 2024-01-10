@@ -4,16 +4,16 @@ using UnityEngine;
 
 public abstract class ItemContainer : MonoBehaviour, IItemContainer
 {
-    [SerializeField] protected Test_ItemSlot[] _itemSlots;
+    [SerializeField] protected Test_ItemSlot[] itemSlots;
 
     public virtual bool AddItem(Test_Item item) // Check all slots, if empty put item there
     {
-        for (int i = 0; i < _itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (_itemSlots[i].Item == null || (_itemSlots[i].Item.ID == item.ID && _itemSlots[i].Amount < item.MaximumStackSize))
+            if (itemSlots[i].Item == null || (itemSlots[i].Item.ID == item.ID && itemSlots[i].Amount < item.MaximumStackSize))
             {
-                _itemSlots[i].Item = item;
-                _itemSlots[i].Amount++;
+                itemSlots[i].Item = item;
+                itemSlots[i].Amount++;
                 return true;
             }
         }
@@ -22,16 +22,16 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
 
     public virtual Test_Item RemoveItem(string itemID)
     {
-        for (int i = 0; i < _itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            Test_Item item = _itemSlots[i].Item;
+            Test_Item item = itemSlots[i].Item;
 
             if (item != null && item.ID == itemID)
             {
-                _itemSlots[i].Amount--;
-                if (_itemSlots[i].Amount == 0)
+                itemSlots[i].Amount--;
+                if (itemSlots[i].Amount == 0)
                 {
-                    _itemSlots[i].Item = null;
+                    itemSlots[i].Item = null;
                 }
                 return item;
             }
@@ -41,14 +41,14 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
 
     public virtual bool RemoveItem(Test_Item item) // Check all slots, if item exists remove it
     {
-        for (int i = 0; i < _itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (_itemSlots[i].Item == item)
+            if (itemSlots[i].Item == item)
             {
-                _itemSlots[i].Amount--;
-                if (_itemSlots[i].Amount == 0)
+                itemSlots[i].Amount--;
+                if (itemSlots[i].Amount == 0)
                 {
-                    _itemSlots[i].Item = null;
+                    itemSlots[i].Item = null;
                 }
                 return true;
             }
@@ -58,9 +58,9 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
 
     public virtual bool IsFull()
     {
-        for (int i = 0; i < _itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (_itemSlots[i].Item == null)
+            if (itemSlots[i].Item == null)
             {
                 return false;
             }
@@ -71,9 +71,9 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
     public virtual int ItemCount(string itemID)
     {
         int number = 0;
-        for (int i = 0; i < _itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (_itemSlots[i].Item.ID == itemID)
+            if (itemSlots[i].Item.ID == itemID)
             {
                 number++;
             }

@@ -12,7 +12,6 @@ public class Test_CraftingRecipeUI : MonoBehaviour
     [Header("Public Variables")]
     public ItemContainer ItemContainer; // inventory
 
-    [SerializeField]
     private Test_CraftingRecipe _craftingRecipe;
     public Test_CraftingRecipe CraftingRecipe
     {

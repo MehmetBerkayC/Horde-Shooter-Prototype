@@ -17,15 +17,15 @@ public class Test_Inventory : ItemContainer
 
     private void Start()
     {
-        for (int i = 0; i < _itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            _itemSlots[i].OnPointerEnterEvent += OnPointerEnterEvent;
-            _itemSlots[i].OnPointerExitEvent += OnPointerExitEvent;
-            _itemSlots[i].OnRightClickEvent += OnRightClickEvent;
-            _itemSlots[i].OnBeginDragEvent += OnBeginDragEvent;
-            _itemSlots[i].OnDragEvent += OnDragEvent;
-            _itemSlots[i].OnEndDragEvent += OnEndDragEvent;
-            _itemSlots[i].OnDropEvent += OnDropEvent;
+            itemSlots[i].OnPointerEnterEvent += OnPointerEnterEvent;
+            itemSlots[i].OnPointerExitEvent += OnPointerExitEvent;
+            itemSlots[i].OnRightClickEvent += OnRightClickEvent;
+            itemSlots[i].OnBeginDragEvent += OnBeginDragEvent;
+            itemSlots[i].OnDragEvent += OnDragEvent;
+            itemSlots[i].OnEndDragEvent += OnEndDragEvent;
+            itemSlots[i].OnDropEvent += OnDropEvent;
         }
     }
 
@@ -33,7 +33,7 @@ public class Test_Inventory : ItemContainer
     {
         if (itemsParent != null)
         {
-            _itemSlots = itemsParent.GetComponentsInChildren<Test_ItemSlot>();
+            itemSlots = itemsParent.GetComponentsInChildren<Test_ItemSlot>();
         }
 
         SetStartingItems();
@@ -45,17 +45,17 @@ public class Test_Inventory : ItemContainer
         int i = 0;
 
         // When there is an item this loop works
-        for (; i < startingItems.Count && i < _itemSlots.Length; i++)
+        for (; i < startingItems.Count && i < itemSlots.Length; i++)
         {
-            _itemSlots[i].Item = startingItems[i].GetCopy();
-            _itemSlots[i].Amount = 1;
+            itemSlots[i].Item = startingItems[i].GetCopy();
+            itemSlots[i].Amount = 1;
         }
 
         // When there isn't an item this loop works
-        for (; i < _itemSlots.Length; i++)
+        for (; i < itemSlots.Length; i++)
         {
-            _itemSlots[i].Item = null;
-            _itemSlots[i].Amount = 0;
+            itemSlots[i].Item = null;
+            itemSlots[i].Amount = 0;
         }
     }
 
