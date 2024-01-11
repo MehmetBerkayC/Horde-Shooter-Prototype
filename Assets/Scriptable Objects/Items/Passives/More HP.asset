@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3d93262e81d944a889bae043e18c08, type: 3}
   m_Name: More HP
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 7395bf0bc3cc40e4ab2dda5ec6832261, type: 3}
+  Sprite: {fileID: 21300000, guid: dd86867da9990584a9dc706d08a29150, type: 3}
   IsStackable: 1
   Amount: 1
   ID: 1

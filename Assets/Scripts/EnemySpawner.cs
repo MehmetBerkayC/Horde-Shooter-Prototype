@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameMode
 {
@@ -31,7 +32,11 @@ public class EnemyGroup
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Endless Mode Enemies")]
     [SerializeField] GameObject[] _enemyPrefabs;
+
+    public List<Wave> _waves; //a list of all the waves in the game
+
     [SerializeField] Transform _player;
     [SerializeField] float _endlessRate;
 
@@ -40,21 +45,22 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float _mapBorder = 9.5f; // Adjust this value based on your map size.
     [SerializeField] float _minDistanceFromPlayer = 3.0f; // Minimum distance from the player.
 
-    public GameMode GameMode;
-
-    public List<Wave> _waves; //a list of all the waves in the game
-    public int _currentWaveCount; // the index of the current wave
+    [Header("Game Mode is")]
+    private bool _ModeValue;
 
     [Header("Spawner Attributes")]
     public int _enemiesAlive;
     public int _maxEnemiesAllowed; //the maximum number of enemies allowed on the map at once
     public bool _maxEnemiesReached; // a flag indicating if the maximum number of enemis has been reached
     public float _waveInterval; //the interval between each wave
-    
+    public int _currentWaveCount; // the index of the current wave
+
     float _spawnTimer; //timer use to determine when to spawn next enemy
-    float _enemiesSpawnedInWave;
+    public float _enemiesSpawnedInWave;
     Vector2 _spawnLocation;
     bool _endlessMode = false;
+    GameObject spawnPointMarker;
+    [SerializeField] GameObject _spawnPointMarkerPrefab;
 
     private bool waveEndFlag;
 
@@ -81,7 +87,7 @@ public class EnemySpawner : MonoBehaviour
     {
         CalculateWaveQuota();
 
-        if (GameMode == GameMode.EndlessGame)
+        if (_ModeValue == true)
         {
             _endlessMode = true;
         }
@@ -115,14 +121,18 @@ public class EnemySpawner : MonoBehaviour
                 //check if its time to spawn the next enemy
                 if (_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
                 {
+                    //Debug.Log("enemy spawned");
                     _spawnTimer = 0f;
-                    SpawnEnemies();
+                    StartSpawnEnemies();
                 }
 
                 // Wave End Check
                 if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota == _enemiesSpawnedInWave && !waveEndFlag)
                 {
                     waveEndFlag = true;
+
+                    Debug.Log("wave check ");
+
                     OnWavePassed?.Invoke(this, EventArgs.Empty);
                     StartCoroutine(StartWave());
                 }
@@ -130,8 +140,10 @@ public class EnemySpawner : MonoBehaviour
             }
             else
             {
+                Debug.Log("game  end ");
                 // All waves are completed, you can handle game victory here.
                 // Probably an event to GameManager on all waves completed
+                SceneManager.LoadScene("Main Menu");
             }
         }
     }
@@ -140,11 +152,11 @@ public class EnemySpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(_waveInterval);
 
-        if (_currentWaveCount < _waves.Count - 1)
+        if (_currentWaveCount < _waves.Count )
         {
             _currentWaveCount++;    // Index the next wave
             CalculateWaveQuota();   // Calculate mob limit
-            SpawnEnemies();
+            //StartSpawnEnemies();
         }
 
         waveEndFlag = false;
@@ -161,6 +173,12 @@ public class EnemySpawner : MonoBehaviour
         //Debug.LogWarning(currentWaveQuota);
     }
 
+    void StartSpawnEnemies()
+    {
+        StartCoroutine(SpawnEnemiesCoroutine());
+    }
+
+
     void SpawnEndless() // Missing Mob Scaling
     {
         int rand = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
@@ -169,7 +187,7 @@ public class EnemySpawner : MonoBehaviour
         Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
 
-    void SpawnEnemies() // Missing Mob Scaling
+    IEnumerator SpawnEnemiesCoroutine() // Missing Mob Scaling
     {
         //check if the minimum number of enemies in the wave have been spawned
         if (_waves[_currentWaveCount]._spawnCount < _waves[_currentWaveCount]._waveQuota && !_maxEnemiesReached)
@@ -185,10 +203,33 @@ public class EnemySpawner : MonoBehaviour
                     if (_enemiesAlive >= _maxEnemiesAllowed)
                     {
                         _maxEnemiesReached = true;
-                        return;
+                        break;
                     }
                     //_spawnLocation = new Vector2(Random.Range(-9.5f, 9.5f), Random.Range(-9.5f, 9.5f));
                     Vector2 _spawnLocation = CalculateSpawnPosition();
+
+                    //StartCoroutine(MarkPoint(_spawnLocation));
+
+                    Debug.Log("Before Instantiate ");
+                    spawnPointMarker = Instantiate(_spawnPointMarkerPrefab, _spawnLocation, Quaternion.identity);
+
+                    float spawntimer = 0f;
+                    float time = 1f;
+                    while (spawntimer < time)
+                    {
+
+                        spawntimer += Time.deltaTime;
+                        yield return null;
+                    }
+
+                    Debug.Log("Before Destroy ");
+                    if (spawnPointMarker != null)
+                    {
+                        Destroy(spawnPointMarker);
+                    }
+
+
+                    //Debug.Log("bu log kac saniyede bir calisiyor");
                     Instantiate(enemyGroup._enemyPrefab, _spawnLocation, Quaternion.identity);
 
                     enemyGroup._spawnCount++;
@@ -216,6 +257,8 @@ public class EnemySpawner : MonoBehaviour
             spawnPosition = new Vector2(randomX, randomY);
         } while (Vector2.Distance(spawnPosition, _player.position) < _minDistanceFromPlayer);
 
+        
+
         return spawnPosition;
     }
 
@@ -226,4 +269,33 @@ public class EnemySpawner : MonoBehaviour
         _enemiesAlive--;
         //Debug.Log(_enemiesAlive);
     }
+
+    IEnumerator MarkPoint(Vector2 spawnPosition)
+    {
+        Debug.Log("Before Instantiate Marker");
+        spawnPointMarker = Instantiate(_spawnPointMarkerPrefab, spawnPosition, Quaternion.identity);
+        Debug.Log("After Instantiate Marker");
+
+        // Delayed destruction of the spawn point marker
+        //yield return new WaitForSecondsRealtime(2); // Subtracting 2 seconds to align with the enemy spawn delay
+
+        float spawntimer = 0f;
+        float time = 2f;
+        while (spawntimer < time)
+        {
+            
+            spawntimer += Time.deltaTime;
+            yield return null;
+        }
+
+        Debug.Log("Before Destroy Marker");
+        Destroy(spawnPointMarker.gameObject);
+        Debug.Log("After Destroy Marker");
+    }
+
+    public EnemySpawner(bool value)
+    {
+        _ModeValue = value;
+    }
+
 }
