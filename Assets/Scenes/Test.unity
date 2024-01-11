@@ -281,6 +281,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6009321826797259318, guid: 8343c32319398644d84a384953ac9c18, type: 3}
   m_PrefabInstance: {fileID: 6009321827165559795}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &712298950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6009321826797259323, guid: 8343c32319398644d84a384953ac9c18, type: 3}
+  m_PrefabInstance: {fileID: 6009321827165559795}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712298948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa06281b8304b2d48bfeb06cec79816f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &767634172
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 2ac201c669f164345a5bc93040481f82, type: 2}
-  amount: 1
+  amount: 2
   itemPickupKeycode: 101
 --- !u!212 &767634174
 SpriteRenderer:
@@ -825,7 +836,7 @@ MonoBehaviour:
     BaseValue: 100
   inventory: {fileID: 1612957235}
   equipmentPanel: {fileID: 844046031}
-  craftingWindow: {fileID: 0}
+  craftingWindow: {fileID: 712298950}
   statPanel: {fileID: 1338758641}
   ItemTooltip: {fileID: 1907409436}
   draggableItem: {fileID: 1291036899}

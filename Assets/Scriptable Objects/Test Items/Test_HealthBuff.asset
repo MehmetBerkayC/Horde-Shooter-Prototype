@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba7a73f02e167ab46af740955d12bfd3, type: 3}
-  m_Name: Health Buff
+  m_Name: Test_HealthBuff
   m_EditorClassIdentifier: 
   id: 2ac201c669f164345a5bc93040481f82
   ItemName: Health Buff
