@@ -5,11 +5,6 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum GameMode
-{
-    WaveGame,
-    EndlessGame
-}
 
 [System.Serializable]
 public class Wave
@@ -59,8 +54,10 @@ public class EnemySpawner : MonoBehaviour
     public float _enemiesSpawnedInWave;
     Vector2 _spawnLocation;
     bool _endlessMode = false;
+    bool _waveMode = false;
     GameObject spawnPointMarker;
     [SerializeField] GameObject _spawnPointMarkerPrefab;
+    public GameObject pausePanel;
 
     // Singleton
     public static EnemySpawner Instance { get; private set; }
@@ -85,12 +82,16 @@ public class EnemySpawner : MonoBehaviour
     {
         CalculateWaveQuota();
 
-        if (_ModeValue == true)
+        //Debug.Log(GameManager.Instance.endlessMode);
+
+        if (GameManager.Instance.endlessMode)
         {
             _endlessMode = true;
+            _waveMode = false;
         }
         else
         {
+            _waveMode = true;
             _endlessMode = false;
         }
 
@@ -100,6 +101,11 @@ public class EnemySpawner : MonoBehaviour
     {
         if (_endlessMode)
         {
+            if(Input.GetKeyUp(KeyCode.P))
+            {
+                pausePanel.SetActive(true);
+                Time.timeScale = 0;
+            }
             //StartCoroutine(EndlessWave());
             _spawnTimer += Time.deltaTime;
 
@@ -110,37 +116,42 @@ public class EnemySpawner : MonoBehaviour
                 SpawnEndless();
             }
         }
-        else
+        else if(_waveMode)
         {
             if (_currentWaveCount < _waves.Count)
             {
+                // Wave End Check
+                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota <= _enemiesSpawnedInWave) // suanda bug var enemy spawn count hep bi fazla oluyor o
+                                                                                                         // yuzden sonraki wave gevisi olsun diye <= sonradan duzeltilecek
+                {
+                    //Debug.Log("wave check ");
+                    OnWavePassed?.Invoke(this, EventArgs.Empty);
+                    StartCoroutine(StartWave());
+                }
+
+                if (Input.GetKeyUp(KeyCode.P))
+                {
+                    pausePanel.SetActive(true);
+                    Time.timeScale = 0;
+                }
+
                 // Spawning Mobs
                 _spawnTimer += Time.deltaTime;
 
                 //check if its time to spawn the next enemy
-                if (_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
+               if (_spawnTimer >= _waves[_currentWaveCount]._spawnInterval)
                 {
                     //Debug.Log("enemy spawned");
                     _spawnTimer = 0f;
                     StartSpawnEnemies();
                 }
-
-                // Wave End Check
-                if (_enemiesAlive == 0 && _waves[_currentWaveCount]._waveQuota <= _enemiesSpawnedInWave) // suanda bug var enemy spawn count hep bi fazla oluyor o
-                                                                                                         // yuzden sonraki wave gevisi olsun diye <= sonradan duzeltilecek
-                {
-                    Debug.Log("wave check ");
-                    OnWavePassed?.Invoke(this, EventArgs.Empty);
-                    StartCoroutine(StartWave());
-                }
-
             }
             else
             {
-                Debug.Log("game  end ");
+                //Debug.Log("game  end ");
                 // All waves are completed, you can handle game victory here.
                 // Probably an event to GameManager on all waves completed
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("Game End");
             }
         }
     }
@@ -149,11 +160,11 @@ public class EnemySpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(_waveInterval);
 
-        if (_currentWaveCount < _waves.Count )
+        if (_currentWaveCount < _waves.Count) 
         {
             _currentWaveCount++;    // Index the next wave
             CalculateWaveQuota();   // Calculate mob limit
-            //StartSpawnEnemies();
+            StartSpawnEnemies();
         }
     }
 
@@ -163,9 +174,11 @@ public class EnemySpawner : MonoBehaviour
         foreach (var enemyGroup in _waves[_currentWaveCount]._enemyGroups)
         {
             currentWaveQuota += enemyGroup._enemyCount;
+            Debug.Log(enemyGroup._enemyCount);
         }
         _waves[_currentWaveCount]._waveQuota = currentWaveQuota;
-        //Debug.LogWarning(currentWaveQuota);
+        Debug.Log(currentWaveQuota);
+        
     }
 
     void StartSpawnEnemies()
@@ -205,7 +218,7 @@ public class EnemySpawner : MonoBehaviour
 
                     //StartCoroutine(MarkPoint(_spawnLocation));
 
-                    Debug.Log("Before Instantiate ");
+                    //Debug.Log("Before Instantiate ");
                     spawnPointMarker = Instantiate(_spawnPointMarkerPrefab, _spawnLocation, Quaternion.identity);
 
                     float spawntimer = 0f;
@@ -217,7 +230,7 @@ public class EnemySpawner : MonoBehaviour
                         yield return null;
                     }
 
-                    Debug.Log("Before Destroy ");
+                    //Debug.Log("Before Destroy ");
                     if (spawnPointMarker != null)
                     {
                         Destroy(spawnPointMarker);
@@ -277,7 +290,7 @@ public class EnemySpawner : MonoBehaviour
         float time = 2f;
         while (spawntimer < time)
         {
-            
+
             spawntimer += Time.deltaTime;
             yield return null;
         }

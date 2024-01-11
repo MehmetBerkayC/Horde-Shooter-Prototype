@@ -17,23 +17,13 @@ public class ButtonFunction : MonoBehaviour, IPointerDownHandler, IPointerEnterH
 
     public void ClickedEndlessMode()
     {
-        bool select = true;
-        EnemySpawner enemyspawner = new EnemySpawner(select);
-
-        _mainScreen.SetActive(false);
-        _gameEndMenu.SetActive(true);
-
+        GameManager.Instance.endlessMode = true;
         SceneManager.LoadScene("Game");
     }
 
     public void ClickedWaveMode()
     {
-        bool select = false;
-        EnemySpawner enemyspawner = new EnemySpawner(select);
-
-        _mainScreen.SetActive(false);
-        _gameEndMenu.SetActive(true);
-
+        GameManager.Instance.endlessMode = false;
         SceneManager.LoadScene("Game");
     }
 
@@ -70,6 +60,11 @@ public class ButtonFunction : MonoBehaviour, IPointerDownHandler, IPointerEnterH
         _mainScreen.SetActive(true);
         _gameEndMenu.SetActive(false);
 
+    }
+
+    public void ClickedMainMenuBack()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

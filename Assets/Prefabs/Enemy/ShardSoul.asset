@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShardSoul
   m_EditorClassIdentifier: 
   _sprite: {fileID: -1422115975, guid: 1364a50b95fa79a469c07587a33b40c9, type: 3}
-  _baseHealth: 200
+  _baseHealth: 750
   _baseDamage: 5
   _baseSpeed: 0.7
   _baseEXP: 5
