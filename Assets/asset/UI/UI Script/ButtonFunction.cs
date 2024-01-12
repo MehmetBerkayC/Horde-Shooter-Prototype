@@ -19,18 +19,12 @@ public class ButtonFunction : MonoBehaviour, IPointerDownHandler, IPointerEnterH
     {
         GameManager.Instance.endlessMode = true;
 
-        _mainScreen.SetActive(false);
-        _gameEndMenu.SetActive(true);
-
         SceneManager.LoadScene("Game");
     }
 
     public void ClickedWaveMode()
     {
         GameManager.Instance.endlessMode = false;
-
-        _mainScreen.SetActive(false);
-        _gameEndMenu.SetActive(true);
 
         SceneManager.LoadScene("Game");
     }

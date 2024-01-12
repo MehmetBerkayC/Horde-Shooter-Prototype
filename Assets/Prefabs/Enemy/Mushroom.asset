@@ -10,20 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5fc1053474076d4699cf583fc34f479, type: 3}
-<<<<<<<< HEAD:Assets/Scriptable Objects/Enemies/Monster.asset
-  m_Name: Monster
+  m_Name: Mushroom
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  BaseHealth: 0
+  BaseHealth: 200
   BaseDamage: 0
-  BaseMovementSpeed: 0
+  BaseMovementSpeed: 1
   BaseExperience: 0
-========
-  m_Name: Slime
-  m_EditorClassIdentifier: 
-  _sprite: {fileID: 1571275643, guid: 16f65c9d87136104c96974805340b0d6, type: 3}
-  _baseHealth: 35
-  _baseDamage: 2
-  _baseSpeed: 0.3
-  _baseEXP: 1
->>>>>>>> Çağatay:Assets/Prefabs/Enemy/Slime.asset

@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public bool endlessMode;
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance{ get; private set; }
 
     public LevelSystem PlayerLevelSystem { get; private set; }
     public LevelSystemAnimated PlayerLevelSystemAnimated { get; private set; }
@@ -18,6 +18,16 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         // Singleton Pattern
         if (Instance != null && Instance != this)
         {

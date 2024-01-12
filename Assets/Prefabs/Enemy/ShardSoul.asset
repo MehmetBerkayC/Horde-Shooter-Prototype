@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fc1053474076d4699cf583fc34f479, type: 3}
   m_Name: ShardSoul
   m_EditorClassIdentifier: 
-  _sprite: {fileID: -1422115975, guid: 1364a50b95fa79a469c07587a33b40c9, type: 3}
-  _baseHealth: 200
-  _baseDamage: 5
-  _baseSpeed: 0.7
-  _baseEXP: 5
+  Sprite: {fileID: 0}
+  BaseHealth: 500
+  BaseDamage: 0
+  BaseMovementSpeed: 1
+  BaseExperience: 0

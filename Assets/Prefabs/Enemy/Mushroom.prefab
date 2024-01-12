@@ -126,11 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba257474cec65541ba0acbeb185ce4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 1
-  _entityType: 1
-  _enemyData: {fileID: 11400000, guid: ceb3df0641f93314c8541f03a70f042f, type: 2}
-  _moveSpeed: 1
-  _damage: 1
+  _enemyData: {fileID: 11400000, guid: 0451f554b8fe9bd4fa6d11393972ec7a, type: 2}
 --- !u!50 &7124891138553952269
 Rigidbody2D:
   serializedVersion: 4
