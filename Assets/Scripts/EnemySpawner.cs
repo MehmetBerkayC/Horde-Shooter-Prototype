@@ -5,11 +5,6 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum GameMode
-{
-    WaveGame,
-    EndlessGame
-}
 
 [System.Serializable]
 public class Wave
@@ -58,7 +53,6 @@ public class EnemySpawner : MonoBehaviour
     float _spawnTimer; //timer use to determine when to spawn next enemy
     public float _enemiesSpawnedInWave;
     Vector2 _spawnLocation;
-    bool _endlessMode = false;
     GameObject spawnPointMarker;
     [SerializeField] GameObject _spawnPointMarkerPrefab;
 
