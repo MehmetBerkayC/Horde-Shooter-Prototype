@@ -42,6 +42,8 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Game Mode is")]
     private bool _ModeValue;
+    bool _endlessMode = false;
+    bool _waveMode = false;
 
     [Header("Spawner Attributes")]
     public int _enemiesAlive;
@@ -81,14 +83,19 @@ public class EnemySpawner : MonoBehaviour
     {
         CalculateWaveQuota();
 
-        if (_ModeValue == true)
+        //Debug.Log(GameManager.Instance.endlessMode);
+
+        if (GameManager.Instance.endlessMode)
         {
             _endlessMode = true;
+            _waveMode = false;
         }
         else
         {
+            _waveMode = true;
             _endlessMode = false;
         }
+
     }
 
     void Update()

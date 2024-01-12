@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public bool endlessMode;
     public static GameManager Instance { get; private set; }
 
     public LevelSystem PlayerLevelSystem { get; private set; }
