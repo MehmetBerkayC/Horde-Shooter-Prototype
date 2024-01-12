@@ -17,8 +17,7 @@ public class ButtonFunction : MonoBehaviour, IPointerDownHandler, IPointerEnterH
 
     public void ClickedEndlessMode()
     {
-        bool select = true;
-        EnemySpawner enemyspawner = new EnemySpawner(select);
+        GameManager.Instance.endlessMode = true;
 
         _mainScreen.SetActive(false);
         _gameEndMenu.SetActive(true);
@@ -28,8 +27,7 @@ public class ButtonFunction : MonoBehaviour, IPointerDownHandler, IPointerEnterH
 
     public void ClickedWaveMode()
     {
-        bool select = false;
-        EnemySpawner enemyspawner = new EnemySpawner(select);
+        GameManager.Instance.endlessMode = false;
 
         _mainScreen.SetActive(false);
         _gameEndMenu.SetActive(true);

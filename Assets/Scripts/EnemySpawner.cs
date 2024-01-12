@@ -112,7 +112,7 @@ public class EnemySpawner : MonoBehaviour
                 SpawnEndless();
             }
         }
-        else
+        else if (_waveMode)
         {
             if (_currentWaveCount < _waves.Count)
             {
