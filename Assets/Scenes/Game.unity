@@ -1779,7 +1779,7 @@ MonoBehaviour:
   _waveInterval: 3
   _currentWaveCount: 0
   _enemiesSpawnedInWave: 0
-  _spawnPointMarkerPrefab: {fileID: 3167135499688947946, guid: 678071af275e2f941ba7f8a4843e3625, type: 3}
+  _spawnPointMarkerPrefab: {fileID: 3592391809555087744, guid: dc9eb230df443aa4080be4e262d25af4, type: 3}
 --- !u!4 &824039199
 Transform:
   m_ObjectHideFlags: 0

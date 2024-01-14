@@ -185,6 +185,7 @@ public class EnemySpawner : MonoBehaviour
         int rand = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
         GameObject enemyToSpawn = _enemyPrefabs[rand];
         _spawnLocation = CalculateSpawnPosition();
+        //MarkPoint(_spawnLocation);
         Instantiate(enemyToSpawn, _spawnLocation, Quaternion.identity);
     }
 
@@ -271,28 +272,28 @@ public class EnemySpawner : MonoBehaviour
         //Debug.Log(_enemiesAlive);
     }
 
-    IEnumerator MarkPoint(Vector2 spawnPosition)
-    {
-        Debug.Log("Before Instantiate Marker");
-        spawnPointMarker = Instantiate(_spawnPointMarkerPrefab, spawnPosition, Quaternion.identity);
-        Debug.Log("After Instantiate Marker");
+    //IEnumerator MarkPoint(Vector2 spawnPosition)
+    //{
+    //    Debug.Log("Before Instantiate Marker");
+    //    spawnPointMarker = Instantiate(_spawnPointMarkerPrefab, spawnPosition, Quaternion.identity);
+    //    Debug.Log("After Instantiate Marker");
 
-        // Delayed destruction of the spawn point marker
-        //yield return new WaitForSecondsRealtime(2); // Subtracting 2 seconds to align with the enemy spawn delay
+    //    // Delayed destruction of the spawn point marker
+    //    //yield return new WaitForSecondsRealtime(2); // Subtracting 2 seconds to align with the enemy spawn delay
 
-        float spawntimer = 0f;
-        float time = 2f;
-        while (spawntimer < time)
-        {
+    //    float spawntimer = 0f;
+    //    float time = 2f;
+    //    while (spawntimer < time)
+    //    {
             
-            spawntimer += Time.deltaTime;
-            yield return null;
-        }
+    //        spawntimer += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        Debug.Log("Before Destroy Marker");
-        Destroy(spawnPointMarker.gameObject);
-        Debug.Log("After Destroy Marker");
-    }
+    //    Debug.Log("Before Destroy Marker");
+    //    Destroy(spawnPointMarker.gameObject);
+    //    Debug.Log("After Destroy Marker");
+    //}
 
     public EnemySpawner(bool value)
     {
