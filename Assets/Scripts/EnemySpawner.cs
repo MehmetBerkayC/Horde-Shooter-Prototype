@@ -144,7 +144,7 @@ public class EnemySpawner : MonoBehaviour
                 Debug.Log("game  end ");
                 // All waves are completed, you can handle game victory here.
                 // Probably an event to GameManager on all waves completed
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("Game End");
             }
         }
     }

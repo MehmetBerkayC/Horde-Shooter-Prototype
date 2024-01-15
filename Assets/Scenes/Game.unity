@@ -1756,19 +1756,6 @@ MonoBehaviour:
     _waveQuota: 0
     _spawnInterval: 2
     _spawnCount: 0
-  - _waveName: 
-    _enemyGroups:
-    - _enemyName: Mush
-      _enemyCount: 30
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 7124891138553952260, guid: 6dfeeb4c49c62144a85e26f6a1c73b61, type: 3}
-    - _enemyName: Bat
-      _enemyCount: 15
-      _spawnCount: 0
-      _enemyPrefab: {fileID: 8440882667303053777, guid: a872e54e9a60b1345842069192f1d15e, type: 3}
-    _waveQuota: 0
-    _spawnInterval: 2
-    _spawnCount: 0
   _player: {fileID: 899471654}
   _endlessRate: 1.5
   _mapBorder: 9.5
