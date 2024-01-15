@@ -59,6 +59,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject _spawnPointMarkerPrefab;
 
     private bool waveEndFlag;
+    [SerializeField]
+    private GameObject pausePanel;
 
     // Singleton
     public static EnemySpawner Instance { get; private set; }
@@ -106,6 +108,12 @@ public class EnemySpawner : MonoBehaviour
         }
         if (_endlessMode)
         {
+            if (Input.GetKeyUp(KeyCode.P))
+            {
+                pausePanel.SetActive(true);
+                Time.timeScale = 0;
+            }
+
             //StartCoroutine(EndlessWave());
             _spawnTimer += Time.deltaTime;
 
@@ -120,6 +128,12 @@ public class EnemySpawner : MonoBehaviour
         {
             if (_currentWaveCount < _waves.Count)
             {
+                if (Input.GetKeyUp(KeyCode.P))
+                {
+                    pausePanel.SetActive(true);
+                    Time.timeScale = 0;
+                }
+
                 // Spawning Mobs
                 _spawnTimer += Time.deltaTime;
 

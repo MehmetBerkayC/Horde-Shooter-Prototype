@@ -1111,7 +1111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2493066677634079638, guid: 08eed8c9746ce374881c3e6bef507aa1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2493066677634079639, guid: 08eed8c9746ce374881c3e6bef507aa1, type: 3}
       propertyPath: m_Pivot.x
@@ -1892,7 +1892,7 @@ MonoBehaviour:
   - {fileID: 798824915023989912, guid: 0ad814c1f79beb64f93fdc6e66eac53f, type: 3}
   - {fileID: 4311502291151296068, guid: 9b1d0022b0730ed49babd67178247be7, type: 3}
   _waves:
-  - _waveName: 
+  - _waveName: wave 1
     _enemyGroups:
     - _enemyName: Gobbo
       _enemyCount: 5
@@ -1912,6 +1912,7 @@ MonoBehaviour:
   _currentWaveCount: 0
   _enemiesSpawnedInWave: 0
   _spawnPointMarkerPrefab: {fileID: 3592391809555087744, guid: dc9eb230df443aa4080be4e262d25af4, type: 3}
+  pausePanel: {fileID: 407794765}
 --- !u!4 &824039199
 Transform:
   m_ObjectHideFlags: 0
@@ -2254,7 +2255,7 @@ MonoBehaviour:
   _availableGunSlots:
   - {fileID: 1715167519}
   - {fileID: 207896843}
-  _gunLoadoutData: {fileID: 11400000, guid: 1c137818232dbed4c95d473bcdfd659e, type: 2}
+  _gunLoadoutData: {fileID: 11400000, guid: 58916a5fca7c2ac47a25893266af1378, type: 2}
 --- !u!1 &982426184
 GameObject:
   m_ObjectHideFlags: 0
@@ -5115,7 +5116,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.227451, g: 0.227451, b: 0.227451, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5177,8 +5178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 899471654}
-  _mapX: {x: -4.5, y: 4.5}
-  _mapY: {x: -10.5, y: 10.5}
+  _mapX: {x: -4, y: 4}
+  _mapY: {x: -10, y: 10}
 --- !u!1 &2095971974
 GameObject:
   m_ObjectHideFlags: 0
