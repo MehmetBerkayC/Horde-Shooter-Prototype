@@ -54,13 +54,9 @@ public class ButtonFunction : MonoBehaviour, IPointerDownHandler, IPointerEnterH
         _playSectionMenu.SetActive(false);
     }
 
-    public void ClickedGameEnd()
+    public void ClickedGameEndtoMainMenu()
     {
-        _mainMenu.SetActive(true);
-        _settingsMenu.SetActive(false);
-        _playSectionMenu.SetActive(false);
-        _mainScreen.SetActive(true);
-        _gameEndMenu.SetActive(false);
+        SceneManager.LoadScene("Main Menu");
 
     }
 
